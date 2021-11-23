@@ -15,6 +15,7 @@ import Onboarding from "../screens/Onboarding";
 import TTHS from "../screens/ThongTinHoSo";
 import MatKhau from "../screens/MatKhau";
 import Profile from "../screens/Profile";
+import checkCamera from "../screens/Camera";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
@@ -155,7 +156,6 @@ function ArticlesStack(props) {
 }
 function NguoiDungStack(props) {
   return (
-
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Người Dùng"
@@ -170,6 +170,39 @@ function NguoiDungStack(props) {
       <Stack.Screen
         name="Pro"
         component={Pro}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function checkCameraStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="checkCamera"
+        component={checkCamera}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Check-in/out" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
+      <Stack.Screen
+        name="checkCameraaa"
+        component={checkCamera}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -316,6 +349,7 @@ function AppStack(props) {
     >
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
+      <Drawer.Screen name="checkCamera" component={checkCameraStack} />
       <Drawer.Screen name="Account" component={Register} />
       <Drawer.Screen name="Thông Tin Cá Nhân" component={ThongTinCaNhan} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
