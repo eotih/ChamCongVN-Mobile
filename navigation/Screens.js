@@ -12,7 +12,8 @@ import Home from "../screens/Home";
 import ThongTinCN from "../screens/ThongTinCaNhan";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
-import Pro from "../screens/Pro";
+import TTHS from "../screens/ThongTinHoSo";
+import MatKhau from "../screens/MatKhau";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
@@ -44,8 +45,8 @@ function ElementsStack(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="TTHS"
+        component={TTHS}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -82,14 +83,31 @@ function ThongTinCaNhan(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Onboarding}
+        name="TTHS"
+        component={TTHS}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title=""
+              title="Thông Tin Hồ Sơ"
               back
-              white
+              black
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="MatKhau"
+        component={MatKhau}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Mật Khẩu"
+              back
+              black
               transparent
               navigation={navigation}
               scene={scene}
@@ -103,7 +121,7 @@ function ThongTinCaNhan(props) {
 }
 function ArticlesStack(props) {
   return (
-    
+
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Articles"
@@ -137,7 +155,7 @@ function ArticlesStack(props) {
 }
 function NguoiDungStack(props) {
   return (
-    
+
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Người Dùng"
@@ -230,8 +248,8 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="TTHS"
+        component={TTHS}
         options={{
           header: ({ navigation, scene }) => (
             <Header
