@@ -75,7 +75,6 @@ function ThongTinCaNhan(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Thông Tin Cá Nhân"
-              ThongTin
               navigation={navigation}
               scene={scene}
             />
@@ -133,23 +132,6 @@ function ArticlesStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      />
     </Stack.Navigator>
   );
 }
@@ -167,8 +149,8 @@ function NguoiDungStack(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="ChuaLam"
+        component={DSNguoiDung}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -224,7 +206,7 @@ function ProfileStack(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
-        name="Chat Phòng Ban"
+        name="Thông Báo"
         component={Profile}
         options={{
           header: ({ navigation, scene }) => (
@@ -240,7 +222,7 @@ function ProfileStack(props) {
           headerTransparent: true
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
@@ -257,7 +239,7 @@ function ProfileStack(props) {
           
           headerTransparent: true
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
@@ -306,7 +288,7 @@ export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
-        name="Onboarding"
+        name="Chat Phòng Ban"
         component={Onboarding}
         option={{
           headerTransparent: true
@@ -349,13 +331,13 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Chat Phòng Ban" component={ProfileStack} />
+      <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Thông Tin Cá Nhân" component={ThongTinCaNhan} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
-      <Drawer.Screen name="Phiếu Yêu Cầu" component={ArticlesStack} />
-      <Drawer.Screen name="Thông Báo" component={NguoiDungStack} />
+      <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
+      <Drawer.Screen name="Thông Báo" component={ProfileStack} />
     </Drawer.Navigator>
   );
 }

@@ -11,6 +11,8 @@ import {
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
+import * as Network from 'expo-network';
+import publicIP from 'react-native-public-ip';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 export default function checkCamera() {
     const [hasPermission, setHasPermission] = useState(null);
@@ -26,6 +28,9 @@ export default function checkCamera() {
             setHasPermission(status === valueStatus);
             let location = await Location.getCurrentPositionAsync({});
             console.log(JSON.stringify(location))
+            let IP = await Network.getNetworkStateAsync();
+            console.log(IP);
+            publicIP();
         })();
         console.log(Device.brand + " " + Device.modelName + Device.modelId)
         console.log(Device.osName)
@@ -71,6 +76,19 @@ export default function checkCamera() {
     );
 }
 
+publicIP()
+    .then(ip => {
+        if (ip === '1.53.169.221') {
+            console.log("úm ba la:" + ip);
+        } else {
+            console.log("Bị puồi")
+        }
+        // '47.122.71.234'
+    })
+    .catch(error => {
+        console.log(error);
+        // 'Unable to get IP address.'
+    });
 
 const styles = StyleSheet.create({
     container: {
