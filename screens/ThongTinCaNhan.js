@@ -146,14 +146,14 @@ class ThongTinCaNhan extends React.Component {
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="phone" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 12 }}>
                                                     SDT
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    Giớ Tính
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Giới Tính
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
@@ -259,6 +259,7 @@ const styles = StyleSheet.create({
     },
     info: {
         paddingHorizontal: 40
+        
     },
     avatarContainer: {
         position: "relative",

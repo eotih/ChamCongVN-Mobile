@@ -159,13 +159,13 @@ class Header extends React.Component {
         <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('TTHS')}>
           <Block row middle>
             <Icon name="diamond" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionLeft || 'Thông Tin'}</Text>
+            <Text size={16} style={styles.tabTitle}>{optionLeft || 'Edit Thông Tin'}</Text>
           </Block>
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('MatKhau',  {MaND: 'A3'})}>
           <Block row middle>
             <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }}  color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionRight || 'Mật Khẩu'}</Text>
+            <Text size={16} style={styles.tabTitle}>{optionRight || 'Edit Mật Khẩu'}</Text>
           </Block>
         </Button>
       </Block>

@@ -92,12 +92,11 @@ function ThongTinCaNhan(props) {
               title="Thông Tin Hồ Sơ"
               back
               black
-              transparent
               navigation={navigation}
               scene={scene}
             />
           ),
-          headerTransparent: true
+          cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
       <Stack.Screen
@@ -214,6 +213,7 @@ function checkCameraStack(props) {
               scene={scene}
             />
           ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
           headerTransparent: true
         }}
       />
@@ -254,6 +254,7 @@ function ProfileStack(props) {
               scene={scene}
             />
           ),
+          
           headerTransparent: true
         }}
       />

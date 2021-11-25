@@ -33,12 +33,12 @@ class Onboarding extends React.Component {
             <Block flex space="around" style={{ zIndex: 2 }}>
               <Block style={styles.title}>
                 <Block>
-                  <Text color="white" size={55}>
+                  <Text color="white" size={48}>
                     ChamCongVN
                   </Text>
                 </Block>
                 <Block style={styles.subTitle}>
-                  <Text color="white" size={16}>
+                  <Text color="white" size={16} style={{textAlign: 'center'}}>
                     GIẢI PHÁP CHẤM CÔNG ONLINE.
                   </Text>
                 </Block>
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     marginTop:'-5%'
   },
   subTitle: {
-    marginTop: 20
+    marginTop: 20,
+    
   }
 });
 
