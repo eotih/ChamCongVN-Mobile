@@ -8,12 +8,15 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import * as Device from 'expo-device';
+import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 export default function checkCamera() {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [valueStatus, setvalueStatus] = useState('');
+    const [deviceinfo, setDeviceinfo] = useState({});
     const ref = useRef(null)
 
 
@@ -21,7 +24,13 @@ export default function checkCamera() {
         (async () => {
             const { status } = await Camera.requestPermissionsAsync();
             setHasPermission(status === valueStatus);
+            let location = await Location.getCurrentPositionAsync({});
+            console.log(JSON.stringify(location))
         })();
+        console.log(Device.brand + " " + Device.modelName + Device.modelId)
+        console.log(Device.osName)
+        console.log(Device.osVersion)
+        console.log(Device.deviceName)
     }, [valueStatus]);
 
     if (hasPermission === null) {
@@ -54,7 +63,7 @@ export default function checkCamera() {
                     <TouchableOpacity style={styles.button}
                         onPress={() => { takePhoto() }}
                     >
-                       <Text style={styles.text}> Snap </Text>
+                        <Text style={styles.text}> Snap </Text>
                     </TouchableOpacity>
                 </View>
             </Camera>

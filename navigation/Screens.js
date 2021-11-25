@@ -36,7 +36,7 @@ function ElementsStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Elements"
+        name="Lịch Sử Chấm Công"
         component={Elements}
         options={{
           header: ({ navigation, scene }) => (
@@ -125,7 +125,7 @@ function ArticlesStack(props) {
 
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Articles"
+        name="Quản Lý Báo Cáo"
         component={Articles}
         options={{
           header: ({ navigation, scene }) => (
@@ -158,7 +158,7 @@ function NguoiDungStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Người Dùng"
+        name="Phiếu Yêu Cầu"
         component={DSNguoiDung}
         options={{
           header: ({ navigation, scene }) => (
@@ -191,7 +191,7 @@ function checkCameraStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="checkCamera"
+        name="Chấm Công"
         component={checkCamera}
         options={{
           header: ({ navigation, scene }) => (
@@ -224,7 +224,7 @@ function ProfileStack(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
-        name="Profile"
+        name="Chat Phòng Ban"
         component={Profile}
         options={{
           header: ({ navigation, scene }) => (
@@ -348,13 +348,13 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="checkCamera" component={checkCameraStack} />
-      <Drawer.Screen name="Account" component={Register} />
+      <Drawer.Screen name="Chat Phòng Ban" component={ProfileStack} />
+      <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
+      <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Thông Tin Cá Nhân" component={ThongTinCaNhan} />
-      <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
-      <Drawer.Screen name="Người Dùng" component={NguoiDungStack} />
+      <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
+      <Drawer.Screen name="Phiếu Yêu Cầu" component={ArticlesStack} />
+      <Drawer.Screen name="Thông Báo" component={NguoiDungStack} />
     </Drawer.Navigator>
   );
 }

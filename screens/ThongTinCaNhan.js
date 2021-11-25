@@ -6,16 +6,20 @@ import {
     StatusBar, TouchableOpacity,
     KeyboardAvoidingView,
     Alert,
+    Button,
     Image,
     View,
     ScrollView
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import axios from 'axios';
-import { Button, Icon, Input } from "../components";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from "../constants";
 import * as ImagePicker from 'expo-image-picker';
 import ReactFileReader from 'react-file-reader';
+import { HeaderHeight } from "../constants/utils";
+
+const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 var a = "NV02"
 class ThongTinCaNhan extends React.Component {
@@ -101,17 +105,114 @@ class ThongTinCaNhan extends React.Component {
     renderThongTinCN = () => {
         const { navigation } = this.props;
         return (
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30, width }}>
-                <View style={{ marginTop: 10, marginLeft: 10 }}>
-                    <Text>Họ Tên: {this.state.User.HoNV} {this.state.User.TenNV}</Text>
-                    <Image style={{ width: '100%', height: 300 }}
-                        source={{ uri: this.state.User.Hinhanh }} />
-                    <Text>Nickname: {this.state.User.enditi}</Text>
-                    <Text>Giới Tính: {this.state.User.GioiTinh}</Text>
-                    <Text>DOB: {this.state.User.Ngaysinh}</Text>
-                    <Text>Ngày vào làm: {this.state.User.Ngayvaolam}</Text>
-                </View>
-            </ScrollView >
+            <ScrollView>
+                <Block flex style={styles.profile}>
+                    <Block flex>
+                        <ImageBackground
+                            source={Images.ProfileBackground}
+                            style={styles.profileContainer}
+                            imageStyle={styles.profileBackground}
+                        >
+                            <ScrollView
+                                showsVerticalScrollIndicator={false}
+                                style={{ width, marginTop: '25%' }}
+                            >
+                                <Block flex style={styles.profileCard}>
+                                    <Block middle style={styles.avatarContainer}>
+                                        <Image
+                                            source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                                            style={styles.avatar}
+                                        />
+                                    </Block>
+                                    <Block middle style={styles.nameInfo1}>
+                                        <Text bold size={28} color="#32325D">
+                                            Họ và tên, Tuổi
+                                        </Text>
+                                    </Block>
+                                    <Block flex>
+                                        <Block middle style={styles.nameInfo}>
+                                            <Block style={styles.text}>
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Nick Name
+                                                </Text>
+                                            </Block>
+
+                                            <Block style={styles.text}>
+                                                <Icon name="envelope" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
+                                                    Email
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="phone" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    SDT
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    Giớ Tính
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="globe" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Que quan
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="calendar" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Ngay sinh
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="calendar" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Ngay vao lam
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    Chuc vu
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="briefcase" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Phong ban
+                                                </Text>
+                                            </Block>
+                                        </Block>
+                                    </Block>
+                                    <Block style={styles.info}>
+                                        <Block
+                                            middle
+                                            row
+                                            space="evenly"
+                                            style={{ marginTop: 20, paddingBottom: 24 }}
+                                        >
+                                            <Button
+                                                medium
+                                                title="Edit"
+                                                style={{ backgroundColor: argonTheme.COLORS.INFO }}
+                                            />
+                                            <Button
+                                                medium
+                                                title="ChangePassword"
+                                                style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
+                                            />
+                                        </Block>
+                                    </Block>
+                                </Block>
+                            </ScrollView>
+                        </ImageBackground>
+                    </Block>
+                </Block>
+            </ScrollView>
         )
     }
 
@@ -125,51 +226,74 @@ class ThongTinCaNhan extends React.Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
-    group: {
-        paddingTop: theme.SIZES.BASE * 2
+    profile: {
+        marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
+        // marginBottom: -HeaderHeight * 2,
+        flex: 1
     },
-    title: {
-        paddingBottom: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE * 2,
-        marginTop: 44,
-        color: argonTheme.COLORS.HEADER
+    profileContainer: {
+        width: width,
+        height: height,
+        padding: 0,
+        zIndex: 1
     },
-    socialConnect: {
-        backgroundColor: argonTheme.COLORS.WHITE,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: "#8898AA"
+    profileBackground: {
+        width: width,
+        height: height / 2
     },
-    socialButtons: {
-        width: 140,
-        height: 40,
-        backgroundColor: "#fff",
-        shadowColor: argonTheme.COLORS.BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 4
-        },
+    profileCard: {
+        // position: "relative",
+        padding: theme.SIZES.BASE,
+        marginHorizontal: theme.SIZES.BASE,
+        marginTop: 65,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
+        backgroundColor: theme.COLORS.WHITE,
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 0 },
         shadowRadius: 8,
-        shadowOpacity: 0.1,
-        elevation: 1
+        shadowOpacity: 0.2,
+        zIndex: 2
     },
-    socialTextButtons: {
-        color: argonTheme.COLORS.PRIMARY,
-        fontWeight: "800",
-        fontSize: 14
+    info: {
+        paddingHorizontal: 40
     },
-    inputIcons: {
-        marginRight: 12
+    avatarContainer: {
+        position: "relative",
+        marginTop: -80
     },
-    passwordCheck: {
-        paddingLeft: 15,
-        paddingTop: 13,
-        paddingBottom: 30
+    avatar: {
+        width: 124,
+        height: 124,
+        borderRadius: 62,
+        borderWidth: 0
     },
-    createButton: {
-        width: width * 0.5,
-        marginTop: 25
+    nameInfo: {
+        marginTop: 20,
+        alignItems: "flex-start",
+    },
+    text: {
+        flexDirection: 'row',
+    },
+    nameInfo1: {
+        marginTop: 5,
+        flexDirection: 'row'
+    },
+    divider: {
+        width: "90%",
+        borderWidth: 1,
+        borderColor: "#E9ECEF"
+    },
+    thumb: {
+        borderRadius: 4,
+        marginVertical: 4,
+        alignSelf: "center",
+        width: thumbMeasure,
+        height: thumbMeasure
     }
 });
+
 
 export default ThongTinCaNhan;

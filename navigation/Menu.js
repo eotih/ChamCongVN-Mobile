@@ -12,13 +12,13 @@ import { DrawerItem as DrawerCustomItem } from '../components';
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
   const screens = [
     "Home",
-    "checkCamera", 
+    "Chấm Công", 
     "Thông Tin Cá Nhân", 
-    "Người Dùng",
-    "Profile",
+    "Phiếu Yêu Cầu",
+    "Chat Phòng Ban",
     "Account",
-    "Elements",
-    "Articles",
+    "Lịch Sử Chấm Công",
+    "Quản Lý Báo Cáo",
   ];
   return (
     <Block
@@ -44,7 +44,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
               <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }}/>
               <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>DOCUMENTATION</Text>
             </Block>
-            <DrawerCustomItem title="Getting Started" navigation={navigation} />
+            <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
         </ScrollView>
       </Block>
     </Block>

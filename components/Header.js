@@ -1,6 +1,6 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from './Icon';
@@ -35,14 +35,14 @@ const BasketButton = ({isWhite, style, navigation}) => (
 );
 
 const SearchButton = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
+  <TextInput style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
       family="Galio"
       name="search-zoom-in"
       color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-  </TouchableOpacity>
+  </TextInput>
 );
 
 class Header extends React.Component {

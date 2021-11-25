@@ -25,20 +25,24 @@
     "expo": "^42.0.0",
     "expo-app-loading": "^1.0.1",
     "expo-asset": "~8.3.2",
+    "expo-camera": "~11.2.2",
+    "expo-device": "~3.3.0",
     "expo-font": "~9.2.1",
     "expo-image-picker": "~10.2.2",
+    "expo-location": "^13.0.4",
     "galio-framework": "^0.8.0",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-file-reader": "^1.1.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-device-info": "^8.4.8",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-image-picker": "^4.3.0",
     "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "expo-camera": "~11.2.2"
+    "react-native-vector-icons": "^9.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "8.3.0"
