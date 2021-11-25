@@ -16,7 +16,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Thông Tin Cá Nhân", 
     "Phiếu Yêu Cầu",
     "Chat Phòng Ban",
-    "Account",
+    "Thông Báo",
     "Lịch Sử Chấm Công",
     "Quản Lý Báo Cáo",
   ];
