@@ -23,6 +23,7 @@ export default function checkCamera() {
     const [type, setType] = useState(Camera.Constants.Type.front);
     const [deviceinfo, setDeviceinfo] = useState({});
     const [fillCircle, setfillCircle] = useState(0);
+    const [image, setimage] = useState('');
     const ref = useRef(null)
 
 
@@ -56,13 +57,13 @@ export default function checkCamera() {
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
             setfillCircle(fillCircle + 10)
+            takePhoto();
             console.log("đợi hiếu làm!")
             if (fillCircle === 100) {
                 alert("Xong rồi!")
                 setfillCircle(fillCircle - 100)
                 setvalueStatus('');
             }
-            // takePhoto();
         }
         // console.log(faces);
     };
@@ -79,12 +80,16 @@ export default function checkCamera() {
             const options = { quality: 0.7, base64: true };
             const data = await ref.current.takePictureAsync(options);
             const source = data.base64;
-            console.log(source)
+            setimage(source);
+            console.log(image)
         }
     }
 
     return (
         <View style={styles.container}>
+            <Image
+                style={{ width: '50%', height: '50%' }}
+                source={{ uri: "data:image/image/png;base64,"+image }} />
             <Camera style={styles.camera} type={type} ref={ref}
                 onFacesDetected={handleFacesDetected}
                 faceDetectorSettings={{
