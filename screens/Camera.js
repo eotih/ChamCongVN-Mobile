@@ -55,7 +55,7 @@ export default function checkCamera() {
 
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
-            setfillCircle(fillCircle + 5)
+            setfillCircle(fillCircle + 10)
             console.log("đợi hiếu làm!")
             if (fillCircle === 100) {
                 alert("Xong rồi!")
