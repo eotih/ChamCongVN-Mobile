@@ -21,6 +21,43 @@ import { Button, Input } from "../components";
 const thumbMeasure = (width - 48 - 32) / 3;
 
 export default class ThongTinHoSo extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      User: [],
+    }
+  }
+
+  handleSubmit(event) {
+    console.log(this.state.User)
+    // axiosBaseURL.post('API/AddOrEditOrder', {
+    //   IdProduct: this.state.IdProduct,
+    //   IdUser: this.state.IdUser,
+    //   IdState: this.state.IdState,
+    //   IdPayment: this.state.IdPayment,
+    //   Address: this.state.Address,
+    //   Details: this.state.Details,
+    //   Price: this.state.Price,
+    //   Quantity: this.state.Quantity,
+    //   PriceSale: this.state.PriceSale,
+    //   Total: this.state.Total,
+    // })
+    //   .then(res => {
+    //     if (res.data.Status === 'Success') {
+    //       alert('Đặt thành công!!');
+    //     } else {
+    //       alert('Đặt thất bại');
+    //     }
+    //   })
+  }
+  componentDidMount(){
+    this.setState({
+      User: this.props.route.params.Employee
+    })
+  }
+
+
   render() {
     const { navigation, route } = this.props;
     return (
@@ -46,7 +83,7 @@ export default class ThongTinHoSo extends React.Component {
                 <Input size={16} color="#32325D" style={styles.input}
                   placeholder="Nick Name"
                   iconContent={
-                    <Icon style={{marginRight: 5}} name="user" size={26} color="#00CCCC" />
+                    <Icon style={{ marginRight: 5 }} name="user" size={26} color="#00CCCC" />
                   }>
                 </Input>
               </Block>
@@ -55,7 +92,7 @@ export default class ThongTinHoSo extends React.Component {
                   placeholder="Email"
                   keyboardType="email-address"
                   iconContent={
-                    <Icon style={{marginRight: 5}} name="envelope" size={26} color="#00CCCC" />
+                    <Icon style={{ marginRight: 5 }} name="envelope" size={26} color="#00CCCC" />
                   }>
                 </Input>
               </Block>
@@ -64,7 +101,7 @@ export default class ThongTinHoSo extends React.Component {
                   placeholder="SDT"
                   keyboardType="number-pad"
                   iconContent={
-                    <Icon style={{marginRight: 5}} name="phone" size={26} color="#00CCCC" />
+                    <Icon style={{ marginRight: 5 }} name="phone" size={26} color="#00CCCC" />
                   }>
                 </Input>
               </Block>
@@ -72,8 +109,9 @@ export default class ThongTinHoSo extends React.Component {
                 <Input size={16} color="#32325D" style={styles.input}
                   placeholder="Dịa chỉ"
                   keyboardType="number-pad"
+                  onChangeText={text => this.setState({ User: text })}
                   iconContent={
-                    <Icon style={{marginRight: 5}} name="map-marker" size={26} color="#00CCCC" />
+                    <Icon style={{ marginRight: 5 }} name="map-marker" size={26} color="#00CCCC" />
                   }>
                 </Input>
               </Block>
@@ -88,8 +126,8 @@ export default class ThongTinHoSo extends React.Component {
             >
             </Block>
           </Block>
-          <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
-            <Text style={styles.panelButtonTitle}>Submit</Text>
+          <TouchableOpacity style={styles.commandButton} onPress={() => this.handleSubmit()}>
+            <Text style={styles.panelButtonTitle} >Submit</Text>
           </TouchableOpacity>
         </Block>
       </ScrollView>
@@ -146,7 +184,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40
   },
   input: {
-    width: width/1.2,
+    width: width / 1.2,
   },
   avatarContainer: {
     position: "relative",

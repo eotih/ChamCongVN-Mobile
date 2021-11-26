@@ -36,18 +36,8 @@ class ThongTinCaNhan extends React.Component {
         super();
         this.state = {
             User: [],
-            Age: '',
-            DOB: ''
         }
     }
-
-    convertDateTime = (date) => {
-        const newDate = new Date(date);
-        this.setState({
-            DOB: newDate,
-        });
-        return `${hour}:${min}:${sec}`;
-    };
 
     handleFiles = (files) => {
         console.log(files.base64)
@@ -56,10 +46,12 @@ class ThongTinCaNhan extends React.Component {
         axios.get("https://api.chamcongvn.com/Api/NhanVien/getNhanVienbyId?manv=" + a)
             .then(response => {
                 const newDate = new Date(response.data.Ngaysinh)
+                const dateStart = new Date(response.data.Ngaysinh)
                 this.setState({
                     User: response.data,
                     Age: today - newDate.getFullYear(),
-                    DOB: newDate.getDate()+"/"+newDate.getMonth()+"/"+newDate.getFullYear(),
+                    DOB: newDate.getDate() + "/" + newDate.getMonth() + "/" + newDate.getFullYear(),
+                    DateStart: dateStart.getDate() + "/" + dateStart.getMonth() + "/" + dateStart.getFullYear(),
                 });
             })
     }
@@ -186,7 +178,7 @@ class ThongTinCaNhan extends React.Component {
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Ngay vao lam
+                                                    {this.state.DateStart}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
@@ -213,7 +205,7 @@ class ThongTinCaNhan extends React.Component {
                                             <Button
                                                 medium
                                                 title="Edit"
-                                                onPress={() => navigation.navigate('TTHS')}
+                                                onPress={() => navigation.navigate('TTHS', {Employee: this.state.User})}
                                                 style={{ backgroundColor: argonTheme.COLORS.INFO }}
                                             />
                                             <Button
