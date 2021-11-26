@@ -18,11 +18,11 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function checkCamera() {
-    const [valueStatus, setvalueStatus] = useState('');
+    const [valueStatus, setValueStatus] = useState('');
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.front);
     const [deviceinfo, setDeviceinfo] = useState({});
-    const [fillCircle, setfillCircle] = useState(0);
+    const [fillCircle, setFillCircle] = useState(0);
     const [image, setimage] = useState('');
     const ref = useRef(null)
 
@@ -56,13 +56,14 @@ export default function checkCamera() {
 
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
-            setfillCircle(fillCircle + 10)
+            setFillCircle(fillCircle + 10)
             takePhoto();
             console.log("đợi hiếu làm!")
             if (fillCircle === 100) {
+                console.log(source)
                 alert("Xong rồi!")
-                setfillCircle(fillCircle - 100)
-                setvalueStatus('');
+                setFillCircle(fillCircle - 100)
+                setValueStatus('');
             }
         }
         // console.log(faces);
@@ -72,7 +73,7 @@ export default function checkCamera() {
         return <View />;
     }
     if (hasPermission === false) {
-        return <Button title="lên Cam Bờ râu" onPress={() => setvalueStatus('granted')} />;
+        return <Button title="lên Cam Bờ râu" onPress={() => setValueStatus('granted')} />;
     }
 
     const takePhoto = async () => {
