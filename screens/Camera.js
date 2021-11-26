@@ -15,9 +15,9 @@ import * as Network from 'expo-network';
 import publicIP from 'react-native-public-ip';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 export default function checkCamera() {
+    const [valueStatus, setvalueStatus] = useState('');
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
-    const [valueStatus, setvalueStatus] = useState('');
     const [deviceinfo, setDeviceinfo] = useState({});
     const ref = useRef(null)
 
@@ -26,6 +26,17 @@ export default function checkCamera() {
         (async () => {
             const { status } = await Camera.requestPermissionsAsync();
             setHasPermission(status === valueStatus);
+        })();
+        (async () => {
+            // const { status } = await Camera.requestPermissionsAsync();
+            // setHasPermission(status === valueStatus);
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                console.log(status)
+                console.log('Permission to access location was denied');
+                return;
+            }
+
             let location = await Location.getCurrentPositionAsync({});
             console.log(JSON.stringify(location))
             let IP = await Network.getNetworkStateAsync();
@@ -44,6 +55,8 @@ export default function checkCamera() {
     if (hasPermission === false) {
         return <Button title="lên Cam Bờ râu" onPress={() => setvalueStatus('granted')} />;
     }
+
+
 
     const takePhoto = async () => {
         const photo = await ref.current.takePictureAsync()
@@ -75,6 +88,8 @@ export default function checkCamera() {
         </View>
     );
 }
+
+
 
 publicIP()
     .then(ip => {
