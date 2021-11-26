@@ -33,8 +33,6 @@ export default function checkCamera() {
             setHasPermission(status === valueStatus);
         })();
         (async () => {
-            // const { status } = await Camera.requestPermissionsAsync();
-            // setHasPermission(status === valueStatus);
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 console.log(status)
@@ -60,7 +58,6 @@ export default function checkCamera() {
             takePhoto();
             console.log("đợi hiếu làm!")
             if (fillCircle === 100) {
-                console.log(source)
                 alert("Xong rồi!")
                 setFillCircle(fillCircle - 100)
                 setValueStatus('');
@@ -82,22 +79,21 @@ export default function checkCamera() {
             const data = await ref.current.takePictureAsync(options);
             const source = data.base64;
             setimage(source);
-            console.log(image)
         }
     }
 
     return (
         <View style={styles.container}>
-            <Image
+            {/* <Image
                 style={{ width: '50%', height: '50%' }}
-                source={{ uri: "data:image/image/png;base64,"+image }} />
+                source={{ uri: "data:image/image/png;base64,"+image }} /> */}
             <Camera style={styles.camera} type={type} ref={ref}
                 onFacesDetected={handleFacesDetected}
                 faceDetectorSettings={{
-                    mode: FaceDetector.FaceDetectorMode.fast,
-                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
-                    runClassifications: FaceDetector.FaceDetectorClassifications.none,
-                    minDetectionInterval: 100,
+                    mode: FaceDetector.FaceDetectorMode.accurate,
+                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.all,
+                    runClassifications: FaceDetector.FaceDetectorClassifications.all,
+                    minDetectionInterval: 300,
                     tracking: true,
                 }}
             >
@@ -113,14 +109,9 @@ export default function checkCamera() {
                         }}>
                         <Text style={styles.text}> Flip </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => { takePhoto() }}
-                    >
-                        <Text style={styles.text}> Snap </Text>
-                    </TouchableOpacity>
                     <AnimatedCircularProgress
-                        size={300}
-                        width={3}
+                        size={400}
+                        width={7}
                         fill={fillCircle}
                         tintColor="#00e0ff"
                         onAnimationComplete={() => console.log('onAnimationComplete')}
