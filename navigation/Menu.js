@@ -13,12 +13,12 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const screens = [
     "Home",
     "Chấm Công", 
-    "Thông Tin Cá Nhân", 
+    "Thông Tin Cá Nhân",  
     "Phiếu Yêu Cầu",
     "Chat Phòng Ban",
-    "Thông Báo",
-    "Lịch Sử Chấm Công",
     "Quản Lý Báo Cáo",
+    "Lịch Sử Chấm Công",
+    "Thông Báo",
   ];
   return (
     <Block
