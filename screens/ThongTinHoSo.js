@@ -16,6 +16,7 @@ import { Images, argonTheme } from '../constants';
 import { Block, Text, theme } from "galio-framework";
 import axios from 'axios';
 import { HeaderHeight } from "../constants/utils";
+import { Button, Input } from "../components";
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
@@ -42,34 +43,39 @@ export default class ThongTinHoSo extends React.Component {
           <Block flex>
             <Block middle style={styles.nameInfo}>
               <Block style={styles.text}>
-                <Icon name="user" size={32} color="#00CCCC" />
-                <TextInput size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}
-                  placeholder="Nick Name">
-
-                </TextInput>
+                <Input size={16} color="#32325D" style={styles.input}
+                  placeholder="Nick Name"
+                  iconContent={
+                    <Icon style={{marginRight: 5}} name="user" size={26} color="#00CCCC" />
+                  }>
+                </Input>
               </Block>
-
               <Block style={styles.text}>
-                <Icon name="envelope" size={32} color="#00CCCC" />
-                <TextInput size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}
+                <Input size={16} color="#32325D" style={styles.input}
+                  placeholder="Email"
                   keyboardType="email-address"
-                  placeholder="Email">
-                </TextInput>
+                  iconContent={
+                    <Icon style={{marginRight: 5}} name="envelope" size={26} color="#00CCCC" />
+                  }>
+                </Input>
               </Block>
               <Block style={styles.text}>
-                <Icon name="phone" size={32} color="#00CCCC" />
-                <TextInput size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}
+                <Input size={16} color="#32325D" style={styles.input}
                   placeholder="SDT"
-                  keyboardType="number-pad">
-
-                </TextInput>
+                  keyboardType="number-pad"
+                  iconContent={
+                    <Icon style={{marginRight: 5}} name="phone" size={26} color="#00CCCC" />
+                  }>
+                </Input>
               </Block>
               <Block style={styles.text}>
-                <Icon name="map-marker" size={32} color="#00CCCC" />
-                <TextInput size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}
+                <Input size={16} color="#32325D" style={styles.input}
                   placeholder="Dịa chỉ"
-                >
-                </TextInput>
+                  keyboardType="number-pad"
+                  iconContent={
+                    <Icon style={{marginRight: 5}} name="map-marker" size={26} color="#00CCCC" />
+                  }>
+                </Input>
               </Block>
             </Block>
           </Block>
@@ -139,6 +145,9 @@ const styles = StyleSheet.create({
   info: {
     paddingHorizontal: 40
   },
+  input: {
+    width: width/1.2,
+  },
   avatarContainer: {
     position: "relative",
     marginTop: -80
@@ -155,6 +164,9 @@ const styles = StyleSheet.create({
   },
   text: {
     flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 10,
   },
   nameInfo1: {
     marginTop: 5,

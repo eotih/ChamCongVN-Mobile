@@ -75,6 +75,7 @@ function ThongTinCaNhan(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Thông Tin Cá Nhân"
+              ThongTin
               navigation={navigation}
               scene={scene}
             />
@@ -107,12 +108,11 @@ function ThongTinCaNhan(props) {
               title="Mật Khẩu"
               back
               black
-              transparent
               navigation={navigation}
               scene={scene}
             />
           ),
-          headerTransparent: true
+          cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
     </Stack.Navigator>
