@@ -24,6 +24,10 @@ export default function checkCamera() {
 
     useEffect(() => {
         (async () => {
+            const { status } = await Camera.requestPermissionsAsync();
+            setHasPermission(status === valueStatus);
+        })();
+        (async () => {
             // const { status } = await Camera.requestPermissionsAsync();
             // setHasPermission(status === valueStatus);
             let { status } = await Location.requestForegroundPermissionsAsync();
