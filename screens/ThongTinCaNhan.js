@@ -132,78 +132,82 @@ class ThongTinCaNhan extends React.Component {
                                     <Block flex>
                                         <Block middle style={styles.nameInfo}>
                                             <Block style={styles.text}>
-                                            <Icon name="user" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}
-                                                    multiline>
-                                                    Nick Name:
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Nick Name
                                                 </Text>
                                             </Block>
 
                                             <Block style={styles.text}>
-                                            <Icon name="envelope" style={styles.icon} color="#00CCCC" />
-
-                                                <Text size={16} color="#32325D" style={{ marginTop: 5, marginLeft: 5 }}>
-                                                    Email:
-                                                </Text>
-                                            </Block>
-                                            <Block style={styles.text}>
-                                            <Icon name="mobile" style={styles.icon} color="#00CCCC" />
+                                                <Icon name="envelope" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    SDT:
+                                                    Email
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="user" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Giới Tính:
+                                                <Icon name="phone" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    SDT
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="map-marker" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Que quan:
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    Giớ Tính
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="calendar" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Ngay sinh:
+                                                <Icon name="globe" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Que quan
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="calendar" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Ngay vao lam:
+                                                <Icon name="calendar" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Ngay sinh
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="user" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Chuc vu:
+                                                <Icon name="calendar" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Ngay vao lam
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
-                                            <Icon name="suitcase" style={styles.icon} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 5, marginLeft: 5 }}>
-                                                    Phong ban:
+                                                <Icon name="user" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    Chuc vu
+                                                </Text>
+                                            </Block>
+                                            <Block style={styles.text}>
+                                                <Icon name="briefcase" size={32} color="#00CCCC" />
+                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    Phong ban
                                                 </Text>
                                             </Block>
                                         </Block>
                                     </Block>
                                     <Block style={styles.info}>
-                                            <Block>
-                                                <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
-                                                    <Text >Edit thông tin</Text>
-                                                </TouchableOpacity>
-                                            </Block>
-
-                                            <Block>
-                                                <TouchableOpacity style={styles.commandButton1} onPress={() => { }}>
-                                                    <Text style={styles.panelButtonTitle}>Đổi mật khẩu</Text>
-                                                </TouchableOpacity>
-                                            </Block>
-                                        
-
+                                        <Block
+                                            middle
+                                            row
+                                            space="evenly"
+                                            style={{ marginTop: 20, paddingBottom: 24 }}
+                                        >
+                                            <Button
+                                                medium
+                                                title="Edit"
+                                                onPress={() => navigation.navigate('TTHS')}
+                                                style={{ backgroundColor: argonTheme.COLORS.INFO }}
+                                            />
+                                            <Button
+                                                medium
+                                                title="ChangePassword"
+                                                onPress={() => navigation.navigate('MatKhau', { MaND: 'A3' })}
+                                                style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
+                                            />
+                                        </Block>
                                     </Block>
                                 </Block>
                             </ScrollView>
@@ -237,25 +241,6 @@ const styles = StyleSheet.create({
         padding: 0,
         zIndex: 1
     },
-    commandButton: {
-        padding: 15,
-        borderRadius: 10,
-        backgroundColor: '#FF6347',
-        alignItems: 'center',
-        marginTop: 10,
-        alignContent:'stretch',
-        width:width/3
-    },
-    commandButton1: {
-        padding: 15,
-        borderRadius: 10,
-        backgroundColor: '#0033CC',
-        alignItems: 'center',
-        marginTop: 10,
-        alignContent:'stretch',
-        marginLeft: 80,
-        width:width/3
-    },
     profileBackground: {
         width: width,
         height: height / 2
@@ -274,13 +259,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         zIndex: 2
     },
+    info: {
+        paddingHorizontal: 40
+    },
     avatarContainer: {
         position: "relative",
         marginTop: -80
-    },
-    button: {
-        width: width / 2,
-        fontSize: 20,
     },
     avatar: {
         width: 124,
@@ -310,17 +294,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: thumbMeasure,
         height: thumbMeasure
-    },
-    info: {
-        flexDirection: "row",
-    },
-    icon: {
-        fontSize: 28,
-        width: 25,
-        height: 30,
-    },
-    panelButtonTitle:{
-        color: "white",
     }
 });
 

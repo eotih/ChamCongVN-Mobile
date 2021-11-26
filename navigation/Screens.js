@@ -75,7 +75,6 @@ function ThongTinCaNhan(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Thông Tin Cá Nhân"
-              ThongTin
               navigation={navigation}
               scene={scene}
             />
