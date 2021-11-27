@@ -12,7 +12,7 @@ import {
     ScrollView
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
-import axios from 'axios';
+import Axios from "../../constants/BaseUrl";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from "../../constants";
 import * as ImagePicker from 'expo-image-picker';
@@ -22,8 +22,14 @@ import { HeaderHeight } from "../../constants/utils";
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 const today = new Date().getFullYear();
-var a = "NV02"
+var a = "1"
 class ThongTinCaNhan extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            User: [],
+        }
+    }
     imageHandler = (e) => {
         let files = e.target.files;
         let reader = new FileReader();
@@ -32,78 +38,31 @@ class ThongTinCaNhan extends React.Component {
             this.setState({ Hinhanh: e.target.result })
         }
     };
-    constructor() {
-        super();
-        this.state = {
-            User: [],
-        }
-    }
 
     handleFiles = (files) => {
         console.log(files.base64)
     }
-    componentDidMount() {
-        axios.get("https://api.chamcongvn.com/Api/NhanVien/getNhanVienbyId?manv=" + a)
-            .then(response => {
-                const newDate = new Date(response.data.Ngaysinh)
-                const dateStart = new Date(response.data.Ngaysinh)
-                this.setState({
-                    User: response.data,
-                    Age: today - newDate.getFullYear(),
-                    DOB: newDate.getDate() + "/" + newDate.getMonth() + "/" + newDate.getFullYear(),
-                    DateStart: dateStart.getDate() + "/" + dateStart.getMonth() + "/" + dateStart.getFullYear(),
-                });
-            })
+    async getInfoEmployee(ID) {
+        const res = await Axios.get('Employee/GetEmployeeByID?ID=' + ID);
+        return res.data;
     }
-    // SuaNhanVien = () => {
-    //     axios.post("https://api.chamcongvn.com/Api/User/UpdateThongTinCaNhan", {
-    //         MaNV: this.state.MaNV,
-    //         HoNV: this.state.HoNV,
-    //         TenNV: this.state.TenNV,
-    //         Nickname: this.state.Nickname,
-    //         GioiTinh: this.state.GioiTinh,
-    //         Hinhanh: this.state.Hinhanh,
-    //         Ngaysinh: this.state.Ngaysinh,
-    //         Noisinh: this.state.Noisinh,
-    //         Honnhan: this.state.Honnhan,
-    //         Diachi: this.state.Diachi,
-    //         Tamtru: this.state.Tamtru,
-    //         Dienthoaididong: this.state.Dienthoaididong,
-    //         Email: this.state.Email,
-    //         SoCMND: this.state.SoCMND,
-    //         Ngaycap: this.state.Ngaycap,
-    //         Noicap: this.state.Noicap,
-    //         Ngayvaolam: this.state.Ngayvaolam,
-    //         Suckhoe: this.state.Suckhoe,
-    //         Chieucao: this.state.Chieucao,
-    //         Cannang: this.state.Cannang,
-    //         Tinhtrang: this.state.Tinhtrang,
-    //         Quoctich: this.state.Quoctich,
-    //         Dantoc: this.state.Dantoc,
-    //         TonGiao: this.state.TonGiao,
-    //         MaBangcap: this.state.MaBangcap,
-    //         Machuyenmon: this.state.Machuyenmon,
-    //         MaToNhom: this.state.MaToNhom,
-    //         Machucvu: this.state.Machucvu,
-    //         Macongviec: this.state.Macongviec,
-    //         Maphongban: this.state.Maphongban,
-    //         BHXH: this.state.BHXH,
-    //         BHYT: this.state.BHYT,
-    //         BHTN: this.state.BHTN,
-    //         Phicongdoan: this.state.Phicongdoan,
-    //         GhiChu: this.state.GhiChu,
-    //         UpdatedByUser: a.Username,
-    //         UpdatedByDate: this.state.UpdatedByDate
-    //     })
-    //         .then(json => {
-    //             if (json.data.Status === 'Updated') {
-    //                 console.log(json.data.Status);
-    //                 Alert.alert("Sửa Dữ Liệu Thành Công");
-    //             } else {
-    //                 alert('Data not Saved');
-    //             }
-    //         })
-    // }
+    componentDidMount() {
+        this.getInfoEmployee(a).then((res) => {
+            this.setState({
+                User: res,
+                Avatar: res.Employee.Image,
+                FullName: res.Employee.FullName,
+                NickName: res.Employee.NickName,
+                Gender: res.Employee.Gender,
+                WorkName: res.WorkName,
+                GroupName: res.GroupName,
+                PositionName: res.PositionName,
+                DepartmentName: res.DepartmentName,
+                Address: res.Employee.Address,
+                Phone: res.Employee.Phone,
+            })
+        });
+    }
     updateInputVal = (val, prop) => {
         const state = this.state;
         state[prop] = val;
@@ -127,13 +86,13 @@ class ThongTinCaNhan extends React.Component {
                                 <Block flex style={styles.profileCard}>
                                     <Block middle style={styles.avatarContainer}>
                                         <Image
-                                            source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                                            source={{ uri: this.state.Avatar }}
                                             style={styles.avatar}
                                         />
                                     </Block>
                                     <Block middle style={styles.nameInfo1}>
                                         <Text bold size={28} color="#32325D">
-                                            {this.state.User.HoNV} {this.state.User.TenNV} | {this.state.Age}
+                                            {this.state.FullName}
                                         </Text>
                                     </Block>
                                     <Block flex>
@@ -141,63 +100,56 @@ class ThongTinCaNhan extends React.Component {
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.User.Nickname}
-                                                </Text>
-                                            </Block>
-
-                                            <Block style={styles.text}>
-                                                <Icon name="envelope" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 5 }}>
-                                                    Email
+                                                    {this.state.NickName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="phone" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.User.Dienthoaididong}
+                                                    {this.state.Phone}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    {this.state.User.GioiTinh}
+                                                    {this.state.Gender}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="globe" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.User.Noisinh}
+                                                    {this.state.Address}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.DOB}
+                                                    {this.state.WorkName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.DateStart}
+                                                    {this.state.GroupName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    Chuc vu
+                                                    {this.state.PositionName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="briefcase" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Phong ban
+                                                    {this.state.DepartmentName}
                                                 </Text>
                                             </Block>
                                         </Block>
                                     </Block>
                                     <Block style={styles.info}>
                                         <Block>
-                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile')}>
+                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile', {Employee: this.state.User})}>
                                                 <Text >Edit thông tin</Text>
                                             </TouchableOpacity>
                                         </Block>
