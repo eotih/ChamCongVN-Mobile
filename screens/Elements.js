@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
@@ -9,457 +9,169 @@ import { Button, Select, Icon, Input, Header, Switch } from "../components/";
 const { width } = Dimensions.get("screen");
 
 class Elements extends React.Component {
-  state = {
-    "switch-1": true,
-    "switch-2": false
-  };
-
-  toggleSwitch = switchId =>
-    this.setState({ [switchId]: !this.state[switchId] });
-
-  renderButtons = () => {
-    return (
-      <Block flex>
-        <Text bold size={16} style={styles.title}>
-          Buttons
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block center>
-            <Button color="default" style={styles.button}>
-              DEFAULT
-            </Button>
-          </Block>
-          <Block center>
-            <Button
-              color="secondary"
-              textStyle={{ color: "black", fontSize: 12, fontWeight: "700" }}
-              style={styles.button}
-            >
-              SECONDARY
-            </Button>
-          </Block>
-          <Block center>
-            <Button style={styles.button}>PRIMARY</Button>
-          </Block>
-          <Block center>
-            <Button color="info" style={styles.button}>
-              INFO
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="success" style={styles.button}>
-              SUCCESS
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="warning" style={styles.button}>
-              WARNING
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="error" style={styles.button}>
-              ERROR
-            </Button>
-          </Block>
-          <Block row space="evenly">
-            <Block flex left style={{marginTop: 8}}>
-              <Select
-                defaultIndex={1}
-                options={["01", "02", "03", "04", "05"]}
-              />
-            </Block>
-            <Block flex center>
-              <Button small center color="default" style={styles.optionsButton}>
-                DELETE
-              </Button>
-            </Block>
-            <Block flex={1.25} right>
-              <Button center color="default" style={styles.optionsButton}>
-                SAVE FOR LATER
-              </Button>
-            </Block>
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
-  renderText = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Typography
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Text
-            h1
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Heading 1
-          </Text>
-          <Text
-            h2
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Heading 2
-          </Text>
-          <Text
-            h3
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Heading 3
-          </Text>
-          <Text
-            h4
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Heading 4
-          </Text>
-          <Text
-            h5
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Heading 5
-          </Text>
-          <Text
-            p
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Paragraph
-          </Text>
-          <Text muted>This is a muted paragraph.</Text>
-        </Block>
-      </Block>
-    );
-  };
-
-  renderInputs = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Inputs
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input right placeholder="Regular" iconContent={<Block />} />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            right
-            placeholder="Regular Custom"
-            style={{
-              borderColor: argonTheme.COLORS.INFO,
-              borderRadius: 4,
-              backgroundColor: "#fff"
-            }}
-            iconContent={<Block />}
-          />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            placeholder="Icon left"
-            iconContent={
-              <Icon
-                size={11}
-                style={{ marginRight: 10 }}
-                color={argonTheme.COLORS.ICON}
-                name="search-zoom-in"
-                family="ArgonExtra"
-              />
-            }
-          />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            right
-            placeholder="Icon Right"
-            iconContent={
-              <Icon
-                size={11}
-                color={argonTheme.COLORS.ICON}
-                name="search-zoom-in"
-                family="ArgonExtra"
-              />
-            }
-          />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            success
-            right
-            placeholder="Success"
-            iconContent={
-              <Block
-                middle
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: 10,
-                  backgroundColor: argonTheme.COLORS.INPUT_SUCCESS
-                }}
-              >
-                <Icon
-                  size={11}
-                  color={argonTheme.COLORS.ICON}
-                  name="g-check"
-                  family="ArgonExtra"
-                />
-              </Block>
-            }
-          />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Input
-            error
-            right
-            placeholder="Error Input"
-            iconContent={
-              <Block
-                middle
-                style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: 10,
-                  backgroundColor: argonTheme.COLORS.INPUT_ERROR
-                }}
-              >
-                <Icon
-                  size={11}
-                  color={argonTheme.COLORS.ICON}
-                  name="support"
-                  family="ArgonExtra"
-                />
-              </Block>
-            }
-          />
-        </Block>
-      </Block>
-    );
-  };
-
-  renderSwitches = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Switches
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block
-            row
-            middle
-            space="between"
-            style={{ marginBottom: theme.SIZES.BASE }}
-          >
-            <Text size={14}>Switch is ON</Text>
-            <Switch
-              value={this.state["switch-1"]}
-              onValueChange={() => this.toggleSwitch("switch-1")}
-            />
-          </Block>
-          <Block row middle space="between">
-            <Text size={14}>Switch is OFF</Text>
-            <Switch
-              value={this.state["switch-2"]}
-              onValueChange={() => this.toggleSwitch("switch-2")}
-            />
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
-  renderTableCell = () => {
-    const { navigation } = this.props;
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Table Cell
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigation.navigate("Pro")}>
-              <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text size={14}>Manage Options</Text>
-                <Icon
-                  name="chevron-right"
-                  family="entypo"
-                  style={{ paddingRight: 5 }}
-                />
-              </Block>
-            </TouchableOpacity>
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
-  renderSocial = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Social
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block row center space="between">
-            <Block flex middle right>
-              <GaButton
-                round
-                onlyIcon
-                shadowless
-                icon="facebook"
-                iconFamily="Font-Awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.FACEBOOK}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-            <Block flex middle center>
-              <GaButton
-                round
-                onlyIcon
-                shadowless
-                icon="twitter"
-                iconFamily="Font-Awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.TWITTER}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-            <Block flex middle left>
-              <GaButton
-                round
-                onlyIcon
-                shadowless
-                icon="dribbble"
-                iconFamily="Font-Awesome"
-                iconColor={theme.COLORS.WHITE}
-                iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.DRIBBBLE}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
-  renderNavigation = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
-          Navigation
-        </Text>
-        <Block>
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header back title="Title" navigation={this.props.navigation} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header white back title="Title" navigation={this.props.navigation} bgColor={argonTheme.COLORS.ACTIVE} titleColor="white" iconColor="white" />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header search title="Title" navigation={this.props.navigation} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header tabs={tabs.categories} search title="Title" navigation={this.props.navigation} />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header
-              options
-              search
-              title="Title"
-              optionLeft="Option 1"
-              optionRight="Option 2"
-              navigation={this.props.navigation}
-            />
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
   render() {
+    const { navigation, route } = this.props;
     return (
-      <Block flex center>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30, width }}>
-          {this.renderButtons()}
-          {this.renderText()}
-          {this.renderInputs()}
-          {this.renderSocial()}
-          {this.renderSwitches()}
-          {this.renderNavigation()}
-          {this.renderTableCell()}
-        </ScrollView>
-      </Block>
+      <ScrollView>
+        <View style={styles.Card}>
+          <View style={styles.Orange}>
+            <Text style={styles.date}>
+              Ngày
+            </Text>
+            <Text style={styles.typelate}>
+              Đi Muộn
+            </Text>
+          </View>
+          <View middle style={styles.avatarContainer}>
+            <Image
+              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+              style={styles.avatar}
+            />
+            <Block style={styles.details} >
+              <Text size={18}>
+                Giờ chấm công:
+              </Text>
+              <Text size={18}>
+                Giờ ra về:
+              </Text>
+              <Text size={18}>
+                Tổng giờ làm:
+              </Text>
+              <Text size={18}>
+                Device check in:
+              </Text>
+              <Text  size={18} > 
+                Device check out:
+              </Text>
+            </Block>
+            <Block style={styles.time} >
+              <Text size={18}>
+                08"09:50
+              </Text >
+              <Text size={18}>
+               18:53:16
+              </Text >
+              <Text size={18}>
+                Tiem:
+              </Text>
+              <Text size={18}>
+                Camera:
+              </Text>
+              <Text size={18}>
+                Camera:
+              </Text>
+            </Block>
+          </View>
+        </View>
+        <View style={styles.Card}>
+          <View style={styles.blue}>
+            <Text style={styles.date}>
+              Ngày
+            </Text>
+            <Text style={styles.type}>
+              Đi đúng giờ
+            </Text>
+          </View>
+          <View middle style={styles.avatarContainer}>
+            <Image
+              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+              style={styles.avatar}
+            />
+            <Block style={styles.details} >
+              <Text size={18}>
+                Giờ chấm công:
+              </Text>
+              <Text size={18}>
+                Giờ ra về:
+              </Text>
+              <Text size={18}>
+                Tổng giờ làm:
+              </Text>
+              <Text size={18}>
+                Device check in:
+              </Text>
+              <Text size={18}>
+                Device check out:
+              </Text>
+            </Block>
+            <Block style={styles.time} >
+              <Text size={18}>
+                08"09:50
+              </Text >
+              <Text size={18}>
+               18:53:16
+              </Text>
+              <Text size={18}>
+                Tiem:
+              </Text>
+              <Text size={18}>
+                Camera:
+              </Text>
+              <Text size={18}>
+                Camera:
+              </Text>
+            </Block>
+          </View>
+        </View>
+      </ScrollView>
+
     );
   }
 }
-
 const styles = StyleSheet.create({
-  title: {
-    paddingBottom: theme.SIZES.BASE,
-    paddingHorizontal: theme.SIZES.BASE * 2,
-    marginTop: 44,
-    color: argonTheme.COLORS.HEADER
-  },
-  group: {
-    paddingTop: theme.SIZES.BASE * 2
-  },
-  shadow: {
+  Card: {
+    // position: "relative",
+    marginHorizontal: theme.SIZES.BASE,
+    borderRadius: 15,
+    marginTop: 15,
+    backgroundColor: theme.COLORS.WHITE,
     shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 8,
     shadowOpacity: 0.2,
-    elevation: 2
   },
-  button: {
-    marginBottom: theme.SIZES.BASE,
-    width: width - theme.SIZES.BASE * 2
+  Orange: {
+    backgroundColor: 'orange',
+    flexDirection: 'row',
+    borderRadius: 6,
+    alignItems: 'center',
   },
-  optionsButton: {
-    width: "auto",
-    height: 34,
-    paddingHorizontal: theme.SIZES.BASE,
-    paddingVertical: 10
+  blue: {
+    backgroundColor: '#00CCFF',
+    flexDirection: 'row',
+    borderRadius: 6,
+    alignItems: 'center',
   },
-  input: {
-    borderBottomWidth: 1
+  date: {
+    marginLeft: 30,
+    fontSize: 20,
+    textAlign: 'center',
   },
-  inputDefault: {
-    borderBottomColor: argonTheme.COLORS.PLACEHOLDER
+  type: {
+    backgroundColor: 'white',
+    marginLeft: 187,
+    fontSize: 20
   },
-  inputTheme: {
-    borderBottomColor: argonTheme.COLORS.PRIMARY
+  typelate: {
+    backgroundColor: 'white',
+    marginLeft: 217,
+    fontSize: 20
   },
-  inputInfo: {
-    borderBottomColor: argonTheme.COLORS.INFO
+  avatarContainer: {
+    flexDirection:'row'
   },
-  inputSuccess: {
-    borderBottomColor: argonTheme.COLORS.SUCCESS
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 62,
+    borderWidth: 0,
+    alignSelf:'center'
   },
-  inputWarning: {
-    borderBottomColor: argonTheme.COLORS.WARNING
+  details: {
+    marginLeft: 15,
   },
-  inputDanger: {
-    borderBottomColor: argonTheme.COLORS.ERROR
-  },
-  social: {
-    width: theme.SIZES.BASE * 3.5,
-    height: theme.SIZES.BASE * 3.5,
-    borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center"
+  time: {
+    marginLeft: 55
   },
 });
-
 export default Elements;

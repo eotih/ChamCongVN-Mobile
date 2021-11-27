@@ -189,24 +189,16 @@ class ThongTinCaNhan extends React.Component {
                                         </Block>
                                     </Block>
                                     <Block style={styles.info}>
-                                        <Block
-                                            middle
-                                            row
-                                            space="evenly"
-                                            style={{ marginTop: 20, paddingBottom: 24 }}
-                                        >
-                                            <Button
-                                                medium
-                                                title="Edit"
-                                                onPress={() => navigation.navigate('TTHS')}
-                                                style={{ backgroundColor: argonTheme.COLORS.INFO }}
-                                            />
-                                            <Button
-                                                medium
-                                                title="ChangePassword"
-                                                onPress={() => navigation.navigate('MatKhau', { MaND: 'A3' })}
-                                                style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
-                                            />
+                                        <Block>
+                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('TTHS')}>
+                                                <Text >Edit thông tin</Text>
+                                            </TouchableOpacity>
+                                        </Block>
+
+                                        <Block>
+                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('MatKhau', { MaND: 'A3' })}>
+                                                <Text style={styles.panelButtonTitle}>Đổi mật khẩu</Text>
+                                            </TouchableOpacity>
                                         </Block>
                                     </Block>
                                 </Block>
