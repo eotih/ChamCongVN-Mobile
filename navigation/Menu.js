@@ -26,25 +26,45 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
       <Block flex={0.06} style={styles.header}>
+        <Block style={styles.all}>
+          <Block middle style={styles.avatarContainer}>
+            <Image
+              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+              style={styles.avatar}
+            />
+          </Block>
+          <Block>
+            <Text bold style={styles.textname}  >
+             Tên:
+            </Text>
+            <Text  style={styles.text} >
+              Chức vụ:
+            </Text>
+            <Text  style={styles.text} >
+              Phòng ban:
+            </Text>
+          </Block>
+
+        </Block>
         <Image styles={styles.logo} source={Images.ArgonLogo} />
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           {screens.map((item, index) => {
-              return (
-                <DrawerCustomItem
-                  title={item}
-                  key={index}
-                  navigation={navigation}
-                  focused={state.index === index ? true : false}
-                />
-              );
-            })}
-            <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
-              <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }}/>
-              <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>DOCUMENTATION</Text>
-            </Block>
-            <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
+            return (
+              <DrawerCustomItem
+                title={item}
+                key={index}
+                navigation={navigation}
+                focused={state.index === index ? true : false}
+              />
+            );
+          })}
+          <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
+            <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
+            <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>DOCUMENTATION</Text>
+          </Block>
+          <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
         </ScrollView>
       </Block>
     </Block>
@@ -55,6 +75,29 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  avatarContainer: {
+    position: "relative",
+    alignSelf: "flex-start"
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 62,
+    borderWidth: 0
+  },
+  all: {
+    flexDirection: 'row'
+  },
+  text: {
+    fontSize: 16,
+    color: 'black',
+    marginLeft: 10
+  },
+  textname: {
+    fontSize: 22,
+    color: 'black',
+    marginLeft: 10
   },
   header: {
     paddingHorizontal: 28,
