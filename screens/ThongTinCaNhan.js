@@ -21,6 +21,7 @@ import { HeaderHeight } from "../constants/utils";
 
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
+const today = new Date().getFullYear();
 var a = "NV02"
 class ThongTinCaNhan extends React.Component {
     imageHandler = (e) => {
@@ -37,14 +38,20 @@ class ThongTinCaNhan extends React.Component {
             User: [],
         }
     }
+
     handleFiles = (files) => {
         console.log(files.base64)
     }
     componentDidMount() {
         axios.get("https://api.chamcongvn.com/Api/NhanVien/getNhanVienbyId?manv=" + a)
             .then(response => {
+                const newDate = new Date(response.data.Ngaysinh)
+                const dateStart = new Date(response.data.Ngaysinh)
                 this.setState({
-                    User: response.data
+                    User: response.data,
+                    Age: today - newDate.getFullYear(),
+                    DOB: newDate.getDate() + "/" + newDate.getMonth() + "/" + newDate.getFullYear(),
+                    DateStart: dateStart.getDate() + "/" + dateStart.getMonth() + "/" + dateStart.getFullYear(),
                 });
             })
     }
@@ -126,7 +133,7 @@ class ThongTinCaNhan extends React.Component {
                                     </Block>
                                     <Block middle style={styles.nameInfo1}>
                                         <Text bold size={28} color="#32325D">
-                                            Họ và tên, Tuổi
+                                            {this.state.User.HoNV} {this.state.User.TenNV} | {this.state.Age}
                                         </Text>
                                     </Block>
                                     <Block flex>
@@ -134,7 +141,7 @@ class ThongTinCaNhan extends React.Component {
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Nick Name
+                                                    {this.state.User.Nickname}
                                                 </Text>
                                             </Block>
 
@@ -147,31 +154,31 @@ class ThongTinCaNhan extends React.Component {
                                             <Block style={styles.text}>
                                                 <Icon name="phone" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    SDT
+                                                    {this.state.User.Dienthoaididong}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    Giớ Tính
+                                                    {this.state.User.GioiTinh}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="globe" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Que quan
+                                                    {this.state.User.Noisinh}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Ngay sinh
+                                                    {this.state.DOB}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Ngay vao lam
+                                                    {this.state.DateStart}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>

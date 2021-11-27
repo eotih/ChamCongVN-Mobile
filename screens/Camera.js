@@ -13,97 +13,144 @@ import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
 import * as Network from 'expo-network';
 import publicIP from 'react-native-public-ip';
+import * as FaceDetector from 'expo-face-detector';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import axios from 'axios';
+
+
 export default function checkCamera() {
-    const [valueStatus, setvalueStatus] = useState('');
+    const [valueStatus, setValueStatus] = useState('');
     const [hasPermission, setHasPermission] = useState(null);
-    const [type, setType] = useState(Camera.Constants.Type.back);
-    const [deviceinfo, setDeviceinfo] = useState({});
+    const [type, setType] = useState(Camera.Constants.Type.front);
+    const [deviceInfo, setDeviceInfo] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [IP, setPublicIP] = useState('');
+    const [fillCircle, setFillCircle] = useState(0);
+    const [image, setImage] = useState('');
     const ref = useRef(null)
 
-
     useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestPermissionsAsync();
-            setHasPermission(status === valueStatus);
-        })();
-        (async () => {
-            // const { status } = await Camera.requestPermissionsAsync();
-            // setHasPermission(status === valueStatus);
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                console.log(status)
-                console.log('Permission to access location was denied');
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            console.log(JSON.stringify(location))
-            let IP = await Network.getNetworkStateAsync();
-            console.log(IP);
-            publicIP();
-        })();
-        console.log(Device.brand + " " + Device.modelName + Device.modelId)
-        console.log(Device.osName)
-        console.log(Device.osVersion)
-        console.log(Device.deviceName)
+        getPermissionCameraAsync();
+        getPermissionLocationAsync();
+        getPublicIP();
+        getDeviceInfo();
+        getLocationInfo();
     }, [valueStatus]);
+
+    const getPermissionLocationAsync = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            console.log('Permission to access location was denied');
+            return;
+        }
+    };
+    const getPermissionCameraAsync = async () => {
+        const { status } = await Camera.requestPermissionsAsync();
+        setHasPermission(status === valueStatus);
+    };
+    const getDeviceInfo = () => {
+        setDeviceInfo(Device.modelName);
+    }
+    const getLocationInfo = async () => {
+        const location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+    const getPublicIP = async () => {
+        publicIP()
+            .then(ip => {
+                setPublicIP(ip)
+            })
+            .catch(error => {
+                console.log(error);
+                // 'Unable to get IP address.'
+            });
+    }
+    const takePhoto = async () => {
+        if (ref.current) {
+            const options = { quality: 0.7, base64: true };
+            const data = await ref.current.takePictureAsync(options);
+            const source = data.base64;
+            setImage(source);
+        }
+    }
+    const goToTheMoon = (object) => {
+        axios.get('http://192.168.1.7:45457/HandleSendToPython', object)
+        .then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    const handleFacesDetected = ({ faces }) => {
+        if (faces.length > 0) {
+            takePhoto();
+            setFillCircle(fillCircle + 100)
+            if (fillCircle === 100) {
+                const response = {
+                    Lat: latitude,
+                    Long: longitude,
+                    IP: IP,
+                    Device: deviceInfo
+                };
+                goToTheMoon(response);
+                alert("Xong rồi!")
+                setFillCircle(fillCircle - 100)
+                setValueStatus('');
+            }
+        }
+        // console.log(faces);
+    };
 
     if (hasPermission === null) {
         return <View />;
     }
     if (hasPermission === false) {
-        return <Button title="lên Cam Bờ râu" onPress={() => setvalueStatus('granted')} />;
-    }
-
-
-
-    const takePhoto = async () => {
-        const photo = await ref.current.takePictureAsync()
-        console.log(photo)
+        return <Button title="Click vào đây để bật máy ảnh" onPress={() => setValueStatus('granted')} />;
     }
 
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} type={type} ref={ref}>
+            {/* <Image
+                style={{ width: '50%', height: '50%' }}
+                source={{ uri: "data:image/image/png;base64,"+image }} /> */}
+            <Camera style={styles.camera} type={type} ref={ref}
+                onFacesDetected={handleFacesDetected}
+                faceDetectorSettings={{
+                    mode: FaceDetector.FaceDetectorMode.accurate,
+                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.all,
+                    runClassifications: FaceDetector.FaceDetectorClassifications.all,
+                    minDetectionInterval: 300,
+                    tracking: true,
+                }}
+            >
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
                             setType(
-                                type === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back
+                                type === Camera.Constants.Type.front
+                                    ? Camera.Constants.Type.back
+                                    : Camera.Constants.Type.front
                             );
                         }}>
                         <Text style={styles.text}> Flip </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => { takePhoto() }}
-                    >
-                        <Text style={styles.text}> Snap </Text>
-                    </TouchableOpacity>
+                    <AnimatedCircularProgress
+                        size={400}
+                        width={7}
+                        fill={fillCircle}
+                        tintColor="#00e0ff"
+                        onAnimationComplete={() => console.log('onAnimationComplete')}
+                        backgroundColor="#3d5875" />
                 </View>
             </Camera>
         </View>
     );
 }
-
-
-
-publicIP()
-    .then(ip => {
-        if (ip === '1.53.169.221') {
-            console.log("úm ba la:" + ip);
-        } else {
-            console.log("Bị puồi")
-        }
-        // '47.122.71.234'
-    })
-    .catch(error => {
-        console.log(error);
-        // 'Unable to get IP address.'
-    });
 
 const styles = StyleSheet.create({
     container: {

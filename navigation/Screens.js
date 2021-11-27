@@ -328,12 +328,12 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
-      <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Thông Tin Cá Nhân" component={ThongTinCaNhan} />
-      <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
       <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
+      <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
+      <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
+      <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
       <Drawer.Screen name="Thông Báo" component={ProfileStack} />
     </Drawer.Navigator>
   );

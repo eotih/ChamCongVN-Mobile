@@ -12,13 +12,13 @@ import { DrawerItem as DrawerCustomItem } from '../components';
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
   const screens = [
     "Home",
-    "Chấm Công",
-    "Thông Tin Cá Nhân",
+    "Chấm Công", 
+    "Thông Tin Cá Nhân",  
     "Phiếu Yêu Cầu",
     "Chat Phòng Ban",
-    "Thông Báo",
-    "Lịch Sử Chấm Công",
     "Quản Lý Báo Cáo",
+    "Lịch Sử Chấm Công",
+    "Thông Báo",
   ];
   return (
     <Block
