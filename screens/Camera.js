@@ -89,12 +89,12 @@ export default function checkCamera() {
         <View style={styles.container}>
             <Image
                 style={{ width: '50%', height: '50%' }}
-                source={{ uri: "data:image/image/png;base64,"+image }} />
+                source={{ uri: "data:image/image/png;base64," + image }} />
             <Camera style={styles.camera} type={type} ref={ref}
                 onFacesDetected={handleFacesDetected}
                 faceDetectorSettings={{
                     mode: FaceDetector.FaceDetectorMode.fast,
-                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
+                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.all,
                     runClassifications: FaceDetector.FaceDetectorClassifications.none,
                     minDetectionInterval: 100,
                     tracking: true,

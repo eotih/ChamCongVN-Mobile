@@ -9,12 +9,12 @@ import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
-import ThongTinCN from "../screens/ThongTinCaNhan";
+import Profile from "../screens/Profile/Profile";
+import BaseInformation from "../screens/Profile/BaseInformation";
+import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
-import TTHS from "../screens/ThongTinHoSo";
-import MatKhau from "../screens/MatKhau";
-import Profile from "../screens/Profile";
+// import Profile from "../screens/Profile";
 import checkCamera from "../screens/Camera";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
@@ -46,8 +46,8 @@ function ElementsStack(props) {
         }}
       />
       <Stack.Screen
-        name="TTHS"
-        component={TTHS}
+        name="Elements"
+        component={Elements}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -65,12 +65,12 @@ function ElementsStack(props) {
     </Stack.Navigator>
   );
 }
-function ThongTinCaNhan(props) {
+function ProfileStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Thông Tin Cá Nhân"
-        component={ThongTinCN}
+        name="Base Information"
+        component={BaseInformation}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -83,12 +83,12 @@ function ThongTinCaNhan(props) {
         }}
       />
       <Stack.Screen
-        name="TTHS"
-        component={TTHS}
+        name="Profile"
+        component={Profile}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Thông Tin Hồ Sơ"
+              title="Profile"
               back
               black
               navigation={navigation}
@@ -99,12 +99,12 @@ function ThongTinCaNhan(props) {
         }}
       />
       <Stack.Screen
-        name="MatKhau"
-        component={MatKhau}
+        name="Account"
+        component={Account}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Mật Khẩu"
+              title="Account"
               back
               black
               navigation={navigation}
@@ -201,7 +201,7 @@ function checkCameraStack(props) {
     </Stack.Navigator>
   );
 }
-function ProfileStack(props) {
+function ProfileStackkk(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
@@ -263,8 +263,8 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="TTHS"
-        component={TTHS}
+        name="Elements"
+        component={Elements}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -331,12 +331,12 @@ function AppStack(props) {
     >
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
-      <Drawer.Screen name="Thông Tin Cá Nhân" component={ThongTinCaNhan} />
+      <Drawer.Screen name="Base Information" component={ProfileStack} />
       <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
       <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
-      <Drawer.Screen name="Thông Báo" component={ProfileStack} />
+      <Drawer.Screen name="Thông Báo" component={ProfileStackkk} />
     </Drawer.Navigator>
   );
 }

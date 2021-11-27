@@ -14,10 +14,10 @@ import {
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Images, argonTheme } from "../constants";
+import { Images, argonTheme } from "../../constants";
 import * as ImagePicker from 'expo-image-picker';
 import ReactFileReader from 'react-file-reader';
-import { HeaderHeight } from "../constants/utils";
+import { HeaderHeight } from "../../constants/utils";
 
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
@@ -205,13 +205,13 @@ class ThongTinCaNhan extends React.Component {
                                             <Button
                                                 medium
                                                 title="Edit"
-                                                onPress={() => navigation.navigate('TTHS', {Employee: this.state.User})}
+                                                onPress={() => navigation.navigate('Profile', {Employee: this.state.User})}
                                                 style={{ backgroundColor: argonTheme.COLORS.INFO }}
                                             />
                                             <Button
                                                 medium
                                                 title="ChangePassword"
-                                                onPress={() => navigation.navigate('MatKhau', { MaND: 'A3' })}
+                                                onPress={() => navigation.navigate('Account', { MaND: 'A3' })}
                                                 style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
                                             />
                                         </Block>
