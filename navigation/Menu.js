@@ -13,7 +13,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const screens = [
     "Home",
     "Chấm Công", 
-    "Thông Tin Cá Nhân",  
+    "Base Information",  
     "Phiếu Yêu Cầu",
     "Chat Phòng Ban",
     "Quản Lý Báo Cáo",

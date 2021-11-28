@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Images, argonTheme } from '../constants';
+import { Images, argonTheme } from '../../constants';
 import { Block, Text, theme } from "galio-framework";
 import axios from 'axios';
-import { HeaderHeight } from "../constants/utils";
-import { Button, Input } from "../components";
+import { HeaderHeight } from "../../constants/utils";
+import { Button, Input } from "../../components";
 
 
 export default class MatKhau extends React.Component {
