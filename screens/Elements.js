@@ -6,7 +6,7 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { argonTheme, tabs } from "../constants/";
 import { Button, Select, Icon, Input, Header, Switch } from "../components/";
 
-const { width } = Dimensions.get("screen");
+const {width, height} = Dimensions.get('window');
 
 class Elements extends React.Component {
   render() {
@@ -52,13 +52,13 @@ class Elements extends React.Component {
                18:53:16
               </Text >
               <Text size={18}>
-                Tiem:
+                Time
               </Text>
               <Text size={18}>
-                Camera:
+                Camera
               </Text>
               <Text size={18}>
-                Camera:
+                Camera
               </Text>
             </Block>
           </View>
@@ -102,13 +102,13 @@ class Elements extends React.Component {
                18:53:16
               </Text>
               <Text size={18}>
-                Tiem:
+                Time
               </Text>
               <Text size={18}>
-                Camera:
+                Camera
               </Text>
               <Text size={18}>
-                Camera:
+                Camera
               </Text>
             </Block>
           </View>
@@ -149,29 +149,29 @@ const styles = StyleSheet.create({
   },
   type: {
     backgroundColor: 'white',
-    marginLeft: 187,
+    marginLeft: width/2.2,
     fontSize: 20
   },
   typelate: {
     backgroundColor: 'white',
-    marginLeft: 217,
+    marginLeft: width/1.9,
     fontSize: 20
   },
   avatarContainer: {
     flexDirection:'row'
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: width/5,
+    height: width/5,
     borderRadius: 62,
     borderWidth: 0,
     alignSelf:'center'
   },
   details: {
-    marginLeft: 15,
+    marginLeft: width/25
   },
   time: {
-    marginLeft: 55
+    marginLeft: width/7
   },
 });
 export default Elements;
