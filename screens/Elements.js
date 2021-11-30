@@ -5,116 +5,24 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants/";
 import { Button, Select, Icon, Input, Header, Switch } from "../components/";
+import datatest from "../constants/datatest";
+import CardHistory from "../components/CardHistory"
 
 const { width } = Dimensions.get("screen");
 
 class Elements extends React.Component {
   render() {
-    const { navigation, route } = this.props;
-    return (
-      <ScrollView>
-        <View style={styles.Card}>
-          <View style={styles.Orange}>
-            <Text style={styles.date}>
-              Ngày
-            </Text>
-            <Text style={styles.typelate}>
-              Đi Muộn
-            </Text>
-          </View>
-          <View middle style={styles.avatarContainer}>
-            <Image
-              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              style={styles.avatar}
-            />
-            <Block style={styles.details} >
-              <Text size={18}>
-                Giờ chấm công:
-              </Text>
-              <Text size={18}>
-                Giờ ra về:
-              </Text>
-              <Text size={18}>
-                Tổng giờ làm:
-              </Text>
-              <Text size={18}>
-                Device check in:
-              </Text>
-              <Text  size={18} > 
-                Device check out:
-              </Text>
-            </Block>
-            <Block style={styles.time} >
-              <Text size={18}>
-                08"09:50
-              </Text >
-              <Text size={18}>
-               18:53:16
-              </Text >
-              <Text size={18}>
-                Tiem:
-              </Text>
-              <Text size={18}>
-                Camera:
-              </Text>
-              <Text size={18}>
-                Camera:
-              </Text>
-            </Block>
-          </View>
-        </View>
-        <View style={styles.Card}>
-          <View style={styles.blue}>
-            <Text style={styles.date}>
-              Ngày
-            </Text>
-            <Text style={styles.type}>
-              Đi đúng giờ
-            </Text>
-          </View>
-          <View middle style={styles.avatarContainer}>
-            <Image
-              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              style={styles.avatar}
-            />
-            <Block style={styles.details} >
-              <Text size={18}>
-                Giờ chấm công:
-              </Text>
-              <Text size={18}>
-                Giờ ra về:
-              </Text>
-              <Text size={18}>
-                Tổng giờ làm:
-              </Text>
-              <Text size={18}>
-                Device check in:
-              </Text>
-              <Text size={18}>
-                Device check out:
-              </Text>
-            </Block>
-            <Block style={styles.time} >
-              <Text size={18}>
-                08"09:50
-              </Text >
-              <Text size={18}>
-               18:53:16
-              </Text>
-              <Text size={18}>
-                Tiem:
-              </Text>
-              <Text size={18}>
-                Camera:
-              </Text>
-              <Text size={18}>
-                Camera:
-              </Text>
-            </Block>
-          </View>
-        </View>
-      </ScrollView>
-
+    return (<ScrollView>
+      {datatest.map(data => <CardHistory
+        key={data.Date}
+        Date={data.Date}
+        image={data.image}
+        TimeCheckin={data.TimeCheckin}
+        TimeCheckout={data.TimeCheckout}
+        DeviceCheckin={data.DeviceCheckin}
+        DeviceCheckout={data.DeviceCheckout}
+      />)}
+    </ScrollView>
     );
   }
 }
@@ -158,14 +66,14 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   avatarContainer: {
-    flexDirection:'row'
+    flexDirection: 'row'
   },
   avatar: {
     width: 80,
     height: 80,
     borderRadius: 62,
     borderWidth: 0,
-    alignSelf:'center'
+    alignSelf: 'center'
   },
   details: {
     marginLeft: 15,

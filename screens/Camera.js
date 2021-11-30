@@ -75,29 +75,33 @@ export default function checkCamera() {
             const data = await ref.current.takePictureAsync(options);
             const source = data.base64;
             setImage(source);
+            goToTheMoon(source);
+            console.log("----------------------------------------  LOADING ----------------------------------------  ")
         }
     }
-    const goToTheMoon = (object) => {
-        axios.get('http://192.168.1.7:45457/HandleSendToPython', object)
-        .then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
+    const goToTheMoon = async (object) => {
+        const res = await axios.post('http://localhost:11111/HandleSendToPython', object, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
+        const { name, base64 } = res.data;
+        console.log("Nhân viên : " + name);
+        console.log("----------------------------------------  DONE ----------------------------------------  ")
     }
     const handleFacesDetected = ({ faces }) => {
         if (faces.length > 0) {
-            takePhoto();
-            setFillCircle(fillCircle + 100)
+            setFillCircle(fillCircle + 20)
             if (fillCircle === 100) {
                 const response = {
-                    Lat: latitude,
-                    Long: longitude,
-                    IP: IP,
-                    Device: deviceInfo
+                    Latitude: latitude,
+                    Longitude: longitude,
+                    PublicIP: IP,
+                    Device: deviceInfo,
+                    Image: image,
                 };
                 goToTheMoon(response);
-                alert("Xong rồi!")
+                // alert("Xong rồi!")
                 setFillCircle(fillCircle - 100)
                 setValueStatus('');
             }
@@ -116,9 +120,9 @@ export default function checkCamera() {
         <View style={styles.container}>
             {/* <Image
                 style={{ width: '50%', height: '50%' }}
-                source={{ uri: "data:image/image/png;base64,"+image }} /> */}
+                source={{ uri: "data:image/image/png;base64," + image }} /> */}
             <Camera style={styles.camera} type={type} ref={ref}
-                onFacesDetected={handleFacesDetected}
+                // onFacesDetected={handleFacesDetected}
                 faceDetectorSettings={{
                     mode: FaceDetector.FaceDetectorMode.accurate,
                     detectLandmarks: FaceDetector.FaceDetectorLandmarks.all,
@@ -139,13 +143,20 @@ export default function checkCamera() {
                         }}>
                         <Text style={styles.text}> Flip </Text>
                     </TouchableOpacity>
-                    <AnimatedCircularProgress
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            takePhoto();
+                        }}>
+                        <Text style={styles.text}> Capture </Text>
+                    </TouchableOpacity>
+                    {/* <AnimatedCircularProgress
                         size={400}
                         width={7}
                         fill={fillCircle}
                         tintColor="#00e0ff"
-                        onAnimationComplete={() => console.log('onAnimationComplete')}
-                        backgroundColor="#3d5875" />
+                        // onAnimationComplete={() => console.log('onAnimationComplete')}
+                        backgroundColor="#3d5875" /> */}
                 </View>
             </Camera>
         </View>

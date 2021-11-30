@@ -30,18 +30,7 @@ class ThongTinCaNhan extends React.Component {
             User: [],
         }
     }
-    imageHandler = (e) => {
-        let files = e.target.files;
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = (e) => {
-            this.setState({ Hinhanh: e.target.result })
-        }
-    };
 
-    handleFiles = (files) => {
-        console.log(files.base64)
-    }
     async getInfoEmployee(ID) {
         const res = await Axios.get('Employee/GetEmployeeByID?ID=' + ID);
         return res.data;
@@ -63,11 +52,7 @@ class ThongTinCaNhan extends React.Component {
             })
         });
     }
-    updateInputVal = (val, prop) => {
-        const state = this.state;
-        state[prop] = val;
-        this.setState(state);
-    }
+
     renderThongTinCN = () => {
         const { navigation } = this.props;
         return (
