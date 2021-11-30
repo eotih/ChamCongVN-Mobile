@@ -40,7 +40,7 @@ function ElementsStack(props) {
         component={Elements}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Elements" navigation={navigation} scene={scene} />
+            <Header title="Lịch Sử Chấm Công" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}

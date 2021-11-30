@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 
-import Icon from "./Icon";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import argonTheme from "../constants/Theme";
 
 class DrawerItem extends React.Component {
@@ -13,71 +13,71 @@ class DrawerItem extends React.Component {
       case "Home":
         return (
           <Icon
-            name="shop"
-            family="ArgonExtra"
-            size={14}
+            name="home"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
       case "Lịch Sử Chấm Công":
         return (
           <Icon
-            name="map-big"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.ERROR}
+            name="history"
+            size={18}
+            color="#525F7F"
           />
         );
       case "Chat Phòng Ban":
         return (
           <Icon
-            name="spaceship"
-            family="ArgonExtra"
-            size={14}
+            name="comment"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
       case "Chấm Công":
         return (
           <Icon
-            name="spaceship"
-            family="ArgonExtra"
-            size={14}
+            name="camera"
+            size={18}
+            color={focused ? "white" : argonTheme.COLORS.PRIMARY}
+          />
+        );
+        case "Thông Báo":
+        return (
+          <Icon
+            name="bell"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
       case "Phiếu Yêu Cầu":
         return (
           <Icon
-            name="chart-pie-35"
-            family="ArgonExtra"
-            size={14}
+            name="align-justify"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.WARNING}
           />
         );
-      case "Thông Tin Cá Nhân":
+      case "Base Information":
         return (
           <Icon
-            name="calendar-date"
-            family="ArgonExtra"
-            size={14}
+            name="user"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.INFO}
           />
         );
       case "Quản Lý Báo Cáo":
         return (
           <Icon
-            name="calendar-date"
-            family="ArgonExtra"
-            size={14}
+            name="user-circle"
+            size={18}
             color={focused ? "white" : argonTheme.COLORS.INFO}
           />
         );
       case "Đăng Xuất":
         return (<Icon
-          name="spaceship"
-          family="ArgonExtra"
-          size={14}
+          name="sign-out"
+          size={18}
           color={focused ? "white" : "rgba(0,0,0,0.5)"}
         />);
       case "Log out":

@@ -85,66 +85,69 @@ class ThongTinCaNhan extends React.Component {
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.NickName}
+                                                    NickName: {this.state.NickName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="phone" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.Phone}
+                                                    Số điện thoại: {this.state.Phone}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    {this.state.Gender}
+                                                    Giới tính: {this.state.Gender}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="globe" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.Address}
+                                                    Địa chỉ: {this.state.Address}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.WorkName}
+                                                    Tên công việc: {this.state.WorkName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="calendar" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.GroupName}
+                                                    Nhóm: {this.state.GroupName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="user" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    {this.state.PositionName}
+                                                    Chức vụ: {this.state.PositionName}
                                                 </Text>
                                             </Block>
                                             <Block style={styles.text}>
                                                 <Icon name="briefcase" size={32} color="#00CCCC" />
                                                 <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    {this.state.DepartmentName}
+                                                    Phòng ban: {this.state.DepartmentName}
                                                 </Text>
                                             </Block>
                                         </Block>
                                     </Block>
-                                    <Block style={styles.info}>
-                                        <Block>
-                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile', {Employee: this.state.User})}>
-                                                <Text >Edit thông tin</Text>
+                                    <View style={styles.info}>
+                                        <View>
+                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile', { Employee: this.state.User })}>
+                                                <Text color="white">Edit thông tin</Text>
                                             </TouchableOpacity>
-                                        </Block>
+                                        </View>
+                                        <View style={{ width: 100 }}>
+                                            <Text></Text>
+                                        </View>
 
-                                        <Block>
+                                        <View>
                                             <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
-                                                <Text style={styles.panelButtonTitle}>Đổi mật khẩu</Text>
+                                                <Text color="white">Đổi mật khẩu</Text>
                                             </TouchableOpacity>
-                                        </Block>
-                                    </Block>
+                                        </View>
+                                    </View>
                                 </Block>
                             </ScrollView>
                         </ImageBackground>
@@ -195,9 +198,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         zIndex: 2
     },
-    info: {
-        paddingHorizontal: 40
-    },
     avatarContainer: {
         position: "relative",
         marginTop: -80
@@ -223,6 +223,24 @@ const styles = StyleSheet.create({
         width: "90%",
         borderWidth: 1,
         borderColor: "#E9ECEF"
+    },
+    info: {
+        flexDirection: 'row'
+    },
+    commandButton: {
+        padding: 15,
+        borderRadius: 10,
+        backgroundColor: '#FF6347',
+        alignSelf: 'flex-start',
+        marginTop: 10,
+        alignSelf: 'flex-end',
+    },
+    commandButton1: {
+        padding: 15,
+        borderRadius: 10,
+        backgroundColor: '#00CCFF',
+        marginTop: 10,
+        alignSelf: 'flex-start'
     },
     thumb: {
         borderRadius: 4,
