@@ -15,7 +15,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Chấm Công", 
     "Base Information",  
     "Phiếu Yêu Cầu",
-    "Chat Phòng Ban",
+    "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
@@ -24,7 +24,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Home", 
     "Base Information",  
     "Phiếu Yêu Cầu",
-    "Chat Phòng Ban",
+    "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
@@ -60,7 +60,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {today.getHours() >= 8 && today.getHours() < 16.99 ? (
+          {today.getHours() >= 8 && today.getHours() < 21 ? (
             screens.map((l, i) => {
               return (
                 <DrawerCustomItem

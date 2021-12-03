@@ -109,35 +109,35 @@ class ThongTinCaNhan extends React.Component {
                                                 </Block>
                                             </View>
                                             <View style={styles.card}>
-                                            <Block style={styles.text}>
-                                                <Icon name="calendar" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Tên công việc: {this.state.WorkName}
-                                                </Text>
-                                            </Block>
-                                            <Block style={styles.text}>
-                                                <Icon name="calendar" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Nhóm: {this.state.GroupName}
-                                                </Text>
-                                            </Block>
-                                            <Block style={styles.text}>
-                                                <Icon name="user" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
-                                                    Chức vụ: {this.state.PositionName}
-                                                </Text>
-                                            </Block>
-                                            <Block style={styles.text}>
-                                                <Icon name="briefcase" size={32} color="#00CCCC" />
-                                                <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
-                                                    Phòng ban: {this.state.DepartmentName}
-                                                </Text>
-                                            </Block>
+                                                <Block style={styles.text}>
+                                                    <Icon name="calendar" size={32} color="#00CCCC" />
+                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                        Tên công việc: {this.state.WorkName}
+                                                    </Text>
+                                                </Block>
+                                                <Block style={styles.text}>
+                                                    <Icon name="calendar" size={32} color="#00CCCC" />
+                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                        Nhóm: {this.state.GroupName}
+                                                    </Text>
+                                                </Block>
+                                                <Block style={styles.text}>
+                                                    <Icon name="user" size={32} color="#00CCCC" />
+                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                        Chức vụ: {this.state.PositionName}
+                                                    </Text>
+                                                </Block>
+                                                <Block style={styles.text}>
+                                                    <Icon name="briefcase" size={32} color="#00CCCC" />
+                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                        Phòng ban: {this.state.DepartmentName}
+                                                    </Text>
+                                                </Block>
                                             </View>
-                                            
+
                                         </Block>
                                     </Block>
-                                    <View style={styles.info}>
+                                    <View style={styles.Button}>
                                         <View>
                                             <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile', { Employee: this.state.User })}>
                                                 <Text color="white">Edit thông tin</Text>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         padding: 0,
-        zIndex: 1
+        zIndex: 1,
     },
     profileBackground: {
         width: width,
@@ -203,19 +203,18 @@ const styles = StyleSheet.create({
         zIndex: 2,
         borderWidth: 2
     },
-    card:{
+    card: {
         padding: theme.SIZES.BASE,
         marginHorizontal: theme.SIZES.BASE,
+        marginTop: 65,
+        borderRadius: 12,
         backgroundColor: theme.COLORS.WHITE,
         marginTop: 15,
-        width: width/1.3,
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: 0 },
+        width: width / 1.3,
         shadowRadius: 8,
         shadowOpacity: 0.2,
         zIndex: 2,
         borderWidth: 1,
-        borderColor: "#FF9900",
     },
     avatarContainer: {
         position: "relative",
@@ -243,11 +242,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#E9ECEF"
     },
-    info: {
+    Button: {
         flexDirection: 'row',
-        marginTop: 10,
-        width: width/2,
-        justifyContent:'space-between'
+        justifyContent: 'space-between',
+        marginTop: 20,
+        marginBottom: 20,
+
+
     },
     commandButton: {
         padding: 15,

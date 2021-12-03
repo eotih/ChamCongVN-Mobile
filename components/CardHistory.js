@@ -15,6 +15,7 @@ export default function CardHistory({ data }) {
         moment.locale('en');
         return moment(time).format('LT');
     }
+    // Block filter datetime
     return (
         <ScrollView>
             <Block style={styles.card}>
