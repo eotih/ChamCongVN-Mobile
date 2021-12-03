@@ -9,7 +9,7 @@ const data = [
             Device: "Iphone 10 ProMax",
             Latitude: "10.87909",
             Longitude: "106.78889",
-            CreatedDate: "12:20",
+            CreatedDate: "2021-12-03 07:00:00.000",
         },
         checkout:
         {
@@ -19,7 +19,7 @@ const data = [
             Device: "Iphone 11 ProMax",
             Latitude: "10.87909",
             Longitude: "106.78889",
-            CreatedDate: "12:20",
+            CreatedDate: "2021-12-03 17:00:00.000",
         },
     },
     {
@@ -32,7 +32,7 @@ const data = [
             Device: "Iphone 10 ProMax",
             Latitude: "10.87909",
             Longitude: "106.78889",
-            CreatedDate: "12:20",
+            CreatedDate: "2021-12-04 07:00:00.000",
         },
         checkout:
         {
@@ -42,7 +42,7 @@ const data = [
             Device: "Iphone 11 ProMax",
             Latitude: "10.87909",
             Longitude: "106.78889",
-            CreatedDate: "12:20",
+            CreatedDate: "2021-12-04 19:00:00.000",
         },
     }
 ];

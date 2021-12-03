@@ -2,25 +2,30 @@ import React from "react";
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-// Argon themed components
-import { argonTheme, tabs } from "../constants";
-import { Button, Select, Icon, Input, Header, Switch } from "../components";
+import moment from 'moment';
 
 export default function CardHistory({ data }) {
     const { checkin, checkout } = data
     const date = new Date()
-    const totalTime = checkout.CreatedDate - checkin.CreatedDate
+    const test = moment(date).format('dddd');
+    const day = moment(date).format('DD');
+    const monthYear = moment(date).format('MMMM YYYY');
+    const totalTime = moment(checkout.CreatedDate).diff(moment(checkin.CreatedDate), 'hours')
+    const getTime = (time) => {
+        moment.locale('en');
+        return moment(time).format('LT');
+    }
     return (
         <ScrollView>
             <Block style={styles.card}>
                 <Block style={styles.cardHeader}>
                     <Block row>
                         <Block style={styles.cardHeaderLeft}>
-                            <Text style={styles.day}>{date.getDate()}</Text>
+                            <Text style={styles.day}>{day}</Text>
                         </Block>
                         <Block style={styles.cardHeaderRight}>
-                            <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
-                            <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
+                            <Text style={styles.cardHeaderText}>{test}</Text>
+                            <Text style={styles.cardHeaderText}>{monthYear}</Text>
                         </Block>
                     </Block>
 
@@ -46,9 +51,9 @@ export default function CardHistory({ data }) {
                             <Text style={styles.cardContentRightTopText}>Device check out:</Text>
                         </Block>
                         <Block style={styles.cardContentRightRight}>
-                            <Text style={styles.cardContentRightTopText}>{checkin.CreatedDate}</Text>
-                            <Text style={styles.cardContentRightTopText}>{checkout.CreatedDate}</Text>
-                            <Text style={styles.cardContentRightTopText}>{totalTime}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkin.CreatedDate)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkout.CreatedDate)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
                             <Text style={styles.cardContentRightTopText}>{checkin.Device}</Text>
                             <Text style={styles.cardContentRightTopText}>{checkout.Device}</Text>
                         </Block>
@@ -74,6 +79,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     cardHeader: {
+        padding: theme.SIZES.BASE - 7,
         borderBottomWidth: 1,
         backgroundColor: 'orange',
         borderColor: '#ddd',
@@ -95,9 +101,10 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     cardHeaderRightRight: {
-        alignSelf:'center',
+        paddingRight: theme.SIZES.BASE,
+        alignSelf: 'center',
     },
-    cardHeaderTextRight:{
+    cardHeaderTextRight: {
         fontSize: 22,
         color: 'white',
     },
@@ -114,8 +121,8 @@ const styles = StyleSheet.create({
         color: '#333'
     },
     cardContentImage: {
-        width: width/5,
-        height:  width/5,
+        width: width / 5,
+        height: width / 5,
         marginVertical: 10,
         marginLeft: 10,
         borderRadius: 62,
@@ -125,6 +132,8 @@ const styles = StyleSheet.create({
     },
     cardContentRight: {
         flex: 1,
+        marginVertical: 10,
+        paddingRight: theme.SIZES.BASE,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
