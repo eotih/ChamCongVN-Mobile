@@ -159,7 +159,7 @@ export default function checkCamera({ navigation: { navigate } }) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     style={{ width: 200, height: 200 }}
-                    source={require('../assets/imgs/logo.png')} />
+                    source={require('../../assets/imgs/logo.png')} />
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Loading...</Text>
             </View>
         );
