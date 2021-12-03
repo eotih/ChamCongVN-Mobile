@@ -14,20 +14,30 @@ export default function CardHistory({ data }) {
         <ScrollView>
             <Block style={styles.card}>
                 <Block style={styles.cardHeader}>
-                    <Block style={styles.cardHeaderLeft}>
-                        <Text style={styles.day}>{date.getDate()}</Text>
+                    <Block row>
+                        <Block style={styles.cardHeaderLeft}>
+                            <Text style={styles.day}>{date.getDate()}</Text>
+                        </Block>
+                        <Block style={styles.cardHeaderRight}>
+                            <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
+                            <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
+                        </Block>
                     </Block>
-                    <Block style={styles.cardHeaderRight}>
-                        <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
-                        <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
+
+                    <Block style={styles.cardHeaderRightRight}>
+                        <Text style={styles.cardHeaderTextRight}>{checkin.Status}</Text>
                     </Block>
                 </Block>
                 <Block style={styles.cardContent}>
                     <Block style={styles.cardContentLeft}>
-                        <Image style={styles.cardContentImage} source={{ uri: checkin.Image }} />
-                        <Image style={styles.cardContentImage} source={{ uri: checkout.Image }} />
+                        <View>
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                        </View>
+                        <View>
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                        </View>
                     </Block>
-                    <Block style={styles.cardContentRight}> 
+                    <Block style={styles.cardContentRight}>
                         <Block style={styles.cardContentRightLeft}>
                             <Text style={styles.cardContentRightTopText}>Giờ chấm công:</Text>
                             <Text style={styles.cardContentRightTopText}>Giờ ra về:</Text>
@@ -46,7 +56,6 @@ export default function CardHistory({ data }) {
                 </Block>
             </Block>
         </ScrollView>
-
     );
 }
 const { width, height } = Dimensions.get('window');
@@ -69,43 +78,35 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         borderColor: '#ddd',
         flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     cardHeaderLeft: {
         paddingLeft: theme.SIZES.BASE,
     },
     day: {
-        fontSize: 36
+        fontSize: 36,
+        color: 'white',
     },
     cardHeaderRight: {
         paddingLeft: theme.SIZES.BASE,
     },
     cardHeaderText: {
-        fontSize: 16
+        fontSize: 16,
+        color: 'white',
     },
-    cardTitle: {
-        fontSize: theme.SIZES.BASE * 1.5,
-        fontWeight: 'bold',
-        color: argonTheme.COLORS.HEADER
+    cardHeaderRightRight: {
+        alignSelf:'center',
     },
-    cardSubtitle: {
-        fontSize: theme.SIZES.BASE,
-        color: argonTheme.COLORS.PRIMARY
+    cardHeaderTextRight:{
+        fontSize: 22,
+        color: 'white',
     },
     cardContent: {
         // Image with content row
         flexDirection: 'row',
-        padding: theme.SIZES.BASE,
         paddingBottom: 0,
         borderBottomWidth: 1,
-        justifyContent: 'space-between',
         borderColor: '#ddd'
-
-    },
-    cardContentLeft: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        paddingHorizontal: theme.SIZES.BASE
     },
     cardContentText: {
         fontSize: 20,
@@ -113,30 +114,32 @@ const styles = StyleSheet.create({
         color: '#333'
     },
     cardContentImage: {
-        width: 124,
-        height: 124,
+        width: width/5,
+        height:  width/5,
+        marginVertical: 10,
+        marginLeft: 10,
         borderRadius: 62,
-        borderWidth: 0
-        
+    },
+    cardContentLeft: {
+        marginVertical: 10,
     },
     cardContentRight: {
         flex: 1,
-        width: width / 2,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: theme.SIZES.BASE
     },
     cardContentRightLeft: {
-
-
-    },
-    cardContentRightRight: {
-        flex: 1,
-        flexDirection: 'column',
+        marginVertical: 20,
         justifyContent: 'space-between',
         paddingHorizontal: theme.SIZES.BASE
     },
+    cardContentRightRight: {
+        marginVertical: 20,
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
+    },
     cardContentRightTopText: {
-        color: '#333'
+        color: '#333',
+        fontSize: 14
     },
 });
