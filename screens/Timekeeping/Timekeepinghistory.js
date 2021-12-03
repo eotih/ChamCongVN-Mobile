@@ -3,19 +3,20 @@ import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } fro
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
-import { argonTheme, tabs } from "../constants/";
-import { Button, Select, Icon, Input, Header, Switch } from "../components/";
-import datatest from "../constants/datatest";
-import CardHistory from "../components/CardHistory"
+import { argonTheme, tabs } from "../../constants";
+import { Button, Select, Icon, Input, Header, Switch } from "../../components";
+import datatest from "../../constants/datatest";
+import CardHistory from "../../components/CardHistory"
 
 const {width, height} = Dimensions.get('window');
 
-class Elements extends React.Component {
+class Timekeepinghistory extends React.Component {
   render() {
     return (<ScrollView>
       {datatest.map(data => <CardHistory
         key={data.Date}
         Date={data.Date}
+        State={data.State}
         image={data.image}
         TimeCheckin={data.TimeCheckin}
         TimeCheckout={data.TimeCheckout}
@@ -82,4 +83,4 @@ const styles = StyleSheet.create({
     marginLeft: width/7
   },
 });
-export default Elements;
+export default Timekeepinghistory;

@@ -9,58 +9,61 @@ import { Button, Select, Icon, Input, Header, Switch } from "../components";
 const { width, height } = Dimensions.get('window');
 
 export default function CardHistory({ Date, State, image, TimeCheckin, TimeCheckout, DeviceCheckin, DeviceCheckout }) {
-    return <ScrollView>
-        <View style={styles.Card}>
-            <View style={styles.Orange}>
-                <Text style={styles.date}>
-                    {Date}
-                </Text>
-                <Text style={styles.typelate}>
-                    {State}
-                </Text>
-            </View>
-            <View middle style={styles.avatarContainer}>
-                <Image
-                    source={{ uri: image }}
-                    style={styles.avatar}
-                />
-                <Block style={styles.details} >
-                    <Text size={18}>
-                        Giờ chấm công:
-                    </Text>
-                    <Text size={18}>
-                        Giờ ra về:
-                    </Text>
-                    <Text size={18}>
-                        Tổng giờ làm:
-                    </Text>
-                    <Text size={18}>
-                        Device check in:
-                    </Text>
-                    <Text size={18} >
-                        Device check out:
-                    </Text>
-                </Block>
-                <Block style={styles.time} >
-                    <Text size={18}>
-                        {TimeCheckin}
-                    </Text >
-                    <Text size={18}>
-                        {TimeCheckout}
-                    </Text >
-                    <Text size={18}>
-                        Time
-                    </Text>
-                    <Text size={18}>
-                        {DeviceCheckin}
-                    </Text>
-                    <Text size={18}>
-                        {DeviceCheckin}
-                    </Text>
-                </Block>
-            </View>
-        </View>
-    </ScrollView>
+        return (
+            <ScrollView>
+                <View style={styles.Card}>
+                    <View style={styles.Orange}>
+                        <Text style={styles.date}>
+                            {Date}
+                        </Text>
+                        <Text style={styles.type}>
+                            {State}
+                        </Text>
+                    </View>
+                    <View middle style={styles.avatarContainer}>
+                        <Image
+                            source={{ uri: image }}
+                            style={styles.avatar}
+                        />
+                        <Block style={styles.details} >
+                            <Text size={18}>
+                                Giờ chấm công:
+                            </Text>
+                            <Text size={18}>
+                                Giờ ra về:
+                            </Text>
+                            <Text size={18}>
+                                Tổng giờ làm:
+                            </Text>
+                            <Text size={18}>
+                                Device check in:
+                            </Text>
+                            <Text size={18} >
+                                Device check out:
+                            </Text>
+                        </Block>
+                        <Block style={styles.time} >
+                            <Text size={18}>
+                                {TimeCheckin}
+                            </Text >
+                            <Text size={18}>
+                                {TimeCheckout}
+                            </Text >
+                            <Text size={18}>
+                                Time
+                            </Text>
+                            <Text size={18}>
+                                {DeviceCheckin}
+                            </Text>
+                            <Text size={18}>
+                                {DeviceCheckin}
+                            </Text>
+                        </Block>
+                    </View>
+                </View>
+            </ScrollView>
+
+        );
 }
 const styles = StyleSheet.create({
     Card: {
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         flexDirection: 'row',
         borderRadius: 6,
-        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     blue: {
         backgroundColor: '#00CCFF',
@@ -93,16 +96,12 @@ const styles = StyleSheet.create({
     },
     type: {
         backgroundColor: 'white',
-        marginLeft: width / 2.2,
-        fontSize: 20
-    },
-    typelate: {
-        backgroundColor: 'white',
-        marginLeft: width / 1.9,
+        justifyContent: 'space-between',
         fontSize: 20
     },
     avatarContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     avatar: {
         width: width / 5,
@@ -111,10 +110,10 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         alignSelf: 'center'
     },
-    details: {
-        marginLeft: width / 25
-    },
-    time: {
-        marginLeft: width / 9
-    },
+    // details: {
+    //     marginLeft: width / 25
+    // },
+    // time: {
+    //     marginLeft: width / 9
+    // },
 });

@@ -14,13 +14,14 @@ import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
+
 // import Profile from "../screens/Profile";
-import checkCamera from "../screens/Camera";
+import checkCamera from "../screens/Timekeeping/Camera"
 import Register from "../screens/Register";
-import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
 // drawer
 import CustomDrawerContent from "./Menu";
+import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
 
 // header for screens
 import { Icon, Header } from "../components";
@@ -32,12 +33,12 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-function ElementsStack(props) {
+function TimekeepinghistoryStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Lịch Sử Chấm Công"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Lịch Sử Chấm Công" navigation={navigation} scene={scene} />
@@ -47,7 +48,7 @@ function ElementsStack(props) {
       />
       <Stack.Screen
         name="Elements"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -262,7 +263,7 @@ function HomeStack(props) {
       />
       <Stack.Screen
         name="Elements"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -280,7 +281,39 @@ function HomeStack(props) {
     </Stack.Navigator>
   );
 }
-
+// function EmplyeedetectionStack(props) {
+//   return (
+//     <Stack.Navigator mode="card" headerMode="screen">
+//       <Stack.Screen
+//         name="Thông Báo Chấm Công"
+//         component={Emplyeedetection}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header title="Thông Báo Chấm Công" navigation={navigation} scene={scene} />
+//           ),
+//           cardStyle: { backgroundColor: "#F8F9FE" }
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Elements"
+//         component={Timekeepinghistory}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header
+//               title=""
+//               back
+//               white
+//               transparent
+//               navigation={navigation}
+//               scene={scene}
+//             />
+//           ),
+//           headerTransparent: true
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
@@ -333,8 +366,9 @@ function AppStack(props) {
       <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
       <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
-      <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
+      <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={ProfileStackkk} />
+      
     </Drawer.Navigator>
   );
 }

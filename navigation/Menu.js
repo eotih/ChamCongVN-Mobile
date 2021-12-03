@@ -20,6 +20,17 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Lịch Sử Chấm Công",
     "Thông Báo",
   ];
+  const screens2 = [
+    "Home", 
+    "Base Information",  
+    "Phiếu Yêu Cầu",
+    "Chat Phòng Ban",
+    "Quản Lý Báo Cáo",
+    "Lịch Sử Chấm Công",
+    "Thông Báo",
+  ];
+    //get current date time
+    var today = new Date();
   return (
     <Block
       style={styles.container}
@@ -44,22 +55,35 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
               Phòng ban:
             </Text>
           </Block>
-
         </Block>
         <Image styles={styles.logo} source={Images.ArgonLogo} />
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {screens.map((item, index) => {
-            return (
-              <DrawerCustomItem
-                title={item}
-                key={index}
-                navigation={navigation}
-                focused={state.index === index ? true : false}
-              />
-            );
-          })}
+          {today.getHours() >= 8 && today.getHours() <= 17 ? (
+            screens.map((l, i) => {
+              return (
+                <DrawerCustomItem
+                  key={i}
+                  title={l}
+                  navigation={navigation}
+                  focused={state.index === i ? true : false}
+                />
+              );
+            })
+          ) : (
+            screens2.map((l, i) => {
+              return (
+                <DrawerCustomItem
+                  key={i}
+                  title={l}
+                  navigation={navigation}
+                  focused={state.index === i ? true : false}
+                />
+              );
+            })
+          )}
+          
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
             <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
             <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>DOCUMENTATION</Text>
@@ -70,7 +94,6 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     </Block>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +110,7 @@ const styles = StyleSheet.create({
     borderWidth: 0
   },
   all: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   text: {
     fontSize: 16,
@@ -102,8 +125,8 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
-    paddingTop: theme.SIZES.BASE * 3,
-    justifyContent: 'center'
+    paddingTop: theme.SIZES.BASE * 5,
+    justifyContent: "center"
   }
 });
 
