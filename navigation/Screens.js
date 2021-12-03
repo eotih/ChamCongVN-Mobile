@@ -169,38 +169,38 @@ function NguoiDungStack(props) {
   );
 }
 function checkCameraStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Chấm Công"
-        component={checkCamera}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Check-in/out" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-      <Stack.Screen
-        name="checkCameraaa"
-        component={checkCamera}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
-  );
+    return (
+      <Stack.Navigator mode="card" headerMode="screen">
+        <Stack.Screen
+          name="Chấm Công"
+          component={checkCamera}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Check-in/out" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" }
+          }}
+        />
+        <Stack.Screen
+          name="checkCameraaa"
+          component={checkCamera}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header
+                title=""
+                back
+                white
+                transparent
+                navigation={navigation}
+                scene={scene}
+              />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+            headerTransparent: true
+          }}
+        />
+      </Stack.Navigator>
+    );
 }
 function ProfileStackkk(props) {
   return (

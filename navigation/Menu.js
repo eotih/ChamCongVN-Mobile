@@ -60,7 +60,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {today.getHours() >= 8 && today.getHours() <= 17 ? (
+          {today.getHours() >= 8 && today.getHours() < 16.99 ? (
             screens.map((l, i) => {
               return (
                 <DrawerCustomItem

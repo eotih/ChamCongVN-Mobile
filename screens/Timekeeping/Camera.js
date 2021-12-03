@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     Button,
     Dimensions,
+    ActivityIndicator,
     StyleSheet,
     Text,
     Image,
@@ -12,9 +13,9 @@ import {
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
+import * as Network from 'expo-network';
 import publicIP from 'react-native-public-ip';
 import * as FaceDetector from 'expo-face-detector';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaskedView from "@react-native-community/masked-view"
@@ -25,6 +26,7 @@ import { Card } from 'galio-framework';
 export default function checkCamera({ navigation: { navigate } }) {
     const [valueStatus, setValueStatus] = useState('');
     const [hasPermission, setHasPermission] = useState(null);
+    const [type, setType] = useState(Camera.Constants.Type.front);
     const [deviceInfo, setDeviceInfo] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
@@ -41,7 +43,6 @@ export default function checkCamera({ navigation: { navigate } }) {
         getPermissionLocationAsync();
         getPublicIP();
         getDeviceInfo();
-        setImage('');
         getLocationInfo();
         setLoading(true);
     }, [valueStatus]);
@@ -105,19 +106,18 @@ export default function checkCamera({ navigation: { navigate } }) {
             }
         })
         const { name } = res.data;
-        if (name !== "Unknown") {
+        if (name!== "Unknown") {
             getInfoEmployee(name)
             setModalVisible(true)
             setLoading(true)
         }
         else {
-            setLoading(true)
             setModalVisible(false)
             setImage('')
             setFillCircle(0)
             alert('Không tìm thấy nhân viên')
             navigate('Home');
-
+            
         }
     }
     const handleFacesDetected = ({ faces }) => {
@@ -159,7 +159,7 @@ export default function checkCamera({ navigation: { navigate } }) {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     style={{ width: 200, height: 200 }}
-                    source={require('../../assets/imgs/logo.png')} />
+                    source={require('../assets/imgs/logo.png')} />
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Loading...</Text>
             </View>
         );
@@ -209,23 +209,14 @@ export default function checkCamera({ navigation: { navigate } }) {
                         <Card
                             style={styles.cardPopUp}
                         >
-
-                            <View style={styles.cardPopUp}>
-                                <View style={styles.check}>
-                                    <Icon name="check" size={48} color="#00FF00" />
-                                    <Text style={{ fontSize: 22 }}>Congrats!</Text>
-                                    <Text style={{ fontSize: 18 }}>Chúc một ngày làm việc tốt lành</Text>
-                                </View>
+                            <View style={styles.viewPopUp}>
                                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Thông tin nhân viên</Text>
                                 <View style={styles.viewTextDisplay}>
-                                    <Text style={styles.textPopUp}>TÊN NHÂN VIÊN: 
-                                        <Text style={{ fontSize: 22, fontWeight: 'bold' }}> {emp.Employee.FullName}
-                                        </Text>
-                                    </Text>
-                                    <Text style={styles.textPopUp}>PHÒNG BAN: 
-                                        <Text style={{ fontSize: 22, fontWeight: 'bold' }}> {emp.DepartmentName}
-                                        </Text>
-                                    </Text>
+                                    <Text style={styles.textPopUp}>Mã nhân viên: {emp.Employee.EmployeeID}</Text>
+                                    <Text style={styles.textPopUp}>Tên nhân viên: {emp.Employee.FullName}</Text>
+                                    <Text style={styles.textPopUp}>Vị trí: {emp.PositionName}</Text>
+                                    <Text style={styles.textPopUp}>Chức vụ: {emp.PositionName}</Text>
+                                    <Text style={styles.textPopUp}>Ngày vào làm: {emp.Employee.StartDate}</Text>
                                 </View>
                                 <TouchableOpacity
                                     style={styles.buttonPopUp}
@@ -260,18 +251,23 @@ const PREVIEW_RECT = {
 }
 const styles = StyleSheet.create({
     // get window width
-    check: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: -20,
-        marginBottom: 20
-    },
     cardPopUp: {
         width: windowWidth,
-        height: PREVIEW_SIZE,
+        height: windowHeight / 5,
         backgroundColor: '#ffebcf',
         borderRadius: 20,
+        padding: 10,
+        margin: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    viewPopUp: {
+        width: windowWidth,
+        height: windowHeight / 2,
+        backgroundColor: '#ffebcf',
+        borderRadius: 20,
+        padding: 10,
+        margin: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
