@@ -19,6 +19,7 @@ import checkCamera from "../screens/Camera";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
+import Notification from "../screens/Notification"
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -201,12 +202,12 @@ function checkCameraStack(props) {
     </Stack.Navigator>
   );
 }
-function ProfileStackkk(props) {
+function NotificationStackkk(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
         name="Thông Báo"
-        component={Profile}
+        component={Notification}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -334,7 +335,7 @@ function AppStack(props) {
       <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
-      <Drawer.Screen name="Thông Báo" component={ProfileStackkk} />
+      <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
     </Drawer.Navigator>
   );
 }

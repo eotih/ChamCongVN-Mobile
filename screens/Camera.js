@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     Button,
     Dimensions,
+    ActivityIndicator,
     StyleSheet,
     Text,
     Image,
     TouchableOpacity,
+    Modal,
     View
 } from 'react-native';
 import * as Device from 'expo-device';
@@ -14,9 +16,11 @@ import { Camera } from 'expo-camera';
 import * as Network from 'expo-network';
 import publicIP from 'react-native-public-ip';
 import * as FaceDetector from 'expo-face-detector';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MaskedView from "@react-native-community/masked-view"
 import axios from 'axios';
+import { Card } from 'galio-framework';
 
 
 export default function checkCamera() {
@@ -26,7 +30,10 @@ export default function checkCamera() {
     const [deviceInfo, setDeviceInfo] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [IP, setPublicIP] = useState('');
+    const [name, setName] = useState('');
     const [fillCircle, setFillCircle] = useState(0);
     const [image, setImage] = useState('');
     const ref = useRef(null)
@@ -37,6 +44,7 @@ export default function checkCamera() {
         getPublicIP();
         getDeviceInfo();
         getLocationInfo();
+        setLoading(true);
     }, [valueStatus]);
 
     const getPermissionLocationAsync = async () => {
@@ -75,38 +83,50 @@ export default function checkCamera() {
             const data = await ref.current.takePictureAsync(options);
             const source = data.base64;
             setImage(source);
-            goToTheMoon(source);
-            console.log("----------------------------------------  LOADING ----------------------------------------  ")
+            const response = {
+                Latitude: latitude,
+                Longitude: longitude,
+                PublicIP: IP,
+                Device: deviceInfo,
+                Image: source,
+            };
+            goToTheMoon(response);
         }
     }
     const goToTheMoon = async (object) => {
-        const res = await axios.post('http://localhost:11111/HandleSendToPython', object, {
+        const res = await axios.post('http://192.168.1.7:45455/HandleSendToPython', object, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         const { name, base64 } = res.data;
-        console.log("Nhân viên : " + name);
-        console.log("----------------------------------------  DONE ----------------------------------------  ")
+        { name ? setModalVisible(true) : setModalVisible(false) }
+        { name ? setLoading(true) : setLoading(false) }
+        setName(name);
     }
     const handleFacesDetected = ({ faces }) => {
-        if (faces.length > 0) {
-            setFillCircle(fillCircle + 20)
-            if (fillCircle === 100) {
-                const response = {
-                    Latitude: latitude,
-                    Longitude: longitude,
-                    PublicIP: IP,
-                    Device: deviceInfo,
-                    Image: image,
-                };
-                goToTheMoon(response);
-                // alert("Xong rồi!")
-                setFillCircle(fillCircle - 100)
-                setValueStatus('');
+        if (faces.length !== 1) {
+            return;
+        }
+        const face = faces[0];
+        // Check if face in circle setFillCircle(fillCircle + 10)
+        const { bounds } = face;
+        const { origin, size } = bounds;
+        const { x, y, width, height } = origin;
+        const { width: faceWidth, height: faceHeight } = size;
+        const centerX = x + faceWidth / 2;
+        const centerY = y + faceHeight / 2;
+        const radius = Dimensions.get("window").width / 2;
+        const isInCircle = (centerX - radius) ** 2 + (centerY - radius) ** 2 < radius ** 2;
+        if (isInCircle) {
+            setFillCircle(fillCircle + 10)
+            if (fillCircle < 10) {
+                takePhoto();
+            }
+            if (fillCircle > 100) {
+                setLoading(false);
             }
         }
-        // console.log(faces);
     };
 
     if (hasPermission === null) {
@@ -116,73 +136,150 @@ export default function checkCamera() {
         return <Button title="Click vào đây để bật máy ảnh" onPress={() => setValueStatus('granted')} />;
     }
 
+    if (!loading) {
+        return (
+            // set loading in center of screen
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                    style={{ width: 200, height: 200 }}
+                    source={require('../assets/imgs/logo.png')} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Loading...</Text>
+            </View>
+        );
+    }
     return (
-        <View style={styles.container}>
-            {/* <Image
-                style={{ width: '50%', height: '50%' }}
-                source={{ uri: "data:image/image/png;base64," + image }} /> */}
-            <Camera style={styles.camera} type={type} ref={ref}
-                // onFacesDetected={handleFacesDetected}
-                faceDetectorSettings={{
-                    mode: FaceDetector.FaceDetectorMode.accurate,
-                    detectLandmarks: FaceDetector.FaceDetectorLandmarks.all,
-                    runClassifications: FaceDetector.FaceDetectorClassifications.all,
-                    minDetectionInterval: 300,
-                    tracking: true,
-                }}
+        <SafeAreaView style={StyleSheet.absoluteFill}>
+            <MaskedView
+                style={StyleSheet.absoluteFill}
+                maskElement={<View style={styles.mask} />}
             >
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.front
-                                    ? Camera.Constants.Type.back
-                                    : Camera.Constants.Type.front
-                            );
-                        }}>
-                        <Text style={styles.text}> Flip </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            takePhoto();
-                        }}>
-                        <Text style={styles.text}> Capture </Text>
-                    </TouchableOpacity>
-                    {/* <AnimatedCircularProgress
-                        size={400}
-                        width={7}
+                <Camera
+                    style={StyleSheet.absoluteFill}
+                    ref={ref}
+                    type={Camera.Constants.Type.front}
+                    onFacesDetected={handleFacesDetected}
+                    faceDetectorSettings={{
+                        mode: FaceDetector.Constants.Mode.fast, // ignore faces in the background
+                        detectLandmarks: FaceDetector.Constants.Landmarks.none,
+                        runClassifications: FaceDetector.Constants.Classifications.all,
+                        minDetectionInterval: 125,
+                        tracking: false
+                    }}
+                >
+                    <AnimatedCircularProgress
+                        style={styles.circularProgress}
                         fill={fillCircle}
-                        tintColor="#00e0ff"
-                        // onAnimationComplete={() => console.log('onAnimationComplete')}
-                        backgroundColor="#3d5875" /> */}
+                        size={PREVIEW_SIZE}
+                        width={10}
+                        backgroundWidth={7}
+                        tintColor="#fea621"
+                        backgroundColor="#e8e8e8"
+                    />
+                </Camera>
+            </MaskedView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.instructionsContainer}>
+                    <Card
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#ffebcf',
+                            borderRadius: 20,
+                            padding: 10,
+                            margin: 10,
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <View style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#ffebcf',
+                            borderRadius: 10,
+                            padding: 10,
+                            margin: 10,
+                            alignItems: 'center',
+                        }}>
+
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Thông tin nhân viên</Text>
+                            <Text style={styles.text}>{name}</Text>
+                            <Text style={styles.text}>Nhân viên</Text>
+                            <Text style={styles.text}>Mã nhân viên: 123456789</Text>
+                            <Text style={styles.text}>Mã nhân viên: 123456789</Text>
+                            <TouchableOpacity
+                                style={{
+                                    width: '100%',
+                                    height: 50,
+                                    backgroundColor: '#fea621',
+                                    borderRadius: 10,
+                                    marginTop: 70,
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible)
+                                }}
+                            >
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>Xác nhận</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </Card>
+
                 </View>
-            </Camera>
-        </View>
+            </Modal>
+        </SafeAreaView>
     );
 }
 
+const { width: windowWidth } = Dimensions.get("window")
+const PREVIEW_SIZE = windowWidth * 0.9
+const PREVIEW_RECT = {
+    minX: (windowWidth - PREVIEW_SIZE) / 2,
+    minY: (windowWidth - PREVIEW_SIZE) / 2,
+    maxX: (windowWidth + PREVIEW_SIZE) / 2,
+    maxY: (windowWidth + PREVIEW_SIZE) / 2,
+    width: PREVIEW_SIZE,
+    height: PREVIEW_SIZE
+}
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    mask: {
+        borderRadius: PREVIEW_SIZE / 2,
+        height: PREVIEW_SIZE,
+        width: PREVIEW_SIZE,
+        marginTop: PREVIEW_RECT.minY,
+        alignSelf: "center",
+        backgroundColor: "white"
     },
-    camera: {
-        flex: 1,
+    circularProgress: {
+        position: "absolute",
+        top: PREVIEW_RECT.minY,
+        left: PREVIEW_RECT.minX,
+        width: PREVIEW_SIZE,
+        height: PREVIEW_SIZE,
+        alignSelf: "center"
     },
-    buttonContainer: {
+    instructionsContainer: {
         flex: 1,
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        margin: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: PREVIEW_RECT.minY + PREVIEW_SIZE
     },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
+    image: {
+        width: PREVIEW_SIZE,
+        height: PREVIEW_SIZE,
+        marginTop: PREVIEW_RECT.minY,
     },
     text: {
-        fontSize: 18,
-        color: 'white',
+        fontSize: 20,
+        textAlign: "center",
+        margin: 10,
+        color: "#333333",
+        marginBottom: 5,
     },
-});
+
+})

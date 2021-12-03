@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "sounds": ["./assets/soundthongbao.wav"]
+        }
+      ]
+    ],
     "name": "Argon FREE React Native",
     "slug": "argon-free-react-native",
     "privacy": "public",
