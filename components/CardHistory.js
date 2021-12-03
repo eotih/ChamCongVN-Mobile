@@ -9,26 +9,42 @@ import { Button, Select, Icon, Input, Header, Switch } from "../components";
 export default function CardHistory({ data }) {
     const { checkin, checkout } = data
     const date = new Date()
-    const today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+    const totalTime = checkout.CreatedDate - checkin.CreatedDate
 
     return (
         <ScrollView>
-            <Block style={styles.card}>
-                <Block style={styles.cardHeader}>
-                    <Block style={styles.cardHeaderLeft}>
-                        <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
+            <Block flex>
+
+                <Block style={styles.card}>
+                    <Block style={styles.cardHeader}>
+                        <Block style={styles.cardHeaderLeft}>
+                            <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
+                        </Block>
+                        <Block style={styles.cardHeaderRight}>
+                            <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
+                            <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
+                        </Block>
                     </Block>
-                    <Block style={styles.cardHeaderRight}>
-                        <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
-                        <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
-                    </Block>
-                </Block>
-                <Block style={styles.cardContent}>
-                    <Block style={styles.cardContentRow}>
-                        <Image source={{ uri: checkin.image }} style={styles.cardContentImage} />
-                        <Block style={styles.cardContentText}>
-                            <Text style={styles.cardContentTextTitle}>{checkin.Name}</Text>
-                            <Text style={styles.cardContentTextSubtitle}>{checkin.Email}</Text>
+                    <Block style={styles.cardContent}>
+                        <Block style={styles.cardContentLeft}>
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                            <Image style={styles.cardContentImage} source={{ uri: checkout.Hinhanh }} />
+                        </Block>
+                        <Block style={styles.cardContentRight}>
+                            <Block style={styles.cardContentRightLeft}>
+                                <Text style={styles.cardContentRightTopText}>Giờ chấm công:</Text>
+                                <Text style={styles.cardContentRightTopText}>Giờ ra về:</Text>
+                                <Text style={styles.cardContentRightTopText}>Tổng giờ làm:</Text>
+                                <Text style={styles.cardContentRightTopText}>Device check in:</Text>
+                                <Text style={styles.cardContentRightTopText}>Device check out:</Text>
+                            </Block>
+                            <Block style={styles.cardContentRightRight}>
+                                <Text style={styles.cardContentRightTopText}>{checkin.CreatedDate}</Text>
+                                <Text style={styles.cardContentRightTopText}>{checkout.CreatedDate}</Text>
+                                <Text style={styles.cardContentRightTopText}>{totalTime}</Text>
+                                <Text style={styles.cardContentRightTopText}>{checkin.Device}</Text>
+                                <Text style={styles.cardContentRightTopText}>{checkout.Device}</Text>
+                            </Block>
                         </Block>
                     </Block>
                 </Block>
@@ -72,20 +88,53 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingRight: theme.SIZES.BASE
     },
-    cardTitle: {
-        fontSize: theme.SIZES.BASE * 1.5,
-        fontWeight: 'bold',
-        color: argonTheme.COLORS.HEADER
-    },
-    cardSubtitle: {
-        fontSize: theme.SIZES.BASE,
-        color: argonTheme.COLORS.PRIMARY
-    },
     cardContent: {
-        paddingVertical: theme.SIZES.BASE * 2,
-        paddingHorizontal: theme.SIZES.BASE * 2,
-        height: height * 0.5,
-        justifyContent: 'center',
-        alignItems: 'center'
+        // Image with content row
+        flexDirection: 'row',
+        padding: theme.SIZES.BASE,
+        paddingBottom: 0,
+        borderBottomWidth: 1,
+        justifyContent: 'space-between',
+        borderColor: '#ddd'
+
+    },
+    cardContentLeft: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.SIZES.BASE
+    },
+    cardContentText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333'
+    },
+    cardContentImage: {
+        width: width / 5,
+        height: height / 5,
+        borderRadius: 20,
+        marginVertical: theme.SIZES.BASE / 2,
+        marginHorizontal: theme.SIZES.BASE / 2
+        
+    },
+    cardContentRight: {
+        flex: 1,
+        width: width / 2,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.SIZES.BASE
+    },
+    cardContentRightLeft: {
+
+
+    },
+    cardContentRightRight: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.SIZES.BASE
+    },
+    cardContentRightTopText: {
+        color: '#333'
     },
 });
