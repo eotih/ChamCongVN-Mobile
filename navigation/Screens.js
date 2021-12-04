@@ -4,7 +4,6 @@ import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { Block } from "galio-framework";
 
 // screens
@@ -14,14 +13,15 @@ import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
+
 // import Profile from "../screens/Profile";
-import checkCamera from "../screens/Camera";
+import checkCamera from "../screens/Timekeeping/Camera"
 import Register from "../screens/Register";
-import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
 // drawer
 import CustomDrawerContent from "./Menu";
+import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
 
 // header for screens
 import { Icon, Header } from "../components";
@@ -33,12 +33,12 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-function ElementsStack(props) {
+function TimekeepinghistoryStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Lịch Sử Chấm Công"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Lịch Sử Chấm Công" navigation={navigation} scene={scene} />
@@ -48,7 +48,7 @@ function ElementsStack(props) {
       />
       <Stack.Screen
         name="Elements"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -169,38 +169,38 @@ function NguoiDungStack(props) {
   );
 }
 function checkCameraStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Chấm Công"
-        component={checkCamera}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Check-in/out" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-      <Stack.Screen
-        name="checkCameraaa"
-        component={checkCamera}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
-  );
+    return (
+      <Stack.Navigator mode="card" headerMode="screen">
+        <Stack.Screen
+          name="Chấm Công"
+          component={checkCamera}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Check-in/out" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" }
+          }}
+        />
+        <Stack.Screen
+          name="checkCameraaa"
+          component={checkCamera}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header
+                title=""
+                back
+                white
+                transparent
+                navigation={navigation}
+                scene={scene}
+              />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+            headerTransparent: true
+          }}
+        />
+      </Stack.Navigator>
+    );
 }
 function NotificationStackkk(props) {
   return (
@@ -213,7 +213,7 @@ function NotificationStackkk(props) {
             <Header
               transparent
               white
-              title="Profile"
+              title="Notification"
               navigation={navigation}
               scene={scene}
             />
@@ -263,7 +263,7 @@ function HomeStack(props) {
       />
       <Stack.Screen
         name="Elements"
-        component={Elements}
+        component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -281,7 +281,39 @@ function HomeStack(props) {
     </Stack.Navigator>
   );
 }
-
+// function EmplyeedetectionStack(props) {
+//   return (
+//     <Stack.Navigator mode="card" headerMode="screen">
+//       <Stack.Screen
+//         name="Thông Báo Chấm Công"
+//         component={Emplyeedetection}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header title="Thông Báo Chấm Công" navigation={navigation} scene={scene} />
+//           ),
+//           cardStyle: { backgroundColor: "#F8F9FE" }
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Elements"
+//         component={Timekeepinghistory}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header
+//               title=""
+//               back
+//               white
+//               transparent
+//               navigation={navigation}
+//               scene={scene}
+//             />
+//           ),
+//           headerTransparent: true
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
@@ -334,8 +366,9 @@ function AppStack(props) {
       <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
       <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
-      <Drawer.Screen name="Lịch Sử Chấm Công" component={ElementsStack} />
+      <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
+      
     </Drawer.Navigator>
   );
 }

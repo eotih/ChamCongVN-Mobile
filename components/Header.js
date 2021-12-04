@@ -22,6 +22,16 @@ const BellButton = ({isWhite, style, navigation}) => (
     <Block middle style={styles.notify} />
   </TouchableOpacity>
 );
+const CalendarButton = ({isWhite, style, navigation}) => (
+  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
+    <Icon
+      size={16}
+      name="calendar"
+      color="#00CCCC"
+    />
+    <Block middle style={styles.notify} />
+  </TouchableOpacity>
+);
 
 const BasketButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
@@ -86,10 +96,9 @@ class Header extends React.Component {
           <BellButton key='chat-profile' navigation={navigation} isWhite={white} />,
           <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
         ]);
-      case 'Product':
+      case 'Notification':
         return ([
-          <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-product' navigation={navigation} isWhite={white} />
+          <CalendarButton key='search-product' navigation={navigation} isWhite={white} />,
         ]);
       case 'Search':
         return ([
