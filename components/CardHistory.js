@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-import moment from 'moment';
+import moment from "moment";
 
 export default function CardHistory({ data }) {
     const { checkin, checkout } = data

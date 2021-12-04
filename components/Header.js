@@ -3,7 +3,7 @@ import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
-import Icon from './Icon';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Input from './Input';
 import Tabs from './Tabs';
 import argonTheme from '../constants/Theme';
@@ -14,7 +14,6 @@ const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 
 const BellButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
-      family="ArgonExtra"
       size={16}
       name="bell"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
@@ -22,13 +21,21 @@ const BellButton = ({isWhite, style, navigation}) => (
     <Block middle style={styles.notify} />
   </TouchableOpacity>
 );
-
+const Filter = ({isWhite, style, navigation}) => (
+  <TouchableOpacity style={[styles.button, style]} >
+    <Icon
+      size={26}
+      name="filter"
+      color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
+      color="orange"
+    />
+  </TouchableOpacity>
+);
 const BasketButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
-      family="ArgonExtra"
       size={16}
-      name="basket"
+      name="shopping-basket"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
   </TouchableOpacity>
@@ -38,8 +45,7 @@ const SearchButton = ({isWhite, style, navigation}) => (
   <TextInput style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
-      family="Galio"
-      name="search-zoom-in"
+      name="search"
       color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
   </TextInput>
@@ -70,6 +76,10 @@ class Header extends React.Component {
         return ([
           <BellButton key='chat-categories' navigation={navigation} />,
           <BasketButton key='basket-categories' navigation={navigation} />
+        ]);
+        case 'Lịch Sử Chấm Công':
+        return ([
+          <Filter key='Filter' navigation={navigation} />
         ]);
       case 'Categories':
         return ([
@@ -132,7 +142,7 @@ class Header extends React.Component {
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
           <Block row middle>
-            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
+            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Fashion'}</Text>
           </Block>
         </Button>
@@ -164,7 +174,7 @@ class Header extends React.Component {
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('MatKhau',  {MaND: 'A3'})}>
           <Block row middle>
-            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }}  color={argonTheme.COLORS.ICON} />
+            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }}  color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Edit Mật Khẩu'}</Text>
           </Block>
         </Button>
@@ -172,8 +182,8 @@ class Header extends React.Component {
     );
   }
   renderHeader = () => {
-    const { search, options, tabs, ThongTin } = this.props;
-    if (search || tabs || options || ThongTin) {
+    const { search, options, tabs, ThongTin, Timekeeping } = this.props;
+    if (search || tabs || options || ThongTin || Timekeeping) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
@@ -209,7 +219,7 @@ class Header extends React.Component {
           rightStyle={{ alignItems: 'center' }}
           left={
             <Icon 
-              name={back ? 'chevron-left' : "menu"} family="entypo" 
+              name={back ? 'chevron-left' : "bars"} family="entypo" 
               size={20} onPress={this.handleLeftPress} 
               color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
               style={{ marginTop: 2 }}
