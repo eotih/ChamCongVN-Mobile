@@ -6,16 +6,15 @@ import moment from 'moment';
 
 export default function CardHistory({ data }) {
     const { checkin, checkout } = data
-    const date = new Date()
+    const date = new Date(checkin.CreatedAt)
     const test = moment(date).format('dddd');
     const day = moment(date).format('DD');
     const monthYear = moment(date).format('MMMM YYYY');
-    const totalTime = moment(checkout.CreatedDate).diff(moment(checkin.CreatedDate), 'hours')
+    const totalTime = moment(checkout.CreatedAt).diff(moment(checkin.CreatedAt), 'hours')
     const getTime = (time) => {
         moment.locale('en');
         return moment(time).format('LT');
     }
-    // Block filter datetime
     return (
         <ScrollView>
             <Block style={styles.card}>
@@ -37,10 +36,10 @@ export default function CardHistory({ data }) {
                 <Block style={styles.cardContent}>
                     <Block style={styles.cardContentLeft}>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Image }} />
                         </View>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                            <Image style={styles.cardContentImage} source={{ uri: checkout.Image }} />
                         </View>
                     </Block>
                     <Block style={styles.cardContentRight}>
@@ -52,8 +51,8 @@ export default function CardHistory({ data }) {
                             <Text style={styles.cardContentRightTopText}>Device check out:</Text>
                         </Block>
                         <Block style={styles.cardContentRightRight}>
-                            <Text style={styles.cardContentRightTopText}>{getTime(checkin.CreatedDate)}</Text>
-                            <Text style={styles.cardContentRightTopText}>{getTime(checkout.CreatedDate)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkin.CreatedAt)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkout.CreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
                             <Text style={styles.cardContentRightTopText}>{checkin.Device}</Text>
                             <Text style={styles.cardContentRightTopText}>{checkout.Device}</Text>

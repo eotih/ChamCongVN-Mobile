@@ -21,7 +21,7 @@ import Register from "../screens/Register";
 import Articles from "../screens/Articles";
 // drawer
 import CustomDrawerContent from "./Menu";
-import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
+import Timekeepinghistory from "../screens/Timekeeping/TimekeepingHistory";
 
 // header for screens
 import { Icon, Header } from "../components";

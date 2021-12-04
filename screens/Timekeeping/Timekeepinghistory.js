@@ -1,14 +1,27 @@
 import React from "react";
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
-import data from "../../constants/datatest";
+import { GetAllTimeKeepingByEmployeeID } from "../../functions/TimeKeeper";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import CardHistory from "../../components/CardHistory"
 
 class TimekeepingHistory extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      Time: [],
+    }
+  }
+  componentDidMount() {
+    GetAllTimeKeepingByEmployeeID(1).then(res => {
+      this.setState({
+        Time: res
+      })
+    })
+  }
   render() {
     return (<ScrollView>
-      {data.map(data => <CardHistory
-        key={data.id}
+      {this.state.Time.map(data => <CardHistory
+        key={data.$id}
         data={data}
       />)}
     </ScrollView>
