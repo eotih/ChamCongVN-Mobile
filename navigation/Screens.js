@@ -318,7 +318,7 @@ export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
-        name="Chat Phòng Ban"
+        name="Quản Lý Đơn Từ"
         component={Onboarding}
         option={{
           headerTransparent: true
@@ -364,7 +364,7 @@ function AppStack(props) {
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Base Information" component={ProfileStack} />
       <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
-      <Drawer.Screen name="Chat Phòng Ban" component={OnboardingStack} />
+      <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />

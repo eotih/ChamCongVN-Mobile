@@ -15,7 +15,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Chấm Công", 
     "Base Information",  
     "Phiếu Yêu Cầu",
-    "Chat Phòng Ban",
+    "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
@@ -24,7 +24,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Home", 
     "Base Information",  
     "Phiếu Yêu Cầu",
-    "Chat Phòng Ban",
+    "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
@@ -60,7 +60,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {today.getHours() >= 8 && today.getHours() < 22 ? (
+          {today.getHours() >= 8 && today.getHours() < 21 ? (
             screens.map((l, i) => {
               return (
                 <DrawerCustomItem
@@ -86,7 +86,6 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
           
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
             <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
-            <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>DOCUMENTATION</Text>
           </Block>
           <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
         </ScrollView>

@@ -26,10 +26,10 @@ class DrawerItem extends React.Component {
             color="#525F7F"
           />
         );
-      case "Chat Phòng Ban":
+      case "Quản Lý Đơn Từ":
         return (
           <Icon
-            name="comment"
+            name="clipboard"
             size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />

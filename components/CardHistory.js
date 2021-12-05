@@ -2,39 +2,66 @@ import React from "react";
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-// Argon themed components
-import { argonTheme, tabs } from "../constants";
-import { Button, Select, Icon, Input, Header, Switch } from "../components";
+import moment from 'moment';
 
 export default function CardHistory({ data }) {
     const { checkin, checkout } = data
     const date = new Date()
-    const today = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-
+    const test = moment(date).format('dddd');
+    const day = moment(date).format('DD');
+    const monthYear = moment(date).format('MMMM YYYY');
+    const totalTime = moment(checkout.CreatedDate).diff(moment(checkin.CreatedDate), 'hours')
+    const getTime = (time) => {
+        moment.locale('en');
+        return moment(time).format('LT');
+    }
+    // Block filter datetime
     return (
         <ScrollView>
             <Block style={styles.card}>
                 <Block style={styles.cardHeader}>
-                    <Block style={styles.cardHeaderLeft}>
-                        <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
+                    <Block row>
+                        <Block style={styles.cardHeaderLeft}>
+                            <Text style={styles.day}>{day}</Text>
+                        </Block>
+                        <Block style={styles.cardHeaderRight}>
+                            <Text style={styles.cardHeaderText}>{test}</Text>
+                            <Text style={styles.cardHeaderText}>{monthYear}</Text>
+                        </Block>
                     </Block>
-                    <Block style={styles.cardHeaderRight}>
-                        <Text style={styles.cardHeaderText}>{date.getDate()}</Text>
-                        <Text style={styles.cardHeaderText}>{(date.getMonth() + 1) + "/" + date.getFullYear()}</Text>
+
+                    <Block style={styles.cardHeaderRightRight}>
+                        <Text style={styles.cardHeaderTextRight}>{checkin.Status}</Text>
                     </Block>
                 </Block>
                 <Block style={styles.cardContent}>
-                    <Block style={styles.cardContentRow}>
-                        <Image source={{ uri: checkin.image }} style={styles.cardContentImage} />
-                        <Block style={styles.cardContentText}>
-                            <Text style={styles.cardContentTextTitle}>{checkin.Name}</Text>
-                            <Text style={styles.cardContentTextSubtitle}>{checkin.Email}</Text>
+                    <Block style={styles.cardContentLeft}>
+                        <View>
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                        </View>
+                        <View>
+                            <Image style={styles.cardContentImage} source={{ uri: checkin.Hinhanh }} />
+                        </View>
+                    </Block>
+                    <Block style={styles.cardContentRight}>
+                        <Block style={styles.cardContentRightLeft}>
+                            <Text style={styles.cardContentRightTopText}>Giờ chấm công:</Text>
+                            <Text style={styles.cardContentRightTopText}>Giờ ra về:</Text>
+                            <Text style={styles.cardContentRightTopText}>Tổng giờ làm:</Text>
+                            <Text style={styles.cardContentRightTopText}>Device check in:</Text>
+                            <Text style={styles.cardContentRightTopText}>Device check out:</Text>
+                        </Block>
+                        <Block style={styles.cardContentRightRight}>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkin.CreatedDate)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(checkout.CreatedDate)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
+                            <Text style={styles.cardContentRightTopText}>{checkin.Device}</Text>
+                            <Text style={styles.cardContentRightTopText}>{checkout.Device}</Text>
                         </Block>
                     </Block>
                 </Block>
             </Block>
         </ScrollView>
-
     );
 }
 const { width, height } = Dimensions.get('window');
@@ -53,39 +80,76 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     cardHeader: {
-        paddingVertical: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE * 2,
+        padding: theme.SIZES.BASE - 7,
         borderBottomWidth: 1,
         backgroundColor: 'orange',
-        borderColor: '#ddd'
+        borderColor: '#ddd',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     cardHeaderLeft: {
-        flex: 1,
-        alignItems: 'flex-start',
-        fontSize: 20,
-        justifyContent: 'center',
-        paddingLeft: theme.SIZES.BASE
+        paddingLeft: theme.SIZES.BASE,
+    },
+    day: {
+        fontSize: 36,
+        color: 'white',
     },
     cardHeaderRight: {
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingRight: theme.SIZES.BASE
+        paddingLeft: theme.SIZES.BASE,
     },
-    cardTitle: {
-        fontSize: theme.SIZES.BASE * 1.5,
-        fontWeight: 'bold',
-        color: argonTheme.COLORS.HEADER
+    cardHeaderText: {
+        fontSize: 16,
+        color: 'white',
     },
-    cardSubtitle: {
-        fontSize: theme.SIZES.BASE,
-        color: argonTheme.COLORS.PRIMARY
+    cardHeaderRightRight: {
+        paddingRight: theme.SIZES.BASE,
+        alignSelf: 'center',
+    },
+    cardHeaderTextRight: {
+        fontSize: 22,
+        color: 'white',
     },
     cardContent: {
-        paddingVertical: theme.SIZES.BASE * 2,
-        paddingHorizontal: theme.SIZES.BASE * 2,
-        height: height * 0.5,
-        justifyContent: 'center',
-        alignItems: 'center'
+        // Image with content row
+        flexDirection: 'row',
+        paddingBottom: 0,
+        borderBottomWidth: 1,
+        borderColor: '#ddd'
+    },
+    cardContentText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333'
+    },
+    cardContentImage: {
+        width: width / 5,
+        height: width / 5,
+        marginVertical: 10,
+        marginLeft: 10,
+        borderRadius: 62,
+    },
+    cardContentLeft: {
+        marginVertical: 10,
+    },
+    cardContentRight: {
+        flex: 1,
+        marginVertical: 10,
+        paddingRight: theme.SIZES.BASE,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cardContentRightLeft: {
+        marginVertical: 20,
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.SIZES.BASE
+    },
+    cardContentRightRight: {
+        marginVertical: 20,
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
+    },
+    cardContentRightTopText: {
+        color: '#333',
+        fontSize: 14
     },
 });

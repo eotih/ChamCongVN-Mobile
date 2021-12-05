@@ -72,8 +72,8 @@ export default class ThongTinHoSo extends React.Component {
             />
           </Block>
           <Block middle style={styles.nameInfo1}>
-            <Text bold size={28} color="#32325D">
-              Họ và tên, Tuổi
+            <Text bold size={26} color="#32325D">
+              Họ và tên
             </Text>
           </Block>
           <Block flex>
@@ -126,7 +126,7 @@ export default class ThongTinHoSo extends React.Component {
             </Block>
           </Block>
           <TouchableOpacity style={styles.commandButton} onPress={() => this.handleSubmit()}>
-            <Text style={styles.panelButtonTitle} >Submit</Text>
+            <Text style={styles.textButton} >SUBMIT</Text>
           </TouchableOpacity>
         </Block>
       </ScrollView>
@@ -158,26 +158,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  panelButton: {
-    padding: 13,
-    borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
-    marginVertical: 7,
+  textButton:{
+    fontSize:18,
+    color: 'white'
   },
   profileCard: {
     // position: "relative",
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
     marginTop: 65,
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
+    borderRadius: 15,
     backgroundColor: theme.COLORS.WHITE,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 8,
     shadowOpacity: 0.2,
-    zIndex: 2
+    zIndex: 2,
+    borderWidth: 0.5
   },
   info: {
     paddingHorizontal: 40
@@ -187,7 +184,7 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     position: "relative",
-    marginTop: -80
+    marginTop: -60,
   },
   avatar: {
     width: 124,
