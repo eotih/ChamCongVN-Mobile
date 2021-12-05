@@ -24,8 +24,9 @@ import CustomDrawerContent from "./Menu";
 import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
 
 // header for screens
-import { Icon, Header } from "../components";
+import { Header } from "../components";
 import { argonTheme, tabs } from "../constants";
+
 
 const { width } = Dimensions.get("screen");
 
@@ -41,9 +42,13 @@ function TimekeepinghistoryStack(props) {
         component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Lịch Sử Chấm Công" navigation={navigation} scene={scene} />
+            <Header title="Lịch Sử Chấm Công"
+             navigation={navigation}
+              scene={scene}
+               />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
+          
         }}
       />
       <Stack.Screen
