@@ -7,7 +7,6 @@ import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconButton, Colors } from 'react-native-paper';
 import { GetAllTimeKeepingByEmployeeID } from '../../functions/TimeKeeper';
-import { set } from 'react-native-reanimated';
 
 
 function TimekeepingHistory() {
@@ -16,7 +15,7 @@ function TimekeepingHistory() {
   const [timeKeeper, setTimeKeeper] = useState([]);
   const [dataFilter, setDataFilter] = useState([]);
   const [show, setShow] = useState(false);
-  const [showIOS, setShowIOS] = useState(false);
+  const [showIOS, setShowIOS] = useState();
   useEffect(() => {
     GetAllTimeKeepingByEmployeeID(1).then(res => {
       setTimeKeeper(res)
@@ -36,7 +35,6 @@ function TimekeepingHistory() {
     setTimeKeeper(result);
   }
   const handleSetShow = () => {
-    // if platform is ios show datepicker for ios
     if (Platform.OS === 'ios') {
       setShow(true);
       setShowIOS(
@@ -103,7 +101,7 @@ function TimekeepingHistory() {
           placeholder="Select Date"
           onPress={() => handleSetShow()}
         >
-          {day ? day : "Select Date"}
+          {day ? day : "Please select date"}
         </Text>
         {show && showIOS}
       </View>
@@ -138,8 +136,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: theme.SIZES.BASE,
-    fontWeight: 'bold',
-
+    fontWeight: '500',
   },
   modalBody:{
     flex: 1,
