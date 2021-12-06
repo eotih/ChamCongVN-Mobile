@@ -85,7 +85,7 @@ export default function checkCamera({ navigation: { navigate } }) {
     }
     const takePhoto = async () => {
         if (ref.current) {
-            const options = { quality: 0.7, base64: true };
+            const options = { quality: 1, base64: true };
             const data = await ref.current.takePictureAsync(options);
             const source = data.base64;
             setImage(source);
