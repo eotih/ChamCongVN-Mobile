@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, TextInput, } from "react-native";
 import data from "../../constants/datatest";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import CardHistory from "../../components/CardHistory";
 import { Input } from "../../components";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { IconButton, Colors } from 'react-native-paper';
 
 
 function TimekeepingHistory() {
@@ -16,7 +16,6 @@ function TimekeepingHistory() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     setShow(false)
-    console.log(day)
   }, [show]);
 
   const onChange = (event, selectedDate) => {
@@ -31,33 +30,52 @@ function TimekeepingHistory() {
     setdataCICO(result);
   }
 
-  return (<View>
-    <View>
-      <Input size={16} color="#32325D" style={{ width: 400 }}
-        placeholder="select date"
-        value={day}
-      />
-      <TouchableOpacity  onPress={() => setShow(true)}>
-        <Icon name="calendar" size={32} color="#00CCCC" />
-      </TouchableOpacity>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode='date'
-          is24Hour={false}
-          display="spinner"
-          onChange={onChange}
+  return (
+    <>
+      <View style={styles.filter}>
+         <TextInput size={16} color="#32325D" style={styles.input}
+          placeholder="Select Date"
+          value={day}
+        >
+        </TextInput>
+        <IconButton style={styles.icon}
+          icon="calendar"
+          color={Colors.red500}
+          size={32}
+          onPress={() => setShow(true)}
         />
-      )}
-    </View>
-    <ScrollView>
-      {dataCICO.map(data => <CardHistory
-        key={data.id}
-        data={data}
-      />)}
-    </ScrollView>
-  </View>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            multiple={true}
+            value={date}
+            mode='date'
+            is24Hour={false}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
+      <ScrollView>
+        {dataCICO.map(data => <CardHistory
+          key={data.id}
+          data={data}
+        />)}
+      </ScrollView>
+    </>
   );
 }
+const { width, height } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  filter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    marginHorizontal: theme.SIZES.BASE,
+    borderColor: "blue",
+  },
+  input: {
+    marginLeft: 10,
+  },
+})
 export default TimekeepingHistory;

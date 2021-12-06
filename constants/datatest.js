@@ -67,6 +67,8 @@ const data = [
             Longitude: "106.78889",
             CreatedDate: "2021-12-04 19:00:00.000",
         },
-    }
+    },
+    
+
 ];
 export default data

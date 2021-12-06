@@ -21,16 +21,6 @@ const BellButton = ({isWhite, style, navigation}) => (
     <Block middle style={styles.notify} />
   </TouchableOpacity>
 );
-const Filter = ({isWhite, style, navigation}) => (
-  <TouchableOpacity style={[styles.button, style]} >
-    <Icon
-      size={26}
-      name="filter"
-      color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-      color="orange"
-    />
-  </TouchableOpacity>
-);
 const BasketButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
@@ -76,10 +66,6 @@ class Header extends React.Component {
         return ([
           <BellButton key='chat-categories' navigation={navigation} />,
           <BasketButton key='basket-categories' navigation={navigation} />
-        ]);
-        case 'Lịch Sử Chấm Công':
-        return ([
-          <Filter key='Filter' navigation={navigation} />
         ]);
       case 'Categories':
         return ([

@@ -12,7 +12,6 @@ Notifications.setNotificationHandler({
   }),
 });
 export default function Noti() {
-
   const notificationListener = useRef();
   const responseListener = useRef();
   const [count, setCount] = useState(0);
@@ -25,7 +24,7 @@ export default function Noti() {
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       });
       var today = new Date();
-
+    
       if (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() === "11:51:30") {
         schedulePushNotification();
       }
@@ -37,8 +36,6 @@ export default function Noti() {
     };
   });
 
-
-
   return (
     <View
       style={{
@@ -47,7 +44,7 @@ export default function Noti() {
         justifyContent: 'space-around',
       }}>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-       
+        <Text>Thông Báo Chấm Công</Text>
       </View>
     </View>
   );
@@ -82,7 +79,7 @@ async function registerForPushNotificationsAsync() {
   } else {
     alert('Must use physical device for Push Notifications');
   }
-
+  
   if (Platform.OS === 'android') {
     Notifications.setNotificationChannelAsync('default', {
       name: 'default',
