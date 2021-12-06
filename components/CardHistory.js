@@ -30,7 +30,10 @@ export default function CardHistory({ data }) {
                     </Block>
 
                     <Block style={styles.cardHeaderRightRight}>
-                        <Text style={styles.cardHeaderTextRight}>{checkin.Status}</Text>
+                        <Text style={styles.cardHeaderTextRight}>{checkin.Status} /</Text>
+                    </Block>
+                    <Block style={styles.cardHeaderRightRight}>
+                        <Text style={styles.cardHeaderTextRight}>{checkout.Status}</Text>
                     </Block>
                 </Block>
                 <Block style={styles.cardContent}>
