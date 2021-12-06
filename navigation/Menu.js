@@ -29,8 +29,20 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Lịch Sử Chấm Công",
     "Thông Báo",
   ];
+  var today = new Date();
+
+  // const renderScreens () => {
+  //   if(today.getHours > 8 && today.getHours < 17){
+  //     if(quantity > 0){
+  //       return [];
+  //     }
+  //     return [];
+  //   }
+  //   else{
+  //     return [];
+  //   }
+  // }
     //get current date time
-    var today = new Date();
   return (
     <Block
       style={styles.container}

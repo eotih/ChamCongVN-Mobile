@@ -13,6 +13,7 @@ import { set } from 'react-native-reanimated';
 function TimekeepingHistory() {
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
+  const [dayEnd, setDayEnd] = useState();
   const [timeKeeper, setTimeKeeper] = useState([]);
   const [dataFilter, setDataFilter] = useState([]);
   const [show, setShow] = useState(false);
@@ -28,55 +29,69 @@ function TimekeepingHistory() {
     const currentDate = selectedDate || date;
     const selectedDay = moment(currentDate).format('LL');
     setDay(selectedDay);
-    filterData(selectedDay);
+    setDate(currentDate);
+  };
+  const onHandleEndTime = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    const selectedDay = moment(currentDate).format('LL');
+    setDayEnd(selectedDay);
+    filterData(currentDate);
     setDate(currentDate);
   };
   const filterData = (condition) => {
-    const result = dataFilter.filter(res => moment(res.checkin.CreatedAt).format('LL') == condition);
+    const result = dataFilter.filter(res => moment(res.checkin.CreatedAt).format('YYYY-MM-DD') <= moment(condition).format('YYYY-MM-DD') && moment(date).format('YYYY-MM-DD') <= moment(res.checkin.CreatedAt).format('YYYY-MM-DD'));
     setTimeKeeper(result);
   }
-  const handleSetShow = () => {
-    // if platform is ios show datepicker for ios
-    if (Platform.OS === 'ios') {
-      setShow(true);
-      setShowIOS(
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={show}
-          >
-            <View style={styles.modal}>
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Select Date</Text>
-                <TouchableOpacity
-                  onPress={() => setShow(false)}
-                >
-                  <IconButton
-                    icon="close"
-                    size={32}
-                    color={Colors.black}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.modalBody}>
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode='date'
-                  is24Hour={false}
-                  display={
-                    Platform.OS === "ios" ? "spinner" : "default"
-                  }
-                  onChange={onHandleChangeDateTime}
-                  style={styles.ios}
-                />
-              </View>
-            </View>
-          </Modal>
-        )
+  const calendarSelect = (calendar) => {
+    if (calendar === "Start") {
+      handleSetShow(onHandleChangeDateTime);
     }
     else {
-      setShow(true);
+      handleSetShow(onHandleEndTime);
+    }
+  }
+  const handleSetShow = (typeSelect) => {
+    // if platform is ios show datepicker for ios
+    if (Platform.OS === 'ios') {
+      setShow(true)
+      setShowIOS(
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={show}
+        >
+          <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Date</Text>
+              <TouchableOpacity
+                onPress={() => setShow(false)}
+              >
+                <IconButton
+                  icon="close"
+                  size={32}
+                  color={Colors.black}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalBody}>
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode='date'
+                is24Hour={false}
+                display={
+                  Platform.OS === "ios" ? "spinner" : "default"
+                }
+                // onChange={typeSelect}
+                style={styles.ios}
+              />
+            </View>
+          </View>
+        </Modal>
+      )
+    }
+    else {
+      setShow(true)
       setShowIOS(<DateTimePicker
         testID="dateTimePicker"
         value={date}
@@ -85,7 +100,7 @@ function TimekeepingHistory() {
         display={
           Platform.OS === "ios" ? "spinner" : "default"
         }
-        onChange={onHandleChangeDateTime}
+        onChange={typeSelect}
         style={styles.ios}
       />);
     }
@@ -97,20 +112,33 @@ function TimekeepingHistory() {
         <IconButton style={styles.icon}
           icon="calendar"
           size={32}
-          onPress={() => handleSetShow()}
+          onPress={() => calendarSelect("Start")}
         />
         <Text size={16} color="#32325D" style={styles.input}
           placeholder="Select Date"
-          onPress={() => handleSetShow()}
+          onPress={() => calendarSelect("Start")}
         >
-          {day ? day : "Select Date"}
+          {day ? day : "Please select date"}
+        </Text>
+      </View>
+      <View style={styles.filter}>
+        <IconButton style={styles.icon}
+          icon="calendar"
+          size={32}
+          onPress={() => calendarSelect("End")}
+        />
+        <Text size={16} color="#32325D" style={styles.input}
+          placeholder="Select Date"
+          onPress={() => calendarSelect("End")}
+        >
+          {dayEnd ? dayEnd : "Please select date"}
         </Text>
         {show && showIOS}
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-          {timeKeeper.map((item, index) => (
-            <CardHistory key={index} data={item} />
-          ))}
+        {timeKeeper.map((item, index) => (
+          <CardHistory key={index} data={item} />
+        ))}
       </ScrollView>
 
     </>
@@ -138,10 +166,9 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: theme.SIZES.BASE,
-    fontWeight: 'bold',
-
+    fontWeight: '500',
   },
-  modalBody:{
+  modalBody: {
     flex: 1,
     paddingHorizontal: theme.SIZES.BASE,
     paddingVertical: theme.SIZES.BASE,
