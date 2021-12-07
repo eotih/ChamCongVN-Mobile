@@ -41,50 +41,9 @@ function TimekeepingHistory() {
     const result = dataFilter.filter(res => moment(res.checkin.CreatedAt).format('YYYY-MM-DD') <= moment(condition).format('YYYY-MM-DD') && moment(date).format('YYYY-MM-DD') <= moment(res.checkin.CreatedAt).format('YYYY-MM-DD'));
     setTimeKeeper(result);
   }
-<<<<<<< HEAD
   const calendarSelect = (calendar) => {
     if (calendar === "Start") {
       handleSetShow(onHandleChangeDateTime);
-=======
-  const handleSetShow = () => {
-    if (Platform.OS === 'ios') {
-      setShow(true);
-      setShowIOS(
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={show}
-          >
-            <View style={styles.modal}>
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Select Date</Text>
-                <TouchableOpacity
-                  onPress={() => setShow(false)}
-                >
-                  <IconButton
-                    icon="close"
-                    size={32}
-                    color={Colors.black}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.modalBody}>
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode='date'
-                  is24Hour={false}
-                  display={
-                    Platform.OS === "ios" ? "spinner" : "default"
-                  }
-                  onChange={onHandleChangeDateTime}
-                  style={styles.ios}
-                />
-              </View>
-            </View>
-          </Modal>
-        )
->>>>>>> 558d26194cc678a1c51f265bd2fdc7b6ef7d0ed2
     }
     else {
       handleSetShow(onHandleEndTime);
@@ -122,7 +81,7 @@ function TimekeepingHistory() {
                 display={
                   Platform.OS === "ios" ? "spinner" : "default"
                 }
-                // onChange={typeSelect}
+                onChange={typeSelect}
                 style={styles.ios}
               />
             </View>
@@ -159,7 +118,6 @@ function TimekeepingHistory() {
           onPress={() => calendarSelect("Start")}
         >
           {day ? day : "Please select date"}
-<<<<<<< HEAD
         </Text>
       </View>
       <View style={styles.filter}>
@@ -173,8 +131,6 @@ function TimekeepingHistory() {
           onPress={() => calendarSelect("End")}
         >
           {dayEnd ? dayEnd : "Please select date"}
-=======
->>>>>>> 558d26194cc678a1c51f265bd2fdc7b6ef7d0ed2
         </Text>
         {show && showIOS}
       </View>
