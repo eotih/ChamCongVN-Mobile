@@ -52,6 +52,7 @@ class ThongTinCaNhan extends React.Component {
             })
         });
     }
+    
 
     renderThongTinCN = () => {
         const { navigation } = this.props;

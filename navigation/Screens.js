@@ -4,7 +4,6 @@ import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { Block } from "galio-framework";
 
 // screens
@@ -20,6 +19,7 @@ import DonxinNP from "../components/DonxinNP"
 import checkCamera from "../screens/Timekeeping/Camera"
 import Register from "../screens/Register";
 import Articles from "../screens/Articles";
+import Notification from "../screens/Notification"
 // drawer
 import CustomDrawerContent from "./Menu";
 import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
@@ -229,18 +229,18 @@ function checkCameraStack(props) {
       </Stack.Navigator>
     );
 }
-function ProfileStackkk(props) {
+function NotificationStackkk(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
         name="Thông Báo"
-        component={Profile}
+        component={Notification}
         options={{
           header: ({ navigation, scene }) => (
             <Header
               transparent
               white
-              title="Profile"
+              title="Notification"
               navigation={navigation}
               scene={scene}
             />

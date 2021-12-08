@@ -28,9 +28,9 @@ export default function CardHistory({ data }) {
                             <Text style={styles.cardHeaderText}>{monthYear}</Text>
                         </Block>
                     </Block>
-
-                    <Block style={styles.cardHeaderRightRight}>
-                        <Text style={styles.cardHeaderTextRight}>{checkin.Status}</Text>
+                     <Block style={styles.cardHeaderRightRight}>
+                        <Text style={styles.cardHeaderTextRight}>{checkin.Status} /</Text>
+                        <Text style={styles.cardHeaderTextRight}>{checkout.Status}</Text>
                     </Block>
                 </Block>
                 <Block style={styles.cardContent}>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     cardHeaderTextRight: {
-        fontSize: 22,
+        fontSize: 16,
         color: 'white',
     },
     cardContent: {

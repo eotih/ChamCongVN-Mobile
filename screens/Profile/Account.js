@@ -14,12 +14,39 @@ const { height, width } = Dimensions.get('screen');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from '../../constants';
 import { Block, Text, theme } from "galio-framework";
-import axios from 'axios';
+import BaseUrl from '../../constants/BaseUrl';
 import { HeaderHeight } from "../../constants/utils";
 import { Button, Input } from "../../components";
 
 
 export default class MatKhau extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      OldPassword: 'abc',
+      OldPasswordInput: '',
+      NewPassword: '',
+      NewPassword2: '',
+    }
+  }
+  handleSubmit(event) {
+    if (this.state.OldPassword !== this.state.OldPasswordInput) {
+      console.log("Nhập sai rồi nhập lại đi")
+    }
+    else {
+      console.log(this.state.OldPasswordInput)
+    }
+    // axiosBaseURL.post('API/AddOrEditOrder', {
+    // })
+    //   .then(res => {
+    //     if (res.data.Status === 'Success') {
+    //       alert('Đặt thành công!!');
+    //     } else {
+    //       alert('Đặt thất bại');
+    //     }
+    //   })
+  }
+
   render() {
     const { navigation, route } = this.props;
     return (
@@ -27,34 +54,37 @@ export default class MatKhau extends React.Component {
         showsVerticalScrollIndicator={false}
         style={{ width }}
       >
-        <Text size={22} style={{textAlign: 'center'}}> Bạn muốn thay đổi mật khẩu</Text>
+        <Text size={22} style={{ textAlign: 'center' }}> Bạn muốn thay đổi mật khẩu</Text>
         <Block flex style={styles.profileCard}>
 
           <Block style={styles.text}>
             <Input size={16} color="#32325D" style={styles.input}
               placeholder="Nhập mật khẩu cũ"
+              onChangeText={text => this.setState({ OldPasswordInput: text })}
               iconContent={
-                <Icon style={{marginRight: 5}} name="key" size={26} color="#00CCCC" />
+                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
               }>
             </Input>
           </Block>
           <Block style={styles.text}>
             <Input size={16} color="#32325D" style={styles.input}
               placeholder="Nhập mật khẩu mới"
+              onChangeText={text => this.setState({ NewPassword: text })}
               iconContent={
-                <Icon style={{marginRight: 5}} name="key" size={26} color="#00CCCC" />
+                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
               }>
             </Input>
           </Block>
-          <Block style={styles.text}>
+          <Block style={styles.text}> 
             <Input size={16} color="#32325D" style={styles.input}
-              placeholder="Nhập mật khẩu mới"
+              placeholder="Nhập lại mật khẩu mới"
+              onChangeText={text => this.setState({ NewPassword2: text })}
               iconContent={
-                <Icon style={{marginRight: 5}} name="key" size={26} color="#00CCCC" />
+                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
               }>
             </Input>
           </Block>
-          <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
+          <TouchableOpacity style={styles.commandButton} onPress={() => this.handleSubmit()}>
             <Text>Submit</Text>
           </TouchableOpacity>
         </Block>
@@ -68,7 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
-    width: width/1.2,
+    width: width / 1.2,
   },
   profileCard: {
     // position: "relative",

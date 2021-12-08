@@ -90,6 +90,7 @@ export default function checkCamera({ navigation: { navigate } }) {
             const source = data.base64;
             setImage(source);
             const response = {
+                OrganizationID: 1,
                 Latitude: latitude,
                 Longitude: longitude,
                 PublicIP: IP,
@@ -100,7 +101,7 @@ export default function checkCamera({ navigation: { navigate } }) {
         }
     }
     const goToTheMoon = async (object) => {
-        const res = await axios.post('http://192.168.1.7:45455/HandleSendToPython', object, {
+        const res = await axios.post('http://192.168.1.7:45455/HandleciToPython', object, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -139,7 +140,6 @@ export default function checkCamera({ navigation: { navigate } }) {
             if (fillCircle < 10) {
                 takePhoto();
             }
-            console.log(fillCircle)
             if (fillCircle == 90) {
                 setLoading(false);
             }

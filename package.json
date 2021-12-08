@@ -36,6 +36,7 @@
     "expo-image-picker": "~10.2.2",
     "expo-location": "^13.0.4",
     "expo-network": "^4.0.3",
+    "expo-notifications": "^0.13.3",
     "galio-framework": "^0.8.0",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
