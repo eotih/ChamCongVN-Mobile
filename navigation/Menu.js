@@ -7,30 +7,34 @@ import {
 import { Block, Text, theme } from "galio-framework";
 
 import Images from "../constants/Images";
-import { DrawerItem as DrawerCustomItem } from '../components';
+import { DrawerItem as DrawerCustomItem, Select } from '../components';
 
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
   const screens = [
     "Home",
-    "Chấm Công", 
-    "Base Information",  
+    "Chấm Công",
+    "Base Information",
     "Phiếu Yêu Cầu",
     "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
+    "Đơn từ",
+    "Đơn xin nghỉ phép",
   ];
   const screens2 = [
-    "Home", 
-    "Base Information",  
+    "Home",
+    "Base Information",
     "Phiếu Yêu Cầu",
     "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
+    "Đơn từ",
+    "Đơn xin nghỉ phép",
   ];
-    //get current date time
-    var today = new Date();
+  //get current date time
+  var today = new Date();
   return (
     <Block
       style={styles.container}
@@ -46,12 +50,12 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
           </Block>
           <Block>
             <Text bold style={styles.textname}  >
-             Tên:
+              Tên:
             </Text>
-            <Text  style={styles.text} >
+            <Text style={styles.text} >
               Chức vụ:
             </Text>
-            <Text  style={styles.text} >
+            <Text style={styles.text} >
               Phòng ban:
             </Text>
           </Block>
@@ -83,7 +87,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
               );
             })
           )}
-          
+
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
             <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </Block>

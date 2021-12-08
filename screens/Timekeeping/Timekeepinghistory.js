@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, TextInput, } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, View, TextInput, } from "react-native";
 import data from "../../constants/datatest";
-import { Block, Text, Button as GaButton, theme } from "galio-framework";
+import { Button as GaButton, theme } from "galio-framework";
 import CardHistory from "../../components/CardHistory";
-import { Input } from "../../components";
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconButton, Colors } from 'react-native-paper';
@@ -38,7 +37,7 @@ function TimekeepingHistory() {
           value={day}
         >
         </TextInput>
-        <IconButton style={styles.icon}
+        <IconButton
           icon="calendar"
           color={Colors.red500}
           size={32}
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   filter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderWidth: 1,
+    
     marginHorizontal: theme.SIZES.BASE,
     borderColor: "blue",
   },
