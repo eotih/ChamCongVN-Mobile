@@ -17,34 +17,66 @@ import { Block, Text, theme } from "galio-framework";
 import BaseUrl from '../../constants/BaseUrl';
 import { HeaderHeight } from "../../constants/utils";
 import { Button, Input } from "../../components";
-
+import { GetAccountByID } from "../../functions/TimeKeeper"
+import md5 from "md5"
 
 export default class MatKhau extends React.Component {
   constructor() {
     super();
     this.state = {
-      OldPassword: 'abc',
+      OldPassword: '1',
       OldPasswordInput: '',
       NewPassword: '',
       NewPassword2: '',
+      FullName: '',
     }
+  }
+  getMD5(password) {
+    var ReverseMd5 = require('reverse-md5');
+    var rev = ReverseMd5({
+      lettersUpper: false,
+      lettersLower: true,
+      numbers: true,
+      special: false,
+      whitespace: true,
+      maxLen: 12
+    })
+    return (rev(password).str);
   }
   handleSubmit(event) {
     if (this.state.OldPassword !== this.state.OldPasswordInput) {
-      console.log("Nhập sai rồi nhập lại đi")
+      alert("Invalid Olđ Password!")
     }
     else {
-      console.log(this.state.OldPasswordInput)
+      if (this.state.NewPassword !== this.state.NewPassword2) {
+        alert("The password does not match.")
+      }
+      else {
+        var newpassword = md5(this.state.NewPassword);
+        BaseUrl.post('Organization/EditPasswordAccount', {
+          AccountID: 1,
+          Password: newpassword,
+          UpdatedBy: this.state.FullName,
+        })
+          .then(res => {
+            if (res.data.Status === 'Updated') {
+              alert(res.data.Message);
+            } else {
+              alert('Data not update');
+            }
+          })
+      }
     }
-    // axiosBaseURL.post('API/AddOrEditOrder', {
-    // })
-    //   .then(res => {
-    //     if (res.data.Status === 'Success') {
-    //       alert('Đặt thành công!!');
-    //     } else {
-    //       alert('Đặt thất bại');
-    //     }
-    //   })
+  }
+  componentDidMount() {
+    GetAccountByID(1).then(res => {
+      const password = this.getMD5(res.Password)
+      this.setState({
+        OldPassword: password,
+        FullName: this.props.route.params.TenND
+      })
+      console.log(res)
+    })
   }
 
   render() {
@@ -75,7 +107,7 @@ export default class MatKhau extends React.Component {
               }>
             </Input>
           </Block>
-          <Block style={styles.text}> 
+          <Block style={styles.text}>
             <Input size={16} color="#32325D" style={styles.input}
               placeholder="Nhập lại mật khẩu mới"
               onChangeText={text => this.setState({ NewPassword2: text })}
