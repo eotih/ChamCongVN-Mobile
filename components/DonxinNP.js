@@ -130,13 +130,13 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 2
   },
   all: {
-    marginTop: 20,
+    marginTop: 10,
   },
   createButton: {
     alignItems: 'center',
-    marginTop: 10
   },
   text: {
+    marginTop: 7,
     borderWidth: 1,
     flexDirection: 'row',
     height: 40,
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.SIZES.BASE
   },
   day: {
+    marginTop: 7,
     flexDirection: 'row',
     borderWidth: 1,
     fontSize: 18,
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   select: {
+    marginTop: 7,
     width: width / 2.5,
     backgroundColor: "#3366CC"
   },

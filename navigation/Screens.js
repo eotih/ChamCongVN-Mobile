@@ -394,7 +394,7 @@ function AppStack(props) {
       <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
-      <Drawer.Screen name="Thông Báo" component={ProfileStackkk} />
+      <Drawer.Screen name="Thông Báo" component={ProfileStack} />
       <Drawer.Screen name="Đơn xin nghỉ phép" component={DonxinNPStack} />
       
     </Drawer.Navigator>
