@@ -23,8 +23,7 @@ export default function Noti() {
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       });
       var today = new Date();
-    
-      if (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() === "11:51:30") {
+      if (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() === "16:25:30") {
         schedulePushNotification();
       }
       setCount((count) => count + 1);
@@ -35,18 +34,7 @@ export default function Noti() {
     };
   });
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Thông Báo Chấm Công</Text>
-      </View>
-    </View>
-  );
+  return <View></View>;
 }
 
 async function schedulePushNotification() {

@@ -84,7 +84,7 @@ class Header extends React.Component {
         ]);
       case 'Notification':
         return ([
-          <CalendarButton key='search-product' navigation={navigation} isWhite={white} />,
+          <BellButton key='chat-search' navigation={navigation} isWhite={white} />
         ]);
       case 'Search':
         return ([

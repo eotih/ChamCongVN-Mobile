@@ -149,7 +149,7 @@ class ThongTinCaNhan extends React.Component {
                                         </View>
 
                                         <View>
-                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
+                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3', TenND: this.state.FullName })}>
                                                 <Text color="white">Đổi mật khẩu</Text>
                                             </TouchableOpacity>
                                         </View>

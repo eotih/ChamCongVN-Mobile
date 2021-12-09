@@ -4,6 +4,7 @@ import { Block, theme } from 'galio-framework';
 
 import { Card } from '../components';
 import articles from '../constants/articles';
+import Notifications from '../screens/Notification'
 const { width } = Dimensions.get('screen');
 
 class Home extends React.Component {
@@ -29,6 +30,7 @@ class Home extends React.Component {
     return (
       <Block flex center style={styles.home}>
         {this.renderArticles()}
+        <Notifications />
       </Block>
     );
   }
