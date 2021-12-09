@@ -85,6 +85,7 @@ class ThongTinCaNhan extends React.Component {
                                         <Block middle style={styles.nameInfo}>
                                             <View style={styles.card}>
                                                 <Block style={styles.text}>
+                                                    
                                                     <Icon name="user" size={32} color="#00CCCC" />
                                                     <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
                                                         NickName: {this.state.NickName}
@@ -140,16 +141,7 @@ class ThongTinCaNhan extends React.Component {
                                     </Block>
                                     <View style={styles.Button}>
                                         <View>
-                                            <TouchableOpacity style={styles.commandButton} onPress={() => navigation.navigate('Profile', { Employee: this.state.User })}>
-                                                <Text color="white">Edit thông tin</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ width: 100 }}>
-                                            <Text></Text>
-                                        </View>
-
-                                        <View>
-                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3', TenND: this.state.FullName })}>
+                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
                                                 <Text color="white">Đổi mật khẩu</Text>
                                             </TouchableOpacity>
                                         </View>
