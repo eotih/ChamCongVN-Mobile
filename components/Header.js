@@ -1,6 +1,6 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput,ScrollView } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -166,15 +166,43 @@ class Header extends React.Component {
       </Block>
     );
   }
+  renderDontu = () => {
+    const { navigation, optionLeft, optionRight } = this.props;
+    return (
+      <Block row style={styles.options}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={true}
+          pagingEnabled={true}
+          decelerationRate={0}
+          scrollEventThrottle={16}>
+          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Đơn xin nghỉ phép')}>
+            <Block row middle>
+            
+              <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin nghỉ phép'}</Text>
+            </Block>
+          </Button>
+          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('DonxinDMVS')}>
+            <Block row middle>
+              
+              <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin DMVS'}</Text>
+            </Block>
+          </Button>
+          
+        </ScrollView>
+      </Block>
+    );
+  }
   renderHeader = () => {
-    const { search, options, tabs, ThongTin, Timekeeping } = this.props;
-    if (search || tabs || options || ThongTin || Timekeeping) {
+    const { search, options, tabs, ThongTin, Timekeeping,DonTu } = this.props;
+    if (search || tabs || options || ThongTin || Timekeeping || DonTu) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
           {ThongTin ? this.renderThongTin() : null}
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
+          {DonTu ? this.renderDontu() : null}
         </Block>
       );
     }
@@ -274,22 +302,22 @@ const styles = StyleSheet.create({
     borderColor: argonTheme.COLORS.BORDER
   },
   options: {
-    marginBottom: 24,
+    marginBottom:10,
     marginTop: 10,
     elevation: 4,
   },
   tab: {
-    backgroundColor: theme.COLORS.TRANSPARENT,
-    width: width * 0.35,
-    borderRadius: 0,
-    borderWidth: 0,
-    height: 24,
+    backgroundColor: "black",
+    alignSelf: "center",
+    width: width * 0.4,
+    borderRadius: 10,
+    height: 30,
     elevation: 0,
   },
   tabTitle: {
     lineHeight: 19,
     fontWeight: '400',
-    color: argonTheme.COLORS.HEADER
+    color: "white"
   },
 });
 

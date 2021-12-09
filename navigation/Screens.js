@@ -13,6 +13,7 @@ import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
+import DonxinNP from "../components/DonxinNP"
 
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
@@ -66,6 +67,27 @@ function TimekeepinghistoryStack(props) {
             />
           ),
           headerTransparent: true
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function DonxinNPStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Đơn xin nghỉ phép"
+        component={DonxinNP}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Đơn xin nghỉ phép"
+             navigation={navigation}
+              scene={scene}
+              DonTu
+               />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+          
         }}
       />
     </Stack.Navigator>
@@ -372,7 +394,8 @@ function AppStack(props) {
       <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
-      <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
+      <Drawer.Screen name="Thông Báo" component={ProfileStackkk} />
+      <Drawer.Screen name="Đơn xin nghỉ phép" component={DonxinNPStack} />
       
     </Drawer.Navigator>
   );

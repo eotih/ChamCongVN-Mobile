@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, Modal, } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import CardHistory from "../../components/CardHistory";
-import { Input } from "../../components";
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconButton, Colors } from 'react-native-paper';

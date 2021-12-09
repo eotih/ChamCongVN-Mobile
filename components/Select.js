@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Block, Text } from 'galio-framework';
@@ -9,7 +9,7 @@ import { argonTheme } from '../constants';
 
 class DropDown extends React.Component {
   state = {
-    value: 1,
+    value: "",
   }
 
   handleOnSelect = (index, value) => {
@@ -57,7 +57,7 @@ DropDown.propTypes = {
   color: PropTypes.string,
   textStyle: PropTypes.any,
 };
-
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   qty: {
     width: 100,
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: argonTheme.COLORS.WHITE,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   dropdown: {
     marginTop: 8,
     marginLeft: -16,
-    width: 100,
+    width:width/2.5,
   },
 });
 
