@@ -30,7 +30,7 @@ class Home extends React.Component {
     return (
       <Block flex center style={styles.home}>
         {this.renderArticles()}
-        <Notifications />
+        {/* <Notifications /> */}
       </Block>
     );
   }
