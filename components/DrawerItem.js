@@ -4,7 +4,6 @@ import { Block, Text, theme } from "galio-framework";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import argonTheme from "../constants/Theme";
-import { Button, Select, Input, Header, Switch } from "../components/";
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -50,7 +49,6 @@ class DrawerItem extends React.Component {
             size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
-         
         );
       case "Phiếu Yêu Cầu":
         return (
