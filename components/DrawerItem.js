@@ -4,7 +4,6 @@ import { Block, Text, theme } from "galio-framework";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import argonTheme from "../constants/Theme";
-import { Button, Select, Input, Header, Switch } from "../components/";
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -43,16 +42,15 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-        case "Thông Báo":
+      case "Thông Báo":
         return (
           <Icon
             name="bell"
             size={18}
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
-         
         );
-      case "Phiếu Yêu Cầu":
+      case "Application":
         return (
           <Icon
             name="align-justify"
@@ -103,8 +101,8 @@ class DrawerItem extends React.Component {
         onPress={() =>
           title == "Đăng Xuất"
             ? Linking.openURL(
-                "https://demos.creative-tim.com/argon-pro-react-native/docs/"
-              ).catch(err => console.error("An error occurred", err))
+              "https://demos.creative-tim.com/argon-pro-react-native/docs/"
+            ).catch(err => console.error("An error occurred", err))
             : navigation.navigate(title)
         }
       >

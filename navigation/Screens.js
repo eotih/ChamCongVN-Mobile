@@ -17,6 +17,7 @@ import DonxinNP from "../components/DonxinNP"
 
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
+import Application from "../screens/Application/Application"
 import Register from "../screens/Register";
 import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
@@ -44,12 +45,12 @@ function TimekeepinghistoryStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Lịch Sử Chấm Công"
-             navigation={navigation}
+              navigation={navigation}
               scene={scene}
-               />
+            />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
-          
+
         }}
       />
       <Stack.Screen
@@ -72,27 +73,6 @@ function TimekeepinghistoryStack(props) {
     </Stack.Navigator>
   );
 }
-function DonxinNPStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Đơn xin nghỉ phép"
-        component={DonxinNP}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Đơn xin nghỉ phép"
-             navigation={navigation}
-              scene={scene}
-              DonTu
-               />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-          
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
 function ProfileStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -108,22 +88,6 @@ function ProfileStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title="Profile"
-              back
-              black
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
       <Stack.Screen
@@ -162,20 +126,20 @@ function ArticlesStack(props) {
     </Stack.Navigator>
   );
 }
-function NguoiDungStack(props) {
+function ApplicationStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Phiếu Yêu Cầu"
-        component={DSNguoiDung}
+        name="Application"
+        component={Application}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Danh Sách Người Dùng" navigation={navigation} scene={scene} />
+            <Header title="Application" navigation={navigation} scene={scene} Application/>
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ChuaLam"
         component={DSNguoiDung}
         options={{
@@ -191,43 +155,43 @@ function NguoiDungStack(props) {
           ),
           headerTransparent: true
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
 function checkCameraStack(props) {
-    return (
-      <Stack.Navigator mode="card" headerMode="screen">
-        <Stack.Screen
-          name="Chấm Công"
-          component={checkCamera}
-          options={{
-            header: ({ navigation, scene }) => (
-              <Header title="Check-in/out" navigation={navigation} scene={scene} />
-            ),
-            cardStyle: { backgroundColor: "#F8F9FE" }
-          }}
-        />
-        <Stack.Screen
-          name="checkCameraaa"
-          component={checkCamera}
-          options={{
-            header: ({ navigation, scene }) => (
-              <Header
-                title=""
-                back
-                white
-                transparent
-                navigation={navigation}
-                scene={scene}
-              />
-            ),
-            cardStyle: { backgroundColor: "#F8F9FE" },
-            headerTransparent: true
-          }}
-        />
-      </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Chấm Công"
+        component={checkCamera}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Check-in/out" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
+      <Stack.Screen
+        name="checkCameraaa"
+        component={checkCamera}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+          headerTransparent: true
+        }}
+      />
+    </Stack.Navigator>
+  );
 }
 function NotificationStackkk(props) {
   return (
@@ -390,13 +354,11 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Base Information" component={ProfileStack} />
-      <Drawer.Screen name="Phiếu Yêu Cầu" component={NguoiDungStack} />
+      <Drawer.Screen name="Application" component={ApplicationStack} />
       <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
-      <Drawer.Screen name="Quản Lý Báo Cáo" component={Register} />
+      <Drawer.Screen name="Quản Lý Báo Cáo" component={ArticlesStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
-      <Drawer.Screen name="Thông Báo" component={ProfileStack} />
-      <Drawer.Screen name="Đơn xin nghỉ phép" component={DonxinNPStack} />
-      
+      <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
     </Drawer.Navigator>
   );
 }

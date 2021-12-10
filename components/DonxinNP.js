@@ -12,7 +12,7 @@ import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get('window');
-function Donxinnghiphep() {
+function DonxinNP() {
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [show, setShow] = useState(false);
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#3366CC"
   },
 })
-export default Donxinnghiphep;
+export default DonxinNP;

@@ -14,22 +14,20 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Home",
     "Chấm Công",
     "Base Information",
-    "Phiếu Yêu Cầu",
+    "Application",
     "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
-    "Đơn xin nghỉ phép",
   ];
   const screens2 = [
     "Home",
     "Base Information",
-    "Phiếu Yêu Cầu",
+    "Application",
     "Quản Lý Đơn Từ",
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
-    "Đơn xin nghỉ phép",
   ];
   //get current date time
   var today = new Date();

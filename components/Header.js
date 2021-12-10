@@ -1,6 +1,6 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput,ScrollView } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, TextInput, ScrollView } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -11,7 +11,7 @@ import argonTheme from '../constants/Theme';
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BellButton = ({isWhite, style, navigation}) => (
+const BellButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
@@ -21,7 +21,7 @@ const BellButton = ({isWhite, style, navigation}) => (
     <Block middle style={styles.notify} />
   </TouchableOpacity>
 );
-const BasketButton = ({isWhite, style, navigation}) => (
+const BasketButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
@@ -31,7 +31,7 @@ const BasketButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const SearchButton = ({isWhite, style, navigation}) => (
+const SearchButton = ({ isWhite, style, navigation }) => (
   <TextInput style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
@@ -127,7 +127,7 @@ class Header extends React.Component {
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
           <Block row middle>
-            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
+            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Fashion'}</Text>
           </Block>
         </Button>
@@ -137,7 +137,7 @@ class Header extends React.Component {
   renderTabs = () => {
     const { tabs, tabIndex, navigation } = this.props;
     const defaultTab = tabs && tabs[0] && tabs[0].id;
-    
+
     if (!tabs) return null;
 
     return (
@@ -157,9 +157,9 @@ class Header extends React.Component {
             <Text size={16} style={styles.tabTitle}>{optionLeft || 'Edit Thông Tin'}</Text>
           </Block>
         </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('MatKhau',  {MaND: 'A3'})}>
+        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('MatKhau', { MaND: 'A3' })}>
           <Block row middle>
-            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }}  color={argonTheme.COLORS.ICON} />
+            <Icon size={16} name="suitcase" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Edit Mật Khẩu'}</Text>
           </Block>
         </Button>
@@ -178,31 +178,29 @@ class Header extends React.Component {
           scrollEventThrottle={16}>
           <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Đơn xin nghỉ phép')}>
             <Block row middle>
-            
               <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin nghỉ phép'}</Text>
             </Block>
           </Button>
           <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('DonxinDMVS')}>
             <Block row middle>
-              
               <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin DMVS'}</Text>
             </Block>
           </Button>
-          
+
         </ScrollView>
       </Block>
     );
   }
   renderHeader = () => {
-    const { search, options, tabs, ThongTin, Timekeeping,DonTu } = this.props;
-    if (search || tabs || options || ThongTin || Timekeeping || DonTu) {
+    const { search, options, tabs, ThongTin, Timekeeping, Application } = this.props;
+    if (search || tabs || options || ThongTin || Timekeeping || Application) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
           {ThongTin ? this.renderThongTin() : null}
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
-          {DonTu ? this.renderDontu() : null}
+          {Application ? this.renderDontu() : null}
         </Block>
       );
     }
@@ -231,13 +229,13 @@ class Header extends React.Component {
           right={this.renderRight()}
           rightStyle={{ alignItems: 'center' }}
           left={
-            <Icon 
-              name={back ? 'chevron-left' : "bars"} family="entypo" 
-              size={20} onPress={this.handleLeftPress} 
+            <Icon
+              name={back ? 'chevron-left' : "bars"} family="entypo"
+              size={20} onPress={this.handleLeftPress}
               color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
               style={{ marginTop: 2 }}
             />
-              
+
           }
           leftStyle={{ paddingVertical: 12, flex: 0.2 }}
           titleStyle={[
@@ -302,7 +300,7 @@ const styles = StyleSheet.create({
     borderColor: argonTheme.COLORS.BORDER
   },
   options: {
-    marginBottom:10,
+    marginBottom: 10,
     marginTop: 10,
     elevation: 4,
   },
