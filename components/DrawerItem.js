@@ -42,7 +42,7 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-        case "Thông Báo":
+      case "Thông Báo":
         return (
           <Icon
             name="bell"
@@ -50,7 +50,7 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-      case "Phiếu Yêu Cầu":
+      case "Application":
         return (
           <Icon
             name="align-justify"
@@ -101,8 +101,8 @@ class DrawerItem extends React.Component {
         onPress={() =>
           title == "Đăng Xuất"
             ? Linking.openURL(
-                "https://demos.creative-tim.com/argon-pro-react-native/docs/"
-              ).catch(err => console.error("An error occurred", err))
+              "https://demos.creative-tim.com/argon-pro-react-native/docs/"
+            ).catch(err => console.error("An error occurred", err))
             : navigation.navigate(title)
         }
       >
