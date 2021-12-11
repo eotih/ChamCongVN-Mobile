@@ -19,6 +19,7 @@ import { HeaderHeight } from "../../constants/utils";
 import { Button, Input } from "../../components";
 import { GetAccountByID } from "../../functions/TimeKeeper"
 import md5 from "md5"
+import { OutlinedTextField } from 'rn-material-ui-textfield';
 
 export default class MatKhau extends React.Component {
   constructor() {
@@ -89,35 +90,17 @@ export default class MatKhau extends React.Component {
         <Text size={22} style={{ textAlign: 'center' }}> Bạn muốn thay đổi mật khẩu</Text>
         <Block flex style={styles.profileCard}>
 
-          <Block style={styles.text}>
-            <Input size={16} color="#32325D" style={styles.input}
-              placeholder="Nhập mật khẩu cũ"
-              onChangeText={text => this.setState({ OldPasswordInput: text })}
-              iconContent={
-                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
-              }>
-            </Input>
+          <Block style={styles.text}> 
+            <OutlinedTextField label="Nhập mật khẩu cũ" onChangeText={text => this.setState({ OldPasswordInput: text })}></OutlinedTextField>
           </Block>
-          <Block style={styles.text}>
-            <Input size={16} color="#32325D" style={styles.input}
-              placeholder="Nhập mật khẩu mới"
-              onChangeText={text => this.setState({ NewPassword: text })}
-              iconContent={
-                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
-              }>
-            </Input>
+          <Block  style={styles.text} >
+            <OutlinedTextField label="Nhập mật khẩu mới" onChangeText={text => this.setState({ NewPassword: text })}></OutlinedTextField>
           </Block>
-          <Block style={styles.text}>
-            <Input size={16} color="#32325D" style={styles.input}
-              placeholder="Nhập lại mật khẩu mới"
-              onChangeText={text => this.setState({ NewPassword2: text })}
-              iconContent={
-                <Icon style={{ marginRight: 5 }} name="key" size={26} color="#00CCCC" />
-              }>
-            </Input>
+          <Block  style={styles.text} >
+            <OutlinedTextField label="Nhập mật khẩu mới" onChangeText={text => this.setState({ NewPassword2: text })}></OutlinedTextField>
           </Block>
           <TouchableOpacity style={styles.commandButton} onPress={() => this.handleSubmit()}>
-            <Text>Submit</Text>
+            <Text style={{color: "white"}}>Submit</Text>
           </TouchableOpacity>
         </Block>
       </ScrollView>
@@ -126,12 +109,6 @@ export default class MatKhau extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    flexDirection: 'row',
-  },
-  input: {
-    width: width / 1.2,
-  },
   profileCard: {
     // position: "relative",
     padding: theme.SIZES.BASE,
@@ -144,6 +121,9 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOpacity: 0.2,
     zIndex: 2
+  },
+  text: {
+    marginTop: 20
   },
   commandButton: {
     padding: 15,

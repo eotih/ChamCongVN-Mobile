@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     tab: {
-        backgroundColor: "black",
+        backgroundColor: "#004dcf",
         width: width * 0.4,
         borderRadius: 10,
         height: 30,
