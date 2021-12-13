@@ -42,6 +42,12 @@ const SearchButton = ({ isWhite, style, navigation }) => (
 );
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      active: 1,
+    }
+  }
   handleLeftPress = () => {
     const { back, navigation } = this.props;
     return (back ? navigation.goBack() : navigation.openDrawer());
@@ -176,12 +182,12 @@ class Header extends React.Component {
           pagingEnabled={true}
           decelerationRate={0}
           scrollEventThrottle={16}>
-          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Đơn xin nghỉ phép')}>
+          <Button shadowless style={[(this.state.active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { this.setState({ active: 1 }); navigation.navigate('Đơn xin nghỉ phép') }}>
             <Block row middle>
               <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin nghỉ phép'}</Text>
             </Block>
           </Button>
-          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('DonxinDMVS')}>
+          <Button shadowless style={[(this.state.active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { this.setState({ active: 2 }); navigation.navigate('Đơn xin nghỉ phép') }}>
             <Block row middle>
               <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin DMVS'}</Text>
             </Block>
@@ -305,6 +311,22 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   tab: {
+    backgroundColor: "black",
+    alignSelf: "center",
+    width: width * 0.4,
+    borderRadius: 10,
+    height: 30,
+    elevation: 0,
+  },
+  tabSelected: {
+    backgroundColor: "blue",
+    alignSelf: "center",
+    width: width * 0.4,
+    borderRadius: 10,
+    height: 30,
+    elevation: 0,
+  },
+  notSelected: {
     backgroundColor: "black",
     alignSelf: "center",
     width: width * 0.4,
