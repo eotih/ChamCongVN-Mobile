@@ -52,7 +52,7 @@ class ThongTinCaNhan extends React.Component {
             })
         });
     }
-    
+
 
     renderThongTinCN = () => {
         const { navigation } = this.props;
@@ -83,55 +83,57 @@ class ThongTinCaNhan extends React.Component {
                                     </Block>
                                     <Block flex>
                                         <Block middle style={styles.nameInfo}>
+                                            <Text h6 >Thông tin cá nhân </Text>
                                             <View style={styles.card}>
                                                 <Block style={styles.text}>
-                                                    
-                                                    <Icon name="user" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 13 }}>
                                                         NickName: {this.state.NickName}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="phone" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="phone" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Số điện thoại: {this.state.Phone}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="user" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 13 }}>
                                                         Giới tính: {this.state.Gender}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="globe" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="globe" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{  marginLeft: 10 }}>
                                                         Địa chỉ: {this.state.Address}
                                                     </Text>
                                                 </Block>
                                             </View>
+                                            <Text h6 >Thông tin công việc </Text>
                                             <View style={styles.card}>
+
                                                 <Block style={styles.text}>
-                                                    <Icon name="calendar" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="calendar" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Tên công việc: {this.state.WorkName}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="calendar" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="users" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Nhóm: {this.state.GroupName}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="user" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 25 }}>
+                                                    <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 15 }}>
                                                         Chức vụ: {this.state.PositionName}
                                                     </Text>
                                                 </Block>
                                                 <Block style={styles.text}>
-                                                    <Icon name="briefcase" size={32} color="#00CCCC" />
-                                                    <Text size={16} color="#32325D" style={{ marginTop: 10, marginLeft: 15 }}>
+                                                    <Icon name="briefcase" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
+                                                    <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Phòng ban: {this.state.DepartmentName}
                                                     </Text>
                                                 </Block>
@@ -139,12 +141,10 @@ class ThongTinCaNhan extends React.Component {
 
                                         </Block>
                                     </Block>
-                                    <View style={styles.Button}>
-                                        <View>
-                                            <TouchableOpacity style={styles.commandButton1} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
-                                                <Text color="white">Đổi mật khẩu</Text>
-                                            </TouchableOpacity>
-                                        </View>
+                                    <View>
+                                        <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
+                                            <Text size={18} style={{ textAlign: 'center' }} color="white">Đổi mật khẩu</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </Block>
                             </ScrollView>
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     },
     profileContainer: {
         width: width,
-        height: height,
         padding: 0,
         zIndex: 1,
     },
@@ -197,17 +196,13 @@ const styles = StyleSheet.create({
         borderWidth: 2
     },
     card: {
-        padding: theme.SIZES.BASE,
-        marginHorizontal: theme.SIZES.BASE,
-        marginTop: 65,
         borderRadius: 12,
         backgroundColor: theme.COLORS.WHITE,
-        marginTop: 15,
-        width: width / 1.3,
         shadowRadius: 8,
         shadowOpacity: 0.2,
         zIndex: 2,
         borderWidth: 1,
+        marginVertical: 10,
     },
     avatarContainer: {
         position: "relative",
@@ -225,6 +220,11 @@ const styles = StyleSheet.create({
     },
     text: {
         flexDirection: 'row',
+        borderBottomWidth: 1,
+        width: width / 1.2,
+        borderRadius: 10,
+        marginVertical:10,
+        borderColor: '#CCCCCC'
     },
     nameInfo1: {
         marginTop: 5,
@@ -236,22 +236,10 @@ const styles = StyleSheet.create({
         borderColor: "#E9ECEF"
     },
     Button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 20,
-        marginBottom: 20,
-
-
-    },
-    commandButton: {
-        padding: 15,
-        borderRadius: 10,
-        backgroundColor: '#FF6347',
-    },
-    commandButton1: {
-        padding: 15,
+        marginTop: 10,
         borderRadius: 10,
         backgroundColor: '#00CCFF',
+        padding: 10,
     },
     thumb: {
         borderRadius: 4,

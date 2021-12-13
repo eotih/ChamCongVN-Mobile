@@ -10,6 +10,7 @@ import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { TextField, FilledTextField, OutlinedTextField } from 'rn-material-ui-textfield'
 
 const { width, height } = Dimensions.get('window');
 function DonxinNP() {
@@ -27,53 +28,27 @@ function DonxinNP() {
     setDate(currentDate);
   };
   return (
-    <Block flex center>
+    <Block >
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30, width }}>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block style={styles.all} >
-            <Text >Họ tên nhân viên</Text>
-            <Block style={styles.text} >
-              <Icon name="user"
-              color="#0066FF"
-                size={24} />
-              <Text size={16}></Text>
-            </Block>
-          </Block>
-          <Block style={styles.all} >
-            <Text >Chức vụ</Text>
-            <Block style={styles.text} >
-              <Icon name="users"
-                size={24} />
-              <Text size={16}> AAAAAA</Text>
-            </Block>
-          </Block>
-          <Block style={styles.all} >
-            <Text >Phòng ban</Text>
-            <Block  style={styles.text} >
-            <Icon name="briefcase"
-                size={24} />
-              <Text size={16}> AAAAAA</Text>
-            </Block>
-          </Block>
-          <Block row style={{ justifyContent: 'space-between', marginTop: 20 }} >
-
-            <Block >
-              <Text >Chọn Loại Nghỉ</Text>
-              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val, 'TieuDeNghi')}
+          <Block  >
+            <Text h5>Xin nghỉ</Text>
+            <Block style={{ marginVertical: theme.SIZES.BASE }} >
+              <Text >Chọn loại nghỉ </Text>
+              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val,)}
                 options={["Việc cá nhân", "Nghỉ hàng tháng"]}
               />
             </Block>
-
-            <Block >
+            <Block style={{ marginVertical: theme.SIZES.BASE }} >
               <Text >Chọn số ngày nghỉ</Text>
-              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val, 'TieuDeNghi')}
+              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val,)}
                 options={["Nghỉ 1 ngày", "Nghỉ 2 ngày"]}
               />
             </Block>
           </Block>
           <Block style={styles.all} >
-            <Text h7 >Chọn ngày bắt đầu nghỉ</Text>
-            <Block style={styles.day} >
+            <Text h5 >Chọn ngày xin nghỉ</Text>
+            <Block style={styles.day}  >
               <Block style={styles.textInput}>
                 <TextInput size={16} color="#32325D"
                   placeholder="Select Date"
@@ -102,22 +77,22 @@ function DonxinNP() {
             )}
           </Block >
           <Block style={{ marginTop: 20 }}>
-            <Text >Lý do xin nghỉ phép </Text>
+            <Text h5 >Lý do </Text>
             <Block style={{ borderWidth: 1, marginTop: 20 }} >
               <TextInput
-                multiline={true}
-                numberOfLines={6}
-                size={16} color="#32325D"
+                multiline
+                numberOfLines={8}
+                placeholder="Nhập lý do xin nghỉ"
               >
               </TextInput>
             </Block>
           </Block>
-          <Block style={styles.createButton} >
-            <Button color="info"  >
-              <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+          <Block  >
+            <TouchableOpacity style={styles.createButton} color="info"  >
+              <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{textAlign: 'center'}}>
                 Gửi Yêu Cầu
               </Text>
-            </Button>
+            </TouchableOpacity>
           </Block>
         </Block>
       </ScrollView>
@@ -125,15 +100,14 @@ function DonxinNP() {
   );
 }
 const styles = StyleSheet.create({
-  button: {
-    marginBottom: theme.SIZES.BASE,
-    width: width - theme.SIZES.BASE * 2
-  },
   all: {
-    marginTop: 10,
+    marginTop: 5,
   },
   createButton: {
-    alignItems: 'center',
+    marginTop: 10,
+    borderRadius: 10,
+    backgroundColor: '#ff6900',
+    padding: 10,
   },
   text: {
     marginTop: 7,
@@ -154,9 +128,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   select: {
-    marginTop: 7,
-    width: width / 2.5,
-    backgroundColor: "#3366CC"
+    marginTop: 10,
+    borderWidth: 1,
   },
 })
 export default DonxinNP;

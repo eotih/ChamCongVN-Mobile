@@ -134,7 +134,7 @@ function ApplicationStack(props) {
         component={Application}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Application" navigation={navigation} scene={scene} Application/>
+            <Header title="Application" navigation={navigation} scene={scene}/>
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
