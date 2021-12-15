@@ -20,7 +20,7 @@ function Application() {
                         </Block>
                     </TouchableOpacity>
                 </Block>
-                <DonxinNP />
+                {<DonxinNP />}
             </ScrollView>
         </>
     );

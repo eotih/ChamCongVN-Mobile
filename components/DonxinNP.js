@@ -4,6 +4,7 @@ import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Text
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants";
+import { axios } from "../constants/BaseUrl";
 import { Button, Select, Input, Header, Switch } from "../components";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -25,6 +26,11 @@ function DonxinNP() {
     CreatedBy: "Trần Thanh Tú",
   });
 
+  const handleSubmit = () =>{
+    console.log(data)
+    // axios.post("Application/AddOrEditAbsentApplications",{data})
+    // .then(response => console.log(response))
+  }
   const handleSetShow = () => {
     if (Platform.OS === 'ios') {
       setShow(true)
@@ -102,7 +108,7 @@ function DonxinNP() {
             <Block style={{ marginVertical: theme.SIZES.BASE }} >
               <Text >Chọn số ngày nghỉ</Text>
               <Select data={data} typeSelect="NumberOfDays" style={styles.select}
-                options={["Nghỉ 1 ngày", "Nghỉ 2 ngày"]}
+                options={["1 Ngày", "2 Ngày", "3 Ngày", "4 Ngày"]}
               />
             </Block>
           </Block>
@@ -133,12 +139,12 @@ function DonxinNP() {
                 multiline
                 numberOfLines={8}
                 placeholder="Nhập lý do xin nghỉ"
-              >
-              </TextInput>
+                onChangeText={(text) => data.Reason = text}
+              />
             </Block>
           </Block>
           <Block  >
-            <TouchableOpacity style={styles.createButton} color="info"  >
+            <TouchableOpacity style={styles.createButton} color="info" onPress={() => handleSubmit()}>
               <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{ textAlign: 'center' }}>
                 Gửi Yêu Cầu
               </Text>
@@ -180,6 +186,43 @@ const styles = StyleSheet.create({
   select: {
     marginTop: 10,
     borderWidth: 1,
+  },
+  modal: {
+    width: width,
+    height: height / 2.5,
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 1,
+    backgroundColor: '#fff',
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: theme.SIZES.BASE,
+    paddingVertical: theme.SIZES.BASE,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+
+  },
+  modalTitle: {
+    fontSize: theme.SIZES.BASE,
+    fontWeight: '500',
+  },
+  modalBody: {
+    flex: 1,
+    paddingHorizontal: theme.SIZES.BASE,
+    paddingVertical: theme.SIZES.BASE,
+
+  },
+  ios: {
+    width: width,
+    height: height / 3,
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 1,
+    backgroundColor: '#222',
+
   },
 })
 export default DonxinNP;
