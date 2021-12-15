@@ -5,27 +5,87 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants";
 import { Button, Select, Input, Header, Switch } from "../components";
-import axios from "axios";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { TextField, FilledTextField, OutlinedTextField } from 'rn-material-ui-textfield'
 
 const { width, height } = Dimensions.get('window');
 function DonxinNP() {
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(false)
-  }, [show]);
+  const [showPicker, setShowPicker] = useState();
+  const [data, setData] = useState({
+    EmployeeID: 1,
+    AbsentType: '',
+    AbsentDate: '',
+    Reason: '',
+    NumberOfDays: '',
+    StateID: 1,
+    CreatedBy: "Trần Thanh Tú",
+  });
 
+  const handleSetShow = () => {
+    if (Platform.OS === 'ios') {
+      setShow(true)
+      setShowPicker(
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={show}
+        >
+          <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Date</Text>
+              <TouchableOpacity
+                onPress={() => setShow(false)}
+              >
+                <IconButton
+                  icon="close"
+                  size={32}
+                  color={Colors.black}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalBody}>
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode='date'
+                is24Hour={false}
+                display={
+                  Platform.OS === "ios" ? "spinner" : "default"
+                }
+                onChange={onChange}
+                style={styles.ios}
+              />
+            </View>
+          </View>
+        </Modal>
+      )
+    }
+    else {
+      setShow(true)
+      setShowPicker(<DateTimePicker
+        testID="dateTimePicker"
+        value={date}
+        mode='date'
+        is24Hour={false}
+        display={
+          Platform.OS === "ios" ? "spinner" : "default"
+        }
+        onChange={onChange}
+        style={styles.ios}
+      />);
+    }
+  }
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     const selectedDay = moment(currentDate).format("LL");
     setDay(selectedDay);
     setDate(currentDate);
+    data.AbsentDate = currentDate;
+    console.log(data)
   };
   return (
     <Block >
@@ -35,13 +95,13 @@ function DonxinNP() {
             <Text h5>Xin nghỉ</Text>
             <Block style={{ marginVertical: theme.SIZES.BASE }} >
               <Text >Chọn loại nghỉ </Text>
-              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val,)}
+              <Select data={data} typeSelect="AbsentDate" style={styles.select}
                 options={["Việc cá nhân", "Nghỉ hàng tháng"]}
               />
             </Block>
             <Block style={{ marginVertical: theme.SIZES.BASE }} >
               <Text >Chọn số ngày nghỉ</Text>
-              <Select style={styles.select} onChangeText={(val) => this.updateInputVal(val,)}
+              <Select data={data} typeSelect="NumberOfDays" style={styles.select}
                 options={["Nghỉ 1 ngày", "Nghỉ 2 ngày"]}
               />
             </Block>
@@ -60,21 +120,11 @@ function DonxinNP() {
                 <IconButton
                   icon="calendar"
                   color={Colors.red500}
-                  onPress={() => setShow(true)}
+                  onPress={() => handleSetShow()}
                 />
               </Block>
-
             </Block>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode='date'
-                is24Hour={false}
-                display="default"
-                onChange={onChange}
-              />
-            )}
+            {show && showPicker}
           </Block >
           <Block style={{ marginTop: 20 }}>
             <Text h5 >Lý do </Text>
@@ -89,7 +139,7 @@ function DonxinNP() {
           </Block>
           <Block  >
             <TouchableOpacity style={styles.createButton} color="info"  >
-              <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{textAlign: 'center'}}>
+              <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{ textAlign: 'center' }}>
                 Gửi Yêu Cầu
               </Text>
             </TouchableOpacity>

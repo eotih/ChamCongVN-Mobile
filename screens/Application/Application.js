@@ -14,7 +14,7 @@ function Application() {
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
                         <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[(this.state.active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
+                    <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
                         <Block row middle>
                             <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
                         </Block>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         elevation: 0,
     },
     notSelected: {
-        backgroundColor: "#004dcf",
+        backgroundColor: "#FFCC00",
         width: width * 0.4,
         borderRadius: 10,
         height: 30,

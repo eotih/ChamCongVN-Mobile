@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Block, Text } from 'galio-framework';
@@ -13,10 +13,10 @@ class DropDown extends React.Component {
   }
 
   handleOnSelect = (index, value) => {
-    const { onSelect } = this.props;
-
+    const { onSelect, data, typeSelect } = this.props;
     this.setState({ value: value });
     onSelect && onSelect(index, value);
+    typeSelect == "AbsentDate" ? data.AbsentType = value :  data.NumberOfDays = value;
   }
 
   render() {
@@ -38,7 +38,7 @@ class DropDown extends React.Component {
         style={modalStyles}
         onSelect={this.handleOnSelect}
         dropdownStyle={styles.dropdown}
-        dropdownTextStyle={{paddingLeft:16, fontSize:12}}
+        dropdownTextStyle={{ paddingLeft: 16, fontSize: 12 }}
         {...props}>
         <Block flex row middle space="between">
           <Text size={12} style={textStyles}>{this.state.value}</Text>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   qty: {
     paddingHorizontal: 16,
     paddingTop: 10,
-    paddingBottom:9.5,
+    paddingBottom: 9.5,
     borderRadius: 4,
     shadowColor: "rgba(0, 0, 0, 0.1)",
     shadowOffset: { width: 0, height: 2 },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginTop: 8,
     marginLeft: -16,
-    width:width/2.5,
+    width: width / 2.5,
   },
 });
 
