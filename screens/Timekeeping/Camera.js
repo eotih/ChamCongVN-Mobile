@@ -23,7 +23,7 @@ import axios from 'axios';
 import { Card } from 'galio-framework';
 
 
-export default function checkCamera({ navigation: { navigate } }) {
+export default function checkCamera() {
     const [valueStatus, setValueStatus] = useState('');
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.front);
@@ -33,7 +33,7 @@ export default function checkCamera({ navigation: { navigate } }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [IP, setPublicIP] = useState('');
-    const [emp, setEmp] = useState([]);
+    const [name, setName] = useState('');
     const [fillCircle, setFillCircle] = useState(0);
     const [image, setImage] = useState('');
     const ref = useRef(null)
@@ -47,12 +47,6 @@ export default function checkCamera({ navigation: { navigate } }) {
         setLoading(true);
     }, [valueStatus]);
 
-    const getInfoEmployee = async (empID) => {
-        axios.get(`http://192.168.1.7:45455/Employee/GetEmployeeByID?ID=` + 1)
-            .then(res => {
-                setEmp(res.data);
-            })
-    }
     const getPermissionLocationAsync = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -90,7 +84,6 @@ export default function checkCamera({ navigation: { navigate } }) {
             const source = data.base64;
             setImage(source);
             const response = {
-                OrganizationID: 1,
                 Latitude: latitude,
                 Longitude: longitude,
                 PublicIP: IP,
@@ -101,25 +94,15 @@ export default function checkCamera({ navigation: { navigate } }) {
         }
     }
     const goToTheMoon = async (object) => {
-        const res = await axios.post('http://192.168.1.7:45455/HandleciToPython', object, {
+        const res = await axios.post('http://192.168.1.7:45455/HandleSendToPython', object, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        const { name } = res.data;
-        if (name!== "Unknown") {
-            getInfoEmployee(name)
-            setModalVisible(true)
-            setLoading(true)
-        }
-        else {
-            setModalVisible(false)
-            setImage('')
-            setFillCircle(0)
-            alert('Không tìm thấy nhân viên')
-            navigate('Home');
-            
-        }
+        const { name, base64 } = res.data;
+        { name ? setModalVisible(true) : setModalVisible(false) }
+        { name ? setLoading(true) : setLoading(false) }
+        setName(name);
     }
     const handleFacesDetected = ({ faces }) => {
         if (faces.length !== 1) {
@@ -140,7 +123,7 @@ export default function checkCamera({ navigation: { navigate } }) {
             if (fillCircle < 10) {
                 takePhoto();
             }
-            if (fillCircle == 90) {
+            if (fillCircle > 100) {
                 setLoading(false);
             }
         }
@@ -170,76 +153,90 @@ export default function checkCamera({ navigation: { navigate } }) {
                 style={StyleSheet.absoluteFill}
                 maskElement={<View style={styles.mask} />}
             >
-                {fillCircle == 100 ?
-                    <Image
-                        style={styles.image}
-                        source={{ uri: "data:image/image/png;base64," + image }} />
-                    : <Camera
-                        style={StyleSheet.absoluteFill}
-                        ref={ref}
-                        type={Camera.Constants.Type.front}
-                        onFacesDetected={handleFacesDetected}
-                        faceDetectorSettings={{
-                            mode: FaceDetector.Constants.Mode.fast, // ignore faces in the background
-                            detectLandmarks: FaceDetector.Constants.Landmarks.none,
-                            runClassifications: FaceDetector.Constants.Classifications.all,
-                            minDetectionInterval: 125,
-                            tracking: false
+                <Camera
+                    style={StyleSheet.absoluteFill}
+                    ref={ref}
+                    type={Camera.Constants.Type.front}
+                    onFacesDetected={handleFacesDetected}
+                    faceDetectorSettings={{
+                        mode: FaceDetector.Constants.Mode.fast, // ignore faces in the background
+                        detectLandmarks: FaceDetector.Constants.Landmarks.none,
+                        runClassifications: FaceDetector.Constants.Classifications.all,
+                        minDetectionInterval: 125,
+                        tracking: false
+                    }}
+                >
+                    <AnimatedCircularProgress
+                        style={styles.circularProgress}
+                        fill={fillCircle}
+                        size={PREVIEW_SIZE}
+                        width={10}
+                        backgroundWidth={7}
+                        tintColor="#fea621"
+                        backgroundColor="#e8e8e8"
+                    />
+                </Camera>
+            </MaskedView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.instructionsContainer}>
+                    <Card
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#ffebcf',
+                            borderRadius: 20,
+                            padding: 10,
+                            margin: 10,
+                            alignItems: 'center',
+                            justifyContent: 'center'
                         }}
                     >
-                        <AnimatedCircularProgress
-                            style={styles.circularProgress}
-                            fill={fillCircle}
-                            size={PREVIEW_SIZE}
-                            width={10}
-                            backgroundWidth={7}
-                            tintColor="#fea621"
-                            backgroundColor="#e8e8e8"
-                        />
-                    </Camera>}
-            </MaskedView>
+                        <View style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#ffebcf',
+                            borderRadius: 10,
+                            padding: 10,
+                            margin: 10,
+                            alignItems: 'center',
+                        }}>
 
-            {emp.length !== 0 ?
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                >
-                    <View style={styles.instructionsContainer}>
-                        <Card
-                            style={styles.cardPopUp}
-                        >
-                            <View style={styles.viewPopUp}>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Thông tin nhân viên</Text>
-                                <View style={styles.viewTextDisplay}>
-                                    <Text style={styles.textPopUp}>Mã nhân viên: {emp.Employee.EmployeeID}</Text>
-                                    <Text style={styles.textPopUp}>Tên nhân viên: {emp.Employee.FullName}</Text>
-                                    <Text style={styles.textPopUp}>Vị trí: {emp.PositionName}</Text>
-                                    <Text style={styles.textPopUp}>Chức vụ: {emp.PositionName}</Text>
-                                    <Text style={styles.textPopUp}>Ngày vào làm: {emp.Employee.StartDate}</Text>
-                                </View>
-                                <TouchableOpacity
-                                    style={styles.buttonPopUp}
-                                    onPress={() => {
-                                        // go home screen
-                                        navigate('Home');
-                                        setModalVisible(!modalVisible)
-                                        // clear data
-                                        setImage('')
-                                        setFillCircle(0)
-                                    }}
-                                >
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>Xác nhận</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </Card>
-                    </View>
-                </Modal> : null}
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Thông tin nhân viên</Text>
+                            <Text style={styles.text}>{name}</Text>
+                            <Text style={styles.text}>Nhân viên</Text>
+                            <Text style={styles.text}>Mã nhân viên: 123456789</Text>
+                            <Text style={styles.text}>Mã nhân viên: 123456789</Text>
+                            <TouchableOpacity
+                                style={{
+                                    width: '100%',
+                                    height: 50,
+                                    backgroundColor: '#fea621',
+                                    borderRadius: 10,
+                                    marginTop: 70,
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible)
+                                }}
+                            >
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>Xác nhận</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </Card>
+
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }
 
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window")
+const { width: windowWidth } = Dimensions.get("window")
 const PREVIEW_SIZE = windowWidth * 0.9
 const PREVIEW_RECT = {
     minX: (windowWidth - PREVIEW_SIZE) / 2,
@@ -250,49 +247,6 @@ const PREVIEW_RECT = {
     height: PREVIEW_SIZE
 }
 const styles = StyleSheet.create({
-    // get window width
-    cardPopUp: {
-        width: windowWidth,
-        height: windowHeight / 5,
-        backgroundColor: '#ffebcf',
-        borderRadius: 20,
-        padding: 10,
-        margin: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    viewPopUp: {
-        width: windowWidth,
-        height: windowHeight / 2,
-        backgroundColor: '#ffebcf',
-        borderRadius: 20,
-        padding: 10,
-        margin: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    buttonPopUp: {
-        width: windowWidth - 20,
-        height: 50,
-        backgroundColor: '#fea621',
-        borderRadius: 10,
-        marginTop: 20,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textPopUp: {
-        fontSize: 20,
-        textAlign: "center",
-        color: "#333333",
-        marginBottom: 5,
-    },
-    viewTextDisplay: {
-        // Overlay the view on top of the card
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        marginTop: 20,
-
-    },
     mask: {
         borderRadius: PREVIEW_SIZE / 2,
         height: PREVIEW_SIZE,
@@ -319,6 +273,13 @@ const styles = StyleSheet.create({
         width: PREVIEW_SIZE,
         height: PREVIEW_SIZE,
         marginTop: PREVIEW_RECT.minY,
+    },
+    text: {
+        fontSize: 20,
+        textAlign: "center",
+        margin: 10,
+        color: "#333333",
+        marginBottom: 5,
     },
 
 })

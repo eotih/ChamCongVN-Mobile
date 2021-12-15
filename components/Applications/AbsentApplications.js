@@ -3,15 +3,15 @@ import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Text
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
-import { argonTheme, tabs } from "../constants";
-import { axios } from "../constants/BaseUrl";
-import { Button, Select, Input, Header, Switch } from "../components";
+import { argonTheme, tabs } from "../../constants";
+import { axios } from "../../constants/BaseUrl";
+import { Button, Select, Input, Header, Switch } from "..";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
 
 const { width, height } = Dimensions.get('window');
-function DonxinNP() {
+export default function AbsentApplications() {
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [show, setShow] = useState(false);
@@ -26,7 +26,7 @@ function DonxinNP() {
     CreatedBy: "Trần Thanh Tú",
   });
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     console.log(data)
     // axios.post("Application/AddOrEditAbsentApplications",{data})
     // .then(response => console.log(response))
@@ -134,8 +134,8 @@ function DonxinNP() {
           </Block >
           <Block style={{ marginTop: 20 }}>
             <Text h5 >Lý do </Text>
-            <Block style={{ borderWidth: 1, marginTop: 20 }} >
-              <TextInput
+            <Block style={{ marginTop: 20 }} >
+              <Input
                 multiline
                 numberOfLines={8}
                 placeholder="Nhập lý do xin nghỉ"
@@ -225,4 +225,3 @@ const styles = StyleSheet.create({
 
   },
 })
-export default DonxinNP;

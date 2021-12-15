@@ -50,7 +50,7 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-      case "Application":
+      case "New Application":
         return (
           <Icon
             name="align-justify"
@@ -58,7 +58,7 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.WARNING}
           />
         );
-      case "Base Information":
+      case "Profile":
         return (
           <Icon
             name="user"

@@ -3,17 +3,16 @@ import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Text
 // Galio components
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
-import { argonTheme, tabs } from "../constants";
-import { Button, Select, Input, Header, Switch } from "../components";
+import { argonTheme, tabs } from "../../constants";
+import { Button, Select, Input, Header, Switch } from "..";
 import axios from "axios";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { TextField, FilledTextField, OutlinedTextField } from 'rn-material-ui-textfield'
 
 const { width, height } = Dimensions.get('window');
-function Overtime() {
+export default function OverTimeApplications() {
     const [date, setDate] = useState(new Date());
     const [day, setDay] = useState();
     const [show, setShow] = useState(false);
@@ -150,4 +149,3 @@ const styles = StyleSheet.create({
       },
       
 })
-export default Overtime
