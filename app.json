@@ -4,7 +4,9 @@
       [
         "expo-notifications",
         {
-          "sounds": ["./assets/soundthongbao.wav"]
+          "sounds": [
+            "./assets/soundthongbao.wav"
+          ]
         }
       ]
     ],
@@ -31,7 +33,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "description": "Argon React Native, based on Argon Design System. Coded by Creative Tim"
+    }
   }
 }

@@ -27,7 +27,6 @@ export default function AbsentApplications() {
   });
 
   const handleSubmit = () => {
-    console.log(data)
     // axios.post("Application/AddOrEditAbsentApplications",{data})
     // .then(response => console.log(response))
   }
@@ -91,7 +90,6 @@ export default function AbsentApplications() {
     setDay(selectedDay);
     setDate(currentDate);
     data.AbsentDate = currentDate;
-    console.log(data)
   };
   return (
     <Block >

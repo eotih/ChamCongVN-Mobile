@@ -8,7 +8,6 @@ import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
-import Profile from "../screens/Profile/Profile";
 import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";

@@ -21,7 +21,7 @@ function Application() {
                         </Block>
                     </TouchableOpacity>
                 </Block>
-                {active === 1 ? <AbsentApplications /> : <OverTimeApplications />}
+                {active === 1 ? <AbsentApplications /> : <OvertimeApplications />}
             </ScrollView>
         </>
     );
