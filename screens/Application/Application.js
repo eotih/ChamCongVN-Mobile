@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, Modal, } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import DonxinNP from "../../components/DonxinNP";
+import Overtime from "../../components/OvertimeForm";
 import { IconButton, Colors } from 'react-native-paper';
 
 const { width } = Dimensions.get('screen');
@@ -20,7 +21,7 @@ function Application() {
                         </Block>
                     </TouchableOpacity>
                 </Block>
-                {<DonxinNP />}
+                {active === 1 ? <DonxinNP /> : <Overtime />}
             </ScrollView>
         </>
     );
