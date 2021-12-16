@@ -27,8 +27,8 @@ export default function AbsentApplications() {
   });
 
   const handleSubmit = () => {
-    // axios.post("Application/AddOrEditAbsentApplications",{data})
-    // .then(response => console.log(response))
+    axios.post("Application/AbsentApplications",{data})
+    .then(response => console.log(response))
   }
   const handleSetShow = () => {
     if (Platform.OS === 'ios') {

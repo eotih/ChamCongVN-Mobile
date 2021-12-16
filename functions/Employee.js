@@ -1,7 +1,7 @@
 import Axios from '../constants/BaseUrl';
 
 async function getInfoEmployee(ID) {
-  const res = await Axios.get('Employee/GetEmployeeByID?ID='+ID);
+  const res = await Axios.get('Employee/Employee/'+ID);
   return res.data;
 }
 

@@ -37,7 +37,7 @@ function TimekeepingHistory() {
     setDate(currentDate);
   };
   const filterData = (condition) => {
-    const result = dataFilter.filter(res => moment(res.checkin.CreatedAt).format('YYYY-MM-DD') <= moment(condition).format('YYYY-MM-DD') && moment(date).format('YYYY-MM-DD') <= moment(res.checkin.CreatedAt).format('YYYY-MM-DD'));
+    const result = dataFilter.filter(res => moment(res.CheckInCreatedAt).format('YYYY-MM-DD') <= moment(condition).format('YYYY-MM-DD') && moment(date).format('YYYY-MM-DD') <= moment(res.CheckInCreatedAt).format('YYYY-MM-DD'));
     setTimeKeeper(result);
   }
   const calendarSelect = (calendar) => {

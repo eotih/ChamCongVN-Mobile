@@ -19,7 +19,6 @@ import * as ImagePicker from 'expo-image-picker';
 import ReactFileReader from 'react-file-reader';
 import { HeaderHeight } from "../../constants/utils";
 
-
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 const today = new Date().getFullYear();
@@ -31,9 +30,8 @@ class ThongTinCaNhan extends React.Component {
             User: [],
         }
     }
-
     async getInfoEmployee(ID) {
-        const res = await Axios.get('Employee/GetEmployeeByID?ID=' + ID);
+        const res = await Axios.get('Employee/Employee/' +ID);
         return res.data;
     }
     componentDidMount() {

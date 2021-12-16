@@ -5,12 +5,12 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import moment from "moment";
 
 export default function TimeKeeperHistory({ data }) {
-    const { checkin, checkout } = data
-    const date = new Date(checkin.CreatedAt)
+    const { EmployeeName, Department, CheckInImage, CheckOutImage, CheckInCreatedAt, CheckOutCreatedAt, CheckInStatus, CheckOutStatus } = data
+    const date = new Date(CheckInCreatedAt)
     const test = moment(date).format('dddd');
     const day = moment(date).format('DD');
     const monthYear = moment(date).format('MMMM YYYY');
-    const totalTime = moment(checkout.CreatedAt).diff(moment(checkin.CreatedAt), 'hours')
+    const totalTime = moment(CheckOutCreatedAt).diff(moment(CheckInCreatedAt), 'hours')
     const getTime = (time) => {
         moment.locale('en');
         return moment(time).format('LT');
@@ -18,7 +18,7 @@ export default function TimeKeeperHistory({ data }) {
     return (
         <ScrollView>
             <Block style={styles.card}>
-                <Block style={styles.cardHeader}>
+                <Block style={[(CheckInStatus == "Đi muộn" && CheckInStatus == "Về sớm") ? styles.cardHeaderLateAndSoon : (CheckInStatus == "Đi muộn") ? styles.cardHeaderLate : styles.cardHeader]}>
                     <Block row>
                         <Block style={styles.cardHeaderLeft}>
                             <Text style={styles.day}>{day}</Text>
@@ -29,17 +29,17 @@ export default function TimeKeeperHistory({ data }) {
                         </Block>
                     </Block>
                      <Block style={styles.cardHeaderRightRight}>
-                        <Text style={styles.cardHeaderTextRight}>{checkin.Status} /</Text>
-                        <Text style={styles.cardHeaderTextRight}>{checkout.Status}</Text>
+                        <Text style={styles.cardHeaderTextRight}>{CheckInStatus} /</Text>
+                        <Text style={styles.cardHeaderTextRight}>{CheckOutStatus}</Text>
                     </Block>
                 </Block>
                 <Block style={styles.cardContent}>
                     <Block style={styles.cardContentLeft}>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: checkin.Image }} />
+                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64,"+CheckInImage }} />
                         </View>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: checkout.Image }} />
+                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64,"+CheckOutImage }} />
                         </View>
                     </Block>
                     <Block style={styles.cardContentRight}>
@@ -51,11 +51,11 @@ export default function TimeKeeperHistory({ data }) {
                             <Text style={styles.cardContentRightTopText}>Device check out:</Text>
                         </Block>
                         <Block style={styles.cardContentRightRight}>
-                            <Text style={styles.cardContentRightTopText}>{getTime(checkin.CreatedAt)}</Text>
-                            <Text style={styles.cardContentRightTopText}>{getTime(checkout.CreatedAt)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(CheckInCreatedAt)}</Text>
+                            <Text style={styles.cardContentRightTopText}>{getTime(CheckOutCreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
-                            <Text style={styles.cardContentRightTopText}>{checkin.Device}</Text>
-                            <Text style={styles.cardContentRightTopText}>{checkout.Device}</Text>
+                            <Text style={styles.cardContentRightTopText}> Device </Text>
+                            <Text style={styles.cardContentRightTopText}> Device </Text>
                         </Block>
                     </Block>
                 </Block>
@@ -79,6 +79,22 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     cardHeader: {
+        padding: theme.SIZES.BASE - 7,
+        borderBottomWidth: 1,
+        backgroundColor: 'green',
+        borderColor: '#ddd',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cardHeaderLateAndSoon: {
+        padding: theme.SIZES.BASE - 7,
+        borderBottomWidth: 1,
+        backgroundColor: 'red',
+        borderColor: '#ddd',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cardHeaderLate: {
         padding: theme.SIZES.BASE - 7,
         borderBottomWidth: 1,
         backgroundColor: 'orange',

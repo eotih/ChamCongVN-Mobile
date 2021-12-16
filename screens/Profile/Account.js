@@ -3,23 +3,15 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  Image,
-  ImageBackground,
-  Platform,
   View,
-  TouchableOpacity
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Images, argonTheme } from '../../constants';
-import { Block, Text, theme } from "galio-framework";
 import BaseUrl from '../../constants/BaseUrl';
-import { HeaderHeight } from "../../constants/utils";
 import { GetAccountByID } from "../../functions/TimeKeeper"
 import md5 from "md5"
-import { OutlinedTextField } from 'rn-material-ui-textfield';
 
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button,Text } from 'react-native-paper';
 
 export default class MatKhau extends React.Component {
   constructor() {
@@ -54,7 +46,7 @@ export default class MatKhau extends React.Component {
       }
       else {
         var newpassword = md5(this.state.NewPassword);
-        BaseUrl.post('Organization/EditPasswordAccount', {
+        BaseUrl.post('Organization/PasswordAccount/'+1, {
           AccountID: 1,
           Password: newpassword,
           UpdatedBy: this.state.FullName,
@@ -87,7 +79,7 @@ export default class MatKhau extends React.Component {
       >
 
         <View style={styles.card}>
-          <Text h6>Bạn muốn thay đổi mật khẩu</Text>
+          <Text style={{fontSize: 18,fontWeight: "bold"}}>Bạn muốn thay đổi mật khẩu</Text>
           <View >
             <TextInput style={styles.text}
               label="Nhập mật khẩu cũ"
@@ -105,11 +97,11 @@ export default class MatKhau extends React.Component {
               mode="outlined"
               onChangeText={text => this.setState({ OldPasswordInput: text })}>
             </TextInput>
-            <Block>
+            <View>
               <Button style={styles.commandButton} onPress={() => this.handleSubmit()}>
                 <Text style={{ color: "white" }}>Submit</Text>
               </Button>
-            </Block>
+            </View>
           </View>
 
         </View>
@@ -121,11 +113,11 @@ export default class MatKhau extends React.Component {
 const styles = StyleSheet.create({
   card: {
     // position: "relative",
-    padding: theme.SIZES.BASE,
-    marginHorizontal: theme.SIZES.BASE,
+    padding: 15,
+    marginHorizontal: 20,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: 'white',
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 8,
@@ -140,7 +132,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FF6347',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
   },
 
 });
