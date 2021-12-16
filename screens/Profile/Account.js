@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Platform,
   View,
-  TextInput,
   TouchableOpacity
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
@@ -16,10 +15,11 @@ import { Images, argonTheme } from '../../constants';
 import { Block, Text, theme } from "galio-framework";
 import BaseUrl from '../../constants/BaseUrl';
 import { HeaderHeight } from "../../constants/utils";
-import { Button, Input } from "../../components";
 import { GetAccountByID } from "../../functions/TimeKeeper"
 import md5 from "md5"
 import { OutlinedTextField } from 'rn-material-ui-textfield';
+
+import { TextInput, Button } from 'react-native-paper';
 
 export default class MatKhau extends React.Component {
   constructor() {
@@ -84,32 +84,42 @@ export default class MatKhau extends React.Component {
     const { navigation, route } = this.props;
     return (
       <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ width }}
       >
-        <Text size={22} style={{ textAlign: 'center' }}> Bạn muốn thay đổi mật khẩu</Text>
-        <Block flex style={styles.profileCard}>
 
-          <Block style={styles.text}> 
-            <OutlinedTextField label="Nhập mật khẩu cũ" onChangeText={text => this.setState({ OldPasswordInput: text })}></OutlinedTextField>
-          </Block>
-          <Block  style={styles.text} >
-            <OutlinedTextField label="Nhập mật khẩu mới" onChangeText={text => this.setState({ NewPassword: text })}></OutlinedTextField>
-          </Block>
-          <Block  style={styles.text} >
-            <OutlinedTextField label="Nhập mật khẩu mới" onChangeText={text => this.setState({ NewPassword2: text })}></OutlinedTextField>
-          </Block>
-          <TouchableOpacity style={styles.commandButton} onPress={() => this.handleSubmit()}>
-            <Text style={{color: "white"}}>Submit</Text>
-          </TouchableOpacity>
-        </Block>
+        <View style={styles.card}>
+          <Text h6>Bạn muốn thay đổi mật khẩu</Text>
+          <View >
+            <TextInput style={styles.text}
+              label="Nhập mật khẩu cũ"
+              mode="outlined"
+              activeOutlineColor="black"
+              onChangeText={text => this.setState({ OldPasswordInput: text })}>
+            </TextInput>
+            <TextInput style={styles.text}
+              label="Nhập mật khẩu cũ"
+              mode="outlined"
+              onChangeText={text => this.setState({ OldPasswordInput: text })}>
+            </TextInput>
+            <TextInput style={styles.text}
+              label="Nhập mật khẩu cũ"
+              mode="outlined"
+              onChangeText={text => this.setState({ OldPasswordInput: text })}>
+            </TextInput>
+            <Block>
+              <Button style={styles.commandButton} onPress={() => this.handleSubmit()}>
+                <Text style={{ color: "white" }}>Submit</Text>
+              </Button>
+            </Block>
+          </View>
+
+        </View>
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  profileCard: {
+  card: {
     // position: "relative",
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
@@ -126,8 +136,8 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   commandButton: {
-    padding: 15,
     borderRadius: 10,
+    padding: 10,
     backgroundColor: '#FF6347',
     alignItems: 'center',
     marginTop: 10,

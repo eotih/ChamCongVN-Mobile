@@ -3,21 +3,22 @@ import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Butt
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import DonxinNP from "../../components/DonxinNP";
 import { IconButton, Colors } from 'react-native-paper';
+import Overtime from '../../components/OvertimeForm';
 
 const { width } = Dimensions.get('screen');
 function Application() {
     return (
         <>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Block row style={styles.options}> 
-                        <TouchableOpacity style={[styles.tab, styles.divider]}  >
-                                <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.tab, styles.divider]} >
-                            <Block row middle>
-                                <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
-                            </Block>
-                        </TouchableOpacity>
+                <Block row style={styles.options}>
+                    <TouchableOpacity style={[styles.tab, styles.divider]}  >
+                        <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.tab, styles.divider]} >
+                        <Block row middle>
+                            <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
+                        </Block>
+                    </TouchableOpacity>
                 </Block>
                 <DonxinNP />
             </ScrollView>

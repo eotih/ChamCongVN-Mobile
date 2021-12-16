@@ -166,41 +166,15 @@ class Header extends React.Component {
       </Block>
     );
   }
-  renderDontu = () => {
-    const { navigation, optionLeft, optionRight } = this.props;
-    return (
-      <Block row style={styles.options}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          horizontal={true}
-          pagingEnabled={true}
-          decelerationRate={0}
-          scrollEventThrottle={16}>
-          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Đơn xin nghỉ phép')}>
-            <Block row middle>
-              <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin nghỉ phép'}</Text>
-            </Block>
-          </Button>
-          <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('DonxinDMVS')}>
-            <Block row middle>
-              <Text size={16} style={styles.tabTitle}>{optionLeft || 'Đơn xin DMVS'}</Text>
-            </Block>
-          </Button>
-
-        </ScrollView>
-      </Block>
-    );
-  }
   renderHeader = () => {
-    const { search, options, tabs, ThongTin, Timekeeping, Application } = this.props;
-    if (search || tabs || options || ThongTin || Timekeeping || Application) {
+    const { search, options, tabs, ThongTin, Timekeeping } = this.props;
+    if (search || tabs || options || ThongTin || Timekeeping) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
           {ThongTin ? this.renderThongTin() : null}
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
-          {Application ? this.renderDontu() : null}
         </Block>
       );
     }

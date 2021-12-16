@@ -9,9 +9,9 @@ import {
     Button,
     Image,
     View,
-    ScrollView
+    ScrollView,
+    Text
 } from "react-native";
-import { Block, Card, Checkbox, Text, theme } from "galio-framework";
 import Axios from "../../constants/BaseUrl";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from "../../constants";
@@ -58,8 +58,8 @@ class ThongTinCaNhan extends React.Component {
         const { navigation } = this.props;
         return (
             <ScrollView>
-                <Block flex style={styles.profile}>
-                    <Block flex>
+                <View  style={styles.profile}>
+                    <View >
                         <ImageBackground
                             source={Images.ProfileBackground}
                             style={styles.profileContainer}
@@ -69,99 +69,99 @@ class ThongTinCaNhan extends React.Component {
                                 showsVerticalScrollIndicator={false}
                                 style={{ width, marginTop: '25%' }}
                             >
-                                <Block flex style={styles.profileCard}>
-                                    <Block middle style={styles.avatarContainer}>
+                                <View  style={styles.profileCard}>
+                                    <View middle style={styles.avatarContainer}>
                                         <Image
                                             source={{ uri: this.state.Avatar }}
                                             style={styles.avatar}
                                         />
-                                    </Block>
-                                    <Block middle style={styles.nameInfo1}>
-                                        <Text bold size={28} color="#32325D">
+                                    </View>
+                                    <View middle style={styles.nameInfo1}>
+                                        <Text color="#32325D">
                                             {this.state.FullName}
                                         </Text>
-                                    </Block>
-                                    <Block flex>
-                                        <Block middle style={styles.nameInfo}>
+                                    </View>
+                                    <View >
+                                        <View style={styles.nameInfo}>
                                             <Text h6 >Thông tin cá nhân </Text>
                                             <View style={styles.card}>
-                                                <Block style={styles.text}>
+                                                <View style={styles.text}>
                                                     <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 13 }}>
                                                         NickName: {this.state.NickName}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="phone" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Số điện thoại: {this.state.Phone}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 13 }}>
                                                         Giới tính: {this.state.Gender}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="globe" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{  marginLeft: 10 }}>
                                                         Địa chỉ: {this.state.Address}
                                                     </Text>
-                                                </Block>
+                                                </View>
                                             </View>
                                             <Text h6 >Thông tin công việc </Text>
                                             <View style={styles.card}>
 
-                                                <Block style={styles.text}>
+                                                <View style={styles.text}>
                                                     <Icon name="calendar" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Tên công việc: {this.state.WorkName}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="users" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Nhóm: {this.state.GroupName}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 15 }}>
                                                         Chức vụ: {this.state.PositionName}
                                                     </Text>
-                                                </Block>
-                                                <Block style={styles.text}>
+                                                </View>
+                                                <View style={styles.text}>
                                                     <Icon name="briefcase" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
                                                     <Text size={18} color="#32325D" style={{ marginLeft: 10 }}>
                                                         Phòng ban: {this.state.DepartmentName}
                                                     </Text>
-                                                </Block>
+                                                </View>
                                             </View>
 
-                                        </Block>
-                                    </Block>
+                                        </View>
+                                    </View>
                                     <View>
                                         <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate('Account', { MaND: 'A3' })}>
                                             <Text size={18} style={{ textAlign: 'center' }} color="white">Đổi mật khẩu</Text>
                                         </TouchableOpacity>
                                     </View>
-                                </Block>
+                                </View>
                             </ScrollView>
                         </ImageBackground>
-                    </Block>
-                </Block>
+                    </View>
+                </View>
             </ScrollView>
         )
     }
 
     render() {
         return (
-            <Block flex center>
+            <View>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30, width }}>
                     {this.renderThongTinCN()}
                 </ScrollView>
-            </Block>
+            </View>
         );
     }
 }
@@ -183,11 +183,11 @@ const styles = StyleSheet.create({
     },
     profileCard: {
         // position: "relative",
-        padding: theme.SIZES.BASE,
-        marginHorizontal: theme.SIZES.BASE,
+        padding: 15,
+        marginHorizontal: 15,
         marginTop: 65,
         borderRadius: 12,
-        backgroundColor: theme.COLORS.WHITE,
+        backgroundColor: 'white',
         shadowColor: "black",
         shadowOffset: { width: 0, height: 0 },
         shadowRadius: 8,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     },
     card: {
         borderRadius: 12,
-        backgroundColor: theme.COLORS.WHITE,
+        backgroundColor: 'white',
         shadowRadius: 8,
         shadowOpacity: 0.2,
         zIndex: 2,

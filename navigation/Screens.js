@@ -13,7 +13,8 @@ import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
-import DonxinNP from "../components/DonxinNP"
+import DonxinNP from "../components/DonxinNP";
+import Salarytable from "../screens/Salarytable";
 
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
@@ -119,6 +120,23 @@ function ArticlesStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Articles" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function SalarytableStack(props) {
+  return (
+
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Bảng Lương"
+        component={Salarytable}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Thông tin lương" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
@@ -359,6 +377,7 @@ function AppStack(props) {
       <Drawer.Screen name="Quản Lý Báo Cáo" component={ArticlesStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
+      <Drawer.Screen name="Bảng Lương" component={SalarytableStack} />
     </Drawer.Navigator>
   );
 }

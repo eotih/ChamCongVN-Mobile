@@ -19,6 +19,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
+    "Bảng Lương",
   ];
   const screens2 = [
     "Home",
@@ -28,6 +29,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Quản Lý Báo Cáo",
     "Lịch Sử Chấm Công",
     "Thông Báo",
+    "Bảng Lương",
   ];
   //get current date time
   var today = new Date();
