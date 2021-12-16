@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, Modal, } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
-import CardHistory from "../../components/CardHistory";
+import TimeKeeperHistory from "../../components/TimeKeepers/TimeKeeperHistory";
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconButton, Colors } from 'react-native-paper';
@@ -135,7 +135,7 @@ function TimekeepingHistory() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {timeKeeper.map((item, index) => (
-          <CardHistory key={index} data={item} />
+          <TimeKeeperHistory key={index} data={item} />
         ))}
       </ScrollView>
 

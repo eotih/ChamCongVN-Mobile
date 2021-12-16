@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } fro
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import moment from "moment";
 
-export default function CardHistory({ data }) {
+export default function TimeKeeperHistory({ data }) {
     const { checkin, checkout } = data
     const date = new Date(checkin.CreatedAt)
     const test = moment(date).format('dddd');

@@ -17,45 +17,60 @@ export default function Noti() {
 
   useEffect(() => {
     setTimeout(() => {
-      registerForPushNotificationsAsync().then();
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      registerForPushNotificationsAsync().then(token => {
+        console.log(token);
       });
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      });
-      var today = new Date();
-      if (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() === "16:25:30") {
-        schedulePushNotification();
-      }
-      setCount((count) => count + 1);
     }, 1000);
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
+      setCount(count + 1);
+    });
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
     };
   });
 
-  return <View></View>;
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+      }}>
+      <Button
+        title="Press to schedule a notification"
+        onPress={async () => {
+          await schedulePushNotification();
+        }}
+      />
+    </View>
+  );
 }
 
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Checkin Bờ râu 📬",
-      sound: 'soundthongbao.wav',
-      body: 'Đến thời gian check in',
+      title: 'Push notification',
+      body: 'This is a push notification',
       data: { data: 'goes here' },
+      channelId: 'default',
     },
-    trigger: { seconds: 1, channelId: 'default' },
+    trigger: { seconds: 1 },
   });
 }
 
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
@@ -66,12 +81,12 @@ async function registerForPushNotificationsAsync() {
   } else {
     alert('Must use physical device for Push Notifications');
   }
-  
-  if (Platform.OS === 'android') {
+
+
+  if (Platform.OS === 'android' && !Constants.isDevice) {
     Notifications.setNotificationChannelAsync('default', {
       name: 'default',
-      sound: 'soundthongbao.wav',
-      importance: Notifications.AndroidImportance.HIGH,
+      importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FF231F7C',
     });

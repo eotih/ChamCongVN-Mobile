@@ -19,6 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import ReactFileReader from 'react-file-reader';
 import { HeaderHeight } from "../../constants/utils";
 
+
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 const today = new Date().getFullYear();
@@ -70,20 +71,20 @@ class ThongTinCaNhan extends React.Component {
                                 style={{ width, marginTop: '25%' }}
                             >
                                 <View  style={styles.profileCard}>
-                                    <View middle style={styles.avatarContainer}>
+                                    <View style={styles.avatarContainer}>
                                         <Image
                                             source={{ uri: this.state.Avatar }}
                                             style={styles.avatar}
                                         />
                                     </View>
                                     <View middle style={styles.nameInfo1}>
-                                        <Text color="#32325D">
+                                        <Text style={{ fontSize:26}} color="#32325D">
                                             {this.state.FullName}
                                         </Text>
                                     </View>
                                     <View >
                                         <View style={styles.nameInfo}>
-                                            <Text h6 >Thông tin cá nhân </Text>
+                                            <Text style={{fontSize: 18,fontWeight: "bold"}} >Thông tin cá nhân </Text>
                                             <View style={styles.card}>
                                                 <View style={styles.text}>
                                                     <Icon name="user" size={24} color="#00CCCC" style={{ marginLeft: 10 }} />
@@ -110,7 +111,7 @@ class ThongTinCaNhan extends React.Component {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            <Text h6 >Thông tin công việc </Text>
+                                            <Text style={{fontSize: 18,fontWeight: "bold"}} >Thông tin công việc </Text>
                                             <View style={styles.card}>
 
                                                 <View style={styles.text}>
@@ -206,13 +207,15 @@ const styles = StyleSheet.create({
     },
     avatarContainer: {
         position: "relative",
-        marginTop: -80
+        marginTop: -80,
+        alignSelf:'center'
+        
     },
     avatar: {
         width: 124,
         height: 124,
         borderRadius: 62,
-        borderWidth: 0
+        borderWidth: 0,
     },
     nameInfo: {
         marginTop: 20,
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     },
     nameInfo1: {
         marginTop: 5,
-        flexDirection: 'row'
+        alignSelf: 'center'
     },
     divider: {
         width: "90%",

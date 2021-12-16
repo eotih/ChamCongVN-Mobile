@@ -10,29 +10,6 @@ import Images from "../constants/Images";
 import { DrawerItem as DrawerCustomItem, Select } from '../components';
 
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
-  const screens = [
-    "Home",
-    "Chấm Công",
-    "Base Information",
-    "Application",
-    "Quản Lý Đơn Từ",
-    "Quản Lý Báo Cáo",
-    "Lịch Sử Chấm Công",
-    "Thông Báo",
-    "Bảng Lương",
-  ];
-  const screens2 = [
-    "Home",
-    "Base Information",
-    "Application",
-    "Quản Lý Đơn Từ",
-    "Quản Lý Báo Cáo",
-    "Lịch Sử Chấm Công",
-    "Thông Báo",
-    "Bảng Lương",
-  ];
-  //get current date time
-  var today = new Date();
   return (
     <Block
       style={styles.container}
@@ -62,33 +39,24 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {today.getHours() >= 8 && today.getHours() < 21 ? (
-            screens.map((l, i) => {
-              return (
-                <DrawerCustomItem
-                  key={i}
-                  title={l}
-                  navigation={navigation}
-                  focused={state.index === i ? true : false}
-                />
-              );
-            })
-          ) : (
-            screens2.map((l, i) => {
-              return (
-                <DrawerCustomItem
-                  key={i}
-                  title={l}
-                  navigation={navigation}
-                  focused={state.index === i ? true : false}
-                />
-              );
-            })
-          )}
-
-          <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
+          <DrawerCustomItem title="Home" focused={state.index === 0 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Profile" focused={state.index === 1 ? true : false} navigation={navigation} />
+          <Block flex style={{ marginVertical: 8, paddingHorizontal: 8 }}>
             <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </Block>
+          <DrawerCustomItem title="New Application" focused={state.index === 2 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Quản Lý Đơn Từ" focused={state.index === 3 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Quản Lý Báo Cáo" focused={state.index === 4 ? true : false} navigation={navigation} />
+          <Block flex style={{ marginVertical: 8, paddingHorizontal: 8 }}>
+            <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
+          </Block>
+          <DrawerCustomItem title="Chấm Công" focused={state.index === 5 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Lịch Sử Chấm Công" focused={state.index === 6 ? true : false} navigation={navigation} />
+
+          <Block flex style={{ marginVertical: 8, paddingHorizontal: 8 }}>
+            <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
+          </Block>
+          <DrawerCustomItem title="Thông Báo" focused={state.index === 7 ? true : false} navigation={navigation} />
           <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
         </ScrollView>
       </Block>

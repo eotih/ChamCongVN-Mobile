@@ -8,13 +8,11 @@ import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
-import Profile from "../screens/Profile/Profile";
 import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
-import DonxinNP from "../components/DonxinNP";
-import Salarytable from "../screens/Salarytable";
+import AbsentApplications from "../components/Applications/AbsentApplications"
 
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
@@ -78,7 +76,7 @@ function ProfileStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Base Information"
+        name="Profile"
         component={BaseInformation}
         options={{
           header: ({ navigation, scene }) => (
@@ -211,7 +209,7 @@ function checkCameraStack(props) {
     </Stack.Navigator>
   );
 }
-function NotificationStackkk(props) {
+function NotificationStack(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
@@ -370,14 +368,13 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
-      <Drawer.Screen name="Base Information" component={ProfileStack} />
-      <Drawer.Screen name="Application" component={ApplicationStack} />
+      <Drawer.Screen name="Profile" component={ProfileStack} />
+      <Drawer.Screen name="New Application" component={ApplicationStack} />
       <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={ArticlesStack} />
+      <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
-      <Drawer.Screen name="Thông Báo" component={NotificationStackkk} />
-      <Drawer.Screen name="Bảng Lương" component={SalarytableStack} />
+      <Drawer.Screen name="Thông Báo" component={NotificationStack} />
     </Drawer.Navigator>
   );
 }
