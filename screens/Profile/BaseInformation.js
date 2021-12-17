@@ -15,8 +15,6 @@ import {
 import Axios from "../../functions/BaseUrl";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from "../../constants";
-import * as ImagePicker from 'expo-image-picker';
-import ReactFileReader from 'react-file-reader';
 import { HeaderHeight } from "../../constants/utils";
 
 const thumbMeasure = (width - 48 - 32) / 3;

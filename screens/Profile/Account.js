@@ -11,7 +11,7 @@ import BaseUrl from '../../functions/BaseUrl';
 import { GetAccountByID } from "../../functions/TimeKeeper"
 import md5 from "md5"
 
-import { TextInput, Button,Text } from 'react-native-paper';
+import { TextInput, Button, Text } from 'react-native-paper';
 
 export default class MatKhau extends React.Component {
   constructor() {
@@ -46,7 +46,7 @@ export default class MatKhau extends React.Component {
       }
       else {
         var newpassword = md5(this.state.NewPassword);
-        BaseUrl.post('Organization/PasswordAccount/'+1, {
+        BaseUrl.post('Organization/PasswordAccount/' + 1, {
           AccountID: 1,
           Password: newpassword,
           UpdatedBy: this.state.FullName,
@@ -68,7 +68,6 @@ export default class MatKhau extends React.Component {
         OldPassword: password,
         FullName: this.props.route.params.TenND
       })
-      console.log(res)
     })
   }
 
@@ -77,9 +76,8 @@ export default class MatKhau extends React.Component {
     return (
       <ScrollView
       >
-
         <View style={styles.card}>
-          <Text style={{fontSize: 18,fontWeight: "bold"}}>Bạn muốn thay đổi mật khẩu</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>Bạn muốn thay đổi mật khẩu</Text>
           <View >
             <TextInput style={styles.text}
               label="Nhập mật khẩu cũ"
@@ -103,7 +101,6 @@ export default class MatKhau extends React.Component {
               </Button>
             </View>
           </View>
-
         </View>
       </ScrollView>
     );
