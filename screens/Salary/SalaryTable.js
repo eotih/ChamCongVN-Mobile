@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
 // Galio components
 // Argon themed components
-import { argonTheme, tabs } from "../constants";
-import { Select, Input, Header, Switch } from "../components";
+import { argonTheme, tabs } from "../../constants";
+import { Select, Input, Header, Switch } from "../../components";
 import axios from "axios";
 import { Button } from 'native-base';
 import {
@@ -54,7 +54,7 @@ const data = [
         legendFontSize: 15
     }
 ];
-function Salarytable() {
+function SalaryTable() {
     return (
         <ScrollView>
             <View style={styles.header}>
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
     },
     
 })
-export default Salarytable
+export default SalaryTable

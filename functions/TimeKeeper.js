@@ -1,4 +1,4 @@
-import BaseUrl from '../constants/BaseUrl';
+import BaseUrl from '../functions/BaseUrl';
 
 async function GetAllTimeKeepingByEmployeeID(EmployeeID) {
     const res = await BaseUrl.get('TimeKeeper/TimeKeeping/Employee/' +EmployeeID);

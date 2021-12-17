@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
 import Icon from 'react-native-vector-icons/FontAwesome';
-import BaseUrl from '../../constants/BaseUrl';
+import BaseUrl from '../../functions/BaseUrl';
 import { GetAccountByID } from "../../functions/TimeKeeper"
 import md5 from "md5"
 

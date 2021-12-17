@@ -3,7 +3,7 @@ import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View
 // Galio components
 // Argon themed components
 import { argonTheme, tabs } from "../../constants";
-import { axios } from "../../constants/BaseUrl";
+import { axios } from "../../functions/BaseUrl";
 import { Select, Input, Header, Switch } from "..";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';

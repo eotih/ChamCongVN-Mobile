@@ -12,7 +12,7 @@ import {
     ScrollView,
     Text
 } from "react-native";
-import Axios from "../../constants/BaseUrl";
+import Axios from "../../functions/BaseUrl";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Images, argonTheme } from "../../constants";
 import * as ImagePicker from 'expo-image-picker';
@@ -21,7 +21,6 @@ import { HeaderHeight } from "../../constants/utils";
 
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
-const today = new Date().getFullYear();
 var a = "1"
 class ThongTinCaNhan extends React.Component {
     constructor() {
@@ -52,7 +51,7 @@ class ThongTinCaNhan extends React.Component {
         });
     }
 
-
+    
     renderThongTinCN = () => {
         const { navigation } = this.props;
         return (

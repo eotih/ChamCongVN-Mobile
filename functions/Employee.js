@@ -1,4 +1,4 @@
-import Axios from '../constants/BaseUrl';
+import Axios from '../functions/BaseUrl';
 
 async function getInfoEmployee(ID) {
   const res = await Axios.get('Employee/Employee/'+ID);
