@@ -1,7 +1,7 @@
 import BaseUrl from '../constants/BaseUrl';
 
 async function GetAllTimeKeepingByEmployeeID(EmployeeID) {
-    const res = await BaseUrl.get('TimeKeeper/GetAllTimeKeeping?EmployeeID=' +EmployeeID);
+    const res = await BaseUrl.get('TimeKeeper/TimeKeeping/Employee/' +EmployeeID);
     return res.data;
 }
 async function GetAccountByID(ID) {

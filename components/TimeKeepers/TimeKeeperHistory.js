@@ -5,7 +5,7 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import moment from "moment";
 
 export default function TimeKeeperHistory({ data }) {
-    const { EmployeeName, Department, CheckInImage, CheckOutImage, CheckInCreatedAt, CheckOutCreatedAt, CheckInStatus, CheckOutStatus } = data
+    const { EmployeeName, Department, CheckInImage, CheckOutImage, CheckInCreatedAt, CheckOutCreatedAt, CheckInDevice, CheckOutDevice, CheckInStatus, CheckOutStatus } = data
     const date = new Date(CheckInCreatedAt)
     const test = moment(date).format('dddd');
     const day = moment(date).format('DD');
@@ -18,7 +18,9 @@ export default function TimeKeeperHistory({ data }) {
     return (
         <ScrollView>
             <Block style={styles.card}>
-                <Block style={[(CheckInStatus == "Đi muộn" && CheckInStatus == "Về sớm") ? styles.cardHeaderLateAndSoon : (CheckInStatus == "Đi muộn") ? styles.cardHeaderLate : styles.cardHeader]}>
+                <Block style={[(CheckInStatus == "Đi muộn" && CheckOutStatus == "Về sớm")
+                    ? styles.cardHeaderLateAndSoon : (CheckInStatus == "Đi muộn" || CheckOutStatus == "Về sớm")
+                        ? styles.cardHeaderLate : styles.cardHeader]}>
                     <Block row>
                         <Block style={styles.cardHeaderLeft}>
                             <Text style={styles.day}>{day}</Text>
@@ -28,7 +30,7 @@ export default function TimeKeeperHistory({ data }) {
                             <Text style={styles.cardHeaderText}>{monthYear}</Text>
                         </Block>
                     </Block>
-                     <Block style={styles.cardHeaderRightRight}>
+                    <Block style={styles.cardHeaderRightRight}>
                         <Text style={styles.cardHeaderTextRight}>{CheckInStatus} /</Text>
                         <Text style={styles.cardHeaderTextRight}>{CheckOutStatus}</Text>
                     </Block>
@@ -36,10 +38,10 @@ export default function TimeKeeperHistory({ data }) {
                 <Block style={styles.cardContent}>
                     <Block style={styles.cardContentLeft}>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64,"+CheckInImage }} />
+                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64," + CheckInImage }} />
                         </View>
                         <View>
-                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64,"+CheckOutImage }} />
+                            <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64," + CheckOutImage }} />
                         </View>
                     </Block>
                     <Block style={styles.cardContentRight}>
@@ -54,8 +56,8 @@ export default function TimeKeeperHistory({ data }) {
                             <Text style={styles.cardContentRightTopText}>{getTime(CheckInCreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{getTime(CheckOutCreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
-                            <Text style={styles.cardContentRightTopText}> Device </Text>
-                            <Text style={styles.cardContentRightTopText}> Device </Text>
+                            <Text style={styles.cardContentRightTopText}> {CheckInDevice} </Text>
+                            <Text style={styles.cardContentRightTopText}> {CheckOutDevice} </Text>
                         </Block>
                     </Block>
                 </Block>
