@@ -1,72 +1,77 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
-// Galio components
-// Argon themed components
 import { argonTheme, tabs } from "../../constants";
 import { IconButton, Colors, Text, TextInput } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
+import Axios from "../../functions/BaseUrl";
+import SelectDropdown from 'react-native-select-dropdown'
 
 const { width, height } = Dimensions.get('window');
 export default function OverTimeApplications() {
-    const [date, setDate] = useState(new Date());
-    const [day, setDay] = useState();
-    const [show, setShow] = useState(false);
+    const [timeEnd, settimeEnd] = useState("");
+    const [timeStart, settimeStart] = useState("");
+    const [data, setData] = useState([]);
+    const [dataRegister, setDataRegister] = useState({
+        EmployeeID: "1",
+        StateID: 1,
+        OverTimeID: "",
+        Note: "",
+        CreatedBy: "Trần Thanh Tú",
+    });
     useEffect(() => {
-        setShow(false)
-    }, [show]);
+        getInfoEmployee().then((res) => {
+            const result = res.filter(item => item.Overtime.IsActive === true);
+            setData(result);
+        });
+    }, []);
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        const selectedDay = moment(currentDate).format("LL");
-        setDay(selectedDay);
-        setDate(currentDate);
-    };
+    async function getInfoEmployee() {
+        const res = await Axios.get('Organization/OverTime');
+        return res.data;
+    }
+
+    const handleSubmit = () => {
+        console.log(dataRegister)
+      }
     return (
         <ScrollView>
             <View style={{ paddingHorizontal: 20 }}>
-
                 <View style={{ marginTop: 20 }}>
-                    <Text style={{fontSize: 18,fontWeight: "bold"}}>Đơn Xin tăng ca</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Đơn Xin tăng ca</Text>
                     <Text style={styles.text}>Chọn ngày tăng ca</Text>
-                    <View style={styles.day} >
-                        <View style={{ alignSelf: 'center' }} >
-                            <TextInput size={16} color="#32325D"
-                                backgroundColor="white"
-                                placeholder="Select Date"
-                                value={day}
-                            >
-                            </TextInput>
-                        </View>
-                        <View>
-                            <IconButton
-                                icon="calendar"
-                                color={Colors.red500}
-                                onPress={() => setShow(true)}
-                            />
-                        </View>
-
-                    </View>
-                    {show && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date}
-                            mode='date'
-                            is24Hour={false}
-                            display="default"
-                            onChange={onChange}
-                        />
-                    )}
+                    <SelectDropdown
+                        data={data}
+                        onSelect={(selectedItem) => {
+                            settimeStart(selectedItem.Overtime.StartTime), 
+                            settimeEnd(selectedItem.Overtime.EndTime),
+                            dataRegister.OverTimeID = selectedItem.Overtime.OverTimeID
+                        }}
+                        dropdownIconPosition='left'
+                        buttonStyle={{
+                            width: '100%',
+                            backgroundColor: '#ff9890',
+                            alignItems: 'center',
+                            paddingVertical: 12,
+                            borderRadius: 4,
+                            elevation: 3,
+                        }}
+                        buttonTextAfterSelection={(selectedItem) => {
+                            return selectedItem.Overtime.OverTimeName
+                        }}
+                        rowTextForSelection={(item) => {
+                            return item.Overtime.OverTimeName
+                        }}
+                    />
                 </View>
                 <View style={{ marginTop: 15 }}>
-                    <Text style={{fontSize: 18,fontWeight: "bold"}}>Khoảng thời gian tăng ca</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Khoảng thời gian tăng ca</Text>
                     <Text style={styles.text}>Giờ bắt đầu</Text>
                     <View style={styles.time} >
                         <View style={{ alignSelf: 'center' }} >
                             <TextInput size={16} color="#32325D"
                                 backgroundColor="white"
                                 placeholder="Select Time"
-                                value={day}
+                                value={timeStart}
                             >
                             </TextInput>
                         </View>
@@ -74,7 +79,7 @@ export default function OverTimeApplications() {
                             <IconButton
                                 icon="clock"
                                 color="#ff9800"
-                                onPress={() => setShow(true)}
+                                onPress={() => handleSetShow()}
                             />
                         </View>
                     </View>
@@ -84,7 +89,7 @@ export default function OverTimeApplications() {
                             <TextInput size={16} color="#32325D"
                                 backgroundColor="white"
                                 placeholder="Select Time"
-                                value={day}
+                                value={timeEnd}
                             >
                             </TextInput>
                         </View>
@@ -92,7 +97,7 @@ export default function OverTimeApplications() {
                             <IconButton
                                 icon="clock"
                                 color="#1273de"
-                                onPress={() => setShow(true)}
+                                onPress={() => handleSetShow()}
                             />
                         </View>
                     </View>
@@ -104,13 +109,13 @@ export default function OverTimeApplications() {
                             multiline
                             numberOfLines={6}
                             label="Nhập lý do xin nghỉ"
-                            onChangeText={(text) => data.Reason = text}
+                            onChangeText={text => dataRegister.Note = text}
                             mode="outlined"
                         />
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.createButton} color="info"  >
+                    <TouchableOpacity style={styles.createButton} color="info"  onPress={() => handleSubmit()}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{ textAlign: 'center' }}>
                             Gửi Yêu Cầu
                         </Text>
@@ -151,6 +156,15 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#ff6900',
         padding: 15,
+    },
+    containerStyle: {
+
+        flex: 1,
+
+        marginHorizontal: 20,
+
+        justifyContent: 'center',
+
     },
 
 })
