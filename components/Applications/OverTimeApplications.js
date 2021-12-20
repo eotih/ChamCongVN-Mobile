@@ -4,7 +4,8 @@ import { argonTheme, tabs } from "../../constants";
 import { IconButton, Colors, Text, TextInput } from 'react-native-paper';
 import moment from "moment";
 import Axios from "../../functions/BaseUrl";
-import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const { width, height } = Dimensions.get('window');
 export default function OverTimeApplications() {
@@ -36,7 +37,7 @@ export default function OverTimeApplications() {
     return (
         <ScrollView>
             <View style={{ paddingHorizontal: 20 }}>
-                <View style={{ marginTop: 20 }}>
+                <View style={{ marginVertical: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>Đơn Xin tăng ca</Text>
                     <Text style={styles.text}>Chọn ngày tăng ca</Text>
                     <SelectDropdown
@@ -46,13 +47,13 @@ export default function OverTimeApplications() {
                             settimeEnd(selectedItem.Overtime.EndTime),
                             dataRegister.OverTimeID = selectedItem.Overtime.OverTimeID
                         }}
-                        dropdownIconPosition='left'
+                        dropdown icon position= "left"
                         buttonStyle={{
-                            width: '100%',
-                            backgroundColor: '#ff9890',
+                            width:'100%',
+                            backgroundColor: '#ff9800',
                             alignItems: 'center',
                             paddingVertical: 12,
-                            borderRadius: 4,
+                            borderRadius: 10,
                             elevation: 3,
                         }}
                         buttonTextAfterSelection={(selectedItem) => {
@@ -63,7 +64,7 @@ export default function OverTimeApplications() {
                         }}
                     />
                 </View>
-                <View style={{ marginTop: 15 }}>
+                <View style={{ marginVertical: 15, padding:10, borderWidth: 1  }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>Khoảng thời gian tăng ca</Text>
                     <Text style={styles.text}>Giờ bắt đầu</Text>
                     <View style={styles.time} >
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     time: {
-        marginTop: 15,
+       marginVertical: 10,
         flexDirection: 'row',
         borderWidth: 1,
         justifyContent: 'space-between',
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     text: {
-        marginTop: 15,
+        marginVertical: 10,
     },
     createButton: {
         marginTop: 20,

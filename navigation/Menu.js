@@ -59,6 +59,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
             <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </Block>
           <DrawerCustomItem title="Thông Báo" focused={state.index === 7 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Bảng Lương" focused={state.index === 8 ? true : false} navigation={navigation} />
           <DrawerCustomItem title="Đăng Xuất" navigation={navigation} />
         </ScrollView>
       </Block>

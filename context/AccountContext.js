@@ -6,7 +6,7 @@ import Login from "../screens/Login";
 const AccountContext = createContext();
 
 function AccountProvider({ children, token }) {
-  const [account, setAccount] = useState({});
+  const [account, setAccount] = useState([]);
   useEffect(() => {
     if (token) {
       const decoded = jwtDecode(token);
