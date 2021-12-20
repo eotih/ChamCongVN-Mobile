@@ -43,8 +43,8 @@ export default function SalaryTable() {
                                 </View>
                             </View>
                             <View style={styles.total}>
-                                <Text style={styles.modalText}>Hello World!</Text>
-                                <Text style={styles.modalText}>Hello World!</Text>
+                                <Text style={styles.modalText}>TỔng tiền</Text>
+                                <Text style={styles.modalText}>30000000</Text>
                             </View>
                         </View>
                     </View>
