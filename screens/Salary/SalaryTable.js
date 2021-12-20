@@ -1,86 +1,160 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
 // Galio components
 // Argon themed components
 import { argonTheme, tabs } from "../../constants";
 import { Select, Input, Header, Switch } from "../../components";
 import axios from "axios";
-import { Button } from 'native-base';
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-} from "react-native-chart-kit";
+import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
+import { BarChart } from 'react-native-gifted-charts';
 
 const { width, height } = Dimensions.get('window');
-
-const data = [
+const barData = [
     {
-        name: "Seoul",
-        population: 21500000,
-        color: "rgba(131, 167, 234, 1)",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
+        value: 230,
+        label: 'Jan',
+        frontColor: '#4ABFF4',
+        sideColor: '#23A7F3',
+        topColor: '#92e6f6',
     },
     {
-        name: "Toronto",
-        population: 2800000,
-        color: "#F00",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
+        value: 180,
+        label: 'Feb',
+        frontColor: '#79C3DB',
+        sideColor: '#68BCD7',
+        topColor: '#9FD4E5',
     },
     {
-        name: "Beijing",
-        population: 527612,
-        color: "red",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
+        value: 195,
+        label: 'Mar',
+        frontColor: '#28B2B3',
+        sideColor: '#0FAAAB',
+        topColor: '#66C9C9',
     },
     {
-        name: "New York",
-        population: 8538000,
-        color: "#ffffff",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
+        value: 250,
+        label: 'Apr',
+        frontColor: '#4ADDBA',
+        sideColor: '#36D9B2',
+        topColor: '#7DE7CE',
     },
     {
-        name: "Moscow",
-        population: 11920000,
-        color: "rgb(0, 0, 255)",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
-    }
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
+    {
+        value: 320,
+        label: 'May',
+        frontColor: '#91E3E3',
+        sideColor: '#85E0E0',
+        topColor: '#B0EAEB',
+    },
 ];
-function SalaryTable() {
-    return (
-        <ScrollView>
-            <View style={styles.header}>
-            <Button onPress={() => console.log("hello world")}>Primary</Button>     
-            </View>
-        </ScrollView>
-
-    )
+export default class SalaryTable extends React.Component {
+    render() {
+        const { navigation } = this.props;
+        return (
+            <ScrollView style={{ marginHorizontal: 20 }}>
+                <View style={styles.header}>
+                    <Button color="white" style={{ backgroundColor: 'blue' }} >Thống kê lương</Button>
+                    <Text style={{ fontSize: 28 }}>||</Text>
+                    <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary')}>Ghi tiết lương</Button>
+                </View>
+                <View style={styles.card}>
+                    <Card>
+                        <Card.Content>
+                            <Title>Tổng thực nhận</Title>
+                            <Paragraph>10 triệu</Paragraph>
+                            <Title>Tổng thực nhận</Title>
+                            <Paragraph>10 triệu</Paragraph>
+                        </Card.Content>
+                    </Card>
+                    <Card>
+                        <Card.Content>
+                            <Title>Tổng thực nhận</Title>
+                            <Paragraph>10 triệu</Paragraph>
+                            <Title>Tổng thực nhận</Title>
+                            <Paragraph>10 triệu</Paragraph>
+                        </Card.Content>
+                    </Card>
+                </View>
+                <View>
+                    <Text style={{fontSize: 18,fontWeight: "bold",marginBottom:20}}>
+                        Thống kê lương 12 tháng
+                    </Text>
+                    <BarChart
+                        showFractionalValue
+                        showYAxisIndices
+                        hideRules
+                        noOfSections={10}
+                        data={barData}
+                        barWidth={40}
+                        sideWidth={15}
+                        isThreeD
+                        side="right"
+                    />
+                </View>
+            </ScrollView>
+    
+        )
+    }
+    
 
 }
-const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
-};
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        width:width,
-        backgroundColor:'blue',
+        marginVertical: 20
     },
-    
+    card: {
+        marginVertical: 20,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+
 })
-export default SalaryTable

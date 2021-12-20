@@ -20,6 +20,9 @@ import Application from "../screens/Application/Application"
 import Register from "../screens/Register";
 import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
+//salarytable
+import Salarytable from "../screens/Salary/SalaryTable"
+import ListSalary from "../screens/Salary/ListSalary";
 // drawer
 import CustomDrawerContent from "./Menu";
 import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
@@ -137,6 +140,22 @@ function SalarytableStack(props) {
             <Header title="Thông tin lương" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
+      <Stack.Screen
+        name="ListSalary"
+        component={ListSalary}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="ListSalary"
+              back
+              black
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
     </Stack.Navigator>
@@ -375,6 +394,7 @@ function AppStack(props) {
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={NotificationStack} />
+      <Drawer.Screen name="Bảng Lương" component={SalarytableStack} />
     </Drawer.Navigator>
   );
 }
