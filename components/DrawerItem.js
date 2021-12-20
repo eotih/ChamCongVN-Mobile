@@ -4,10 +4,10 @@ import { Block, Text, theme } from "galio-framework";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import argonTheme from "../constants/Theme";
+import useToken from "../services/useToken";
 
-class DrawerItem extends React.Component {
-  renderIcon = () => {
-    const { title, focused } = this.props;
+function DrawerItem({ focused, title, navigation }) {
+  const renderIcon = () => {
 
     switch (title) {
       case "Home":
@@ -87,42 +87,44 @@ class DrawerItem extends React.Component {
     }
   };
 
-  render() {
-    const { focused, title, navigation } = this.props;
+  const { removeToken } = useToken();
 
-    const containerStyles = [
-      styles.defaultStyle,
-      focused ? [styles.activeStyle, styles.shadow] : null
-    ];
+  const containerStyles = [
+    styles.defaultStyle,
+    focused ? [styles.activeStyle, styles.shadow] : null
+  ];
 
-    return (
-      <TouchableOpacity
-        style={{ height: 60 }}
-        onPress={() =>
-          title == "Đăng Xuất"
-            ? Linking.openURL(
-              "https://demos.creative-tim.com/argon-pro-react-native/docs/"
-            ).catch(err => console.error("An error occurred", err))
-            : navigation.navigate(title)
+  return (
+    <TouchableOpacity
+      style={{ height: 60 }}
+      onPress={() => {
+        if (title === "Đăng Xuất") {
+          removeToken();
+          navigation.navigate("Login");
+        } else if (title === "Log out") {
+          removeToken();
+          navigation.navigate("Login");
+        } else {
+          navigation.navigate(title);
         }
-      >
-        <Block flex row style={containerStyles}>
-          <Block middle flex={0.1} style={{ marginRight: 5 }}>
-            {this.renderIcon()}
-          </Block>
-          <Block row center flex={0.9}>
-            <Text
-              size={15}
-              bold={focused ? true : false}
-              color={focused ? "white" : "rgba(0,0,0,0.5)"}
-            >
-              {title}
-            </Text>
-          </Block>
+      }}
+    >
+      <Block flex row style={containerStyles}>
+        <Block middle flex={0.1} style={{ marginRight: 5 }}>
+          {renderIcon()}
         </Block>
-      </TouchableOpacity>
-    );
-  }
+        <Block row center flex={0.9}>
+          <Text
+            size={15}
+            bold={focused ? true : false}
+            color={focused ? "white" : "rgba(0,0,0,0.5)"}
+          >
+            {title}
+          </Text>
+        </Block>
+      </Block>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -17,7 +17,7 @@ import AbsentApplications from "../components/Applications/AbsentApplications"
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
 import Application from "../screens/Application/Application"
-import Register from "../screens/Register";
+import Login from "../screens/Login";
 import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
 // drawer
@@ -110,7 +110,6 @@ function ProfileStack(props) {
 }
 function ArticlesStack(props) {
   return (
-
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Quản Lý Báo Cáo"
@@ -125,6 +124,7 @@ function ArticlesStack(props) {
     </Stack.Navigator>
   );
 }
+
 function SalarytableStack(props) {
   return (
 
@@ -288,45 +288,19 @@ function HomeStack(props) {
     </Stack.Navigator>
   );
 }
-// function EmplyeedetectionStack(props) {
-//   return (
-//     <Stack.Navigator mode="card" headerMode="screen">
-//       <Stack.Screen
-//         name="Thông Báo Chấm Công"
-//         component={Emplyeedetection}
-//         options={{
-//           header: ({ navigation, scene }) => (
-//             <Header title="Thông Báo Chấm Công" navigation={navigation} scene={scene} />
-//           ),
-//           cardStyle: { backgroundColor: "#F8F9FE" }
-//         }}
-//       />
-//       <Stack.Screen
-//         name="Elements"
-//         component={Timekeepinghistory}
-//         options={{
-//           header: ({ navigation, scene }) => (
-//             <Header
-//               title=""
-//               back
-//               white
-//               transparent
-//               navigation={navigation}
-//               scene={scene}
-//             />
-//           ),
-//           headerTransparent: true
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
-        name="Quản Lý Đơn Từ"
+        name="Onboarding"
         component={Onboarding}
+        option={{
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         option={{
           headerTransparent: true
         }}

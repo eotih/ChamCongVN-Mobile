@@ -8,8 +8,10 @@ import { Block, Text, theme } from "galio-framework";
 
 import Images from "../constants/Images";
 import { DrawerItem as DrawerCustomItem, Select } from '../components';
+import useToken from "../services/useToken";
 
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
+
   return (
     <Block
       style={styles.container}

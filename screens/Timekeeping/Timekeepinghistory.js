@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, Modal, } from "react-native";
 import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import TimeKeeperHistory from "../../components/TimeKeepers/TimeKeeperHistory";
@@ -6,9 +6,11 @@ import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { IconButton, Colors } from 'react-native-paper';
 import { GetAllTimeKeepingByEmployeeID } from '../../functions/TimeKeeper';
-
+import { AccountContext } from '../../context/AccountContext';
 
 function TimekeepingHistory() {
+  const account = useContext(AccountContext);
+  const { EmployeeID } = account.Employee;
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [dayEnd, setDayEnd] = useState();
@@ -17,10 +19,13 @@ function TimekeepingHistory() {
   const [show, setShow] = useState(false);
   const [showIOS, setShowIOS] = useState();
   useEffect(() => {
-    GetAllTimeKeepingByEmployeeID(1).then(res => {
-      setTimeKeeper(res)
-      setDataFilter(res)
-    })
+    {
+      account && account.Employee && GetAllTimeKeepingByEmployeeID(EmployeeID).then(res => {
+        setTimeKeeper(res)
+        setDataFilter(res)
+      })
+    }
+
   }, []);
 
   const onHandleChangeDateTime = (event, selectedDate) => {

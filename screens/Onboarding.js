@@ -7,57 +7,54 @@ import {
   Dimensions
 } from "react-native";
 import { Block, Button, Text, theme } from "galio-framework";
-
 const { height, width } = Dimensions.get("screen");
 
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
+import useToken from "../services/useToken";
 
-class Onboarding extends React.Component {
-  render() {
-    const { navigation } = this.props;
-
-    return (
-      <Block flex style={styles.container}>
-        <StatusBar hidden />
-        <Block flex center>
+function Onboarding({ navigation }) {
+  const { token, setToken } = useToken();
+  return (
+    <Block flex style={styles.container}>
+      <StatusBar hidden />
+      <Block flex center>
         <ImageBackground
-            source={Images.Onboarding}
-            style={{ height, width, zIndex: 1 }}
-          />
-        </Block>
-        <Block center>
-          <Image source={Images.Logo} style={styles.logo} />
-        </Block>
-        <Block flex space="between" style={styles.padded}>
-            <Block flex space="around" style={{ zIndex: 2 }}>
-              <Block style={styles.title}>
-                <Block>
-                  <Text color="white" size={48}>
-                    ChamCongVN
-                  </Text>
-                </Block>
-                <Block style={styles.subTitle}>
-                  <Text color="white" size={16} style={{textAlign: 'center'}}>
-                    GIẢI PHÁP CHẤM CÔNG ONLINE.
-                  </Text>
-                </Block>
-              </Block>
-              <Block center>
-                <Button
-                  style={styles.button}
-                  color={argonTheme.COLORS.SECONDARY}
-                  onPress={() => navigation.navigate("App")}
-                  textStyle={{ color: argonTheme.COLORS.BLACK }}
-                >
-                  BẮT ĐẦU
-                </Button>
-              </Block>
+          source={Images.Onboarding}
+          style={{ height, width, zIndex: 1 }}
+        />
+      </Block>
+      <Block center>
+        <Image source={Images.Logo} style={styles.logo} />
+      </Block>
+      <Block flex space="between" style={styles.padded}>
+        <Block flex space="around" style={{ zIndex: 2 }}>
+          <Block style={styles.title}>
+            <Block>
+              <Text color="white" size={48}>
+                ChamCongVN
+              </Text>
+            </Block>
+            <Block style={styles.subTitle}>
+              <Text color="white" size={16} style={{ textAlign: 'center' }}>
+                GIẢI PHÁP CHẤM CÔNG ONLINE.
+              </Text>
+            </Block>
+          </Block>
+          <Block center>
+            <Button
+              style={styles.button}
+              color={argonTheme.COLORS.SECONDARY}
+              onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
+              textStyle={{ color: argonTheme.COLORS.BLACK }}
+            >
+              BẮT ĐẦU
+            </Button>
           </Block>
         </Block>
       </Block>
-    );
-  }
+    </Block>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -84,11 +81,11 @@ const styles = StyleSheet.create({
     marginTop: '-50%'
   },
   title: {
-    marginTop:'-5%'
+    marginTop: '-5%'
   },
   subTitle: {
     marginTop: 20,
-    
+
   }
 });
 
