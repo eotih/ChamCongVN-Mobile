@@ -32,10 +32,12 @@ export default function checkCamera() {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [IP, setPublicIP] = useState("");
-  const [name, setName] = useState("");
+  const [employees, setEmployees] = useState([]);
   const [fillCircle, setFillCircle] = useState(0);
   const [image, setImage] = useState("");
+  const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const { name, EmployeeID } = employees;
 
   useEffect(() => {
     getPermissionCameraAsync();
@@ -46,6 +48,12 @@ export default function checkCamera() {
     setLoading(true);
   }, [valueStatus]);
 
+  const getInfoEmployee = async (id) => {
+    const response = await axios.get(`http://192.168.1.7:45455/Employee/Employee/${id}`);
+    const data = response.data;
+    setEmployees(data);
+    setOpen(true);
+  }
   const getPermissionLocationAsync = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -92,11 +100,11 @@ export default function checkCamera() {
       authPermission(response);
     }
   };
-  const faceReco = async (object) => {
+  const faceRecognition = async (object) => {
     const formData = new FormData();
     formData.append("base64", object.Image);
     const res = await axios.post(
-      "http://192.168.1.18:6868/nhandienkhuonmat",
+      "http://192.168.1.7:6868/nhandienkhuonmat",
       formData,
       {
         headers: {
@@ -105,19 +113,11 @@ export default function checkCamera() {
       }
     );
 
-    const { base64, name } = res.data;
+    const { name } = res.data;
     if (name && name !== "Unknown") {
-      // check time if between 6 to 12 AM
-      //   const time = new Date().getHours();
-      //   if (time >= 6 && time <= 12) {
-      //     console.log("time is between 6 to 12 AM");
-      //   } else if (time >= 13 && time <= 18) {
-      //     console.log("time is between 13 to 18 PM");
-      //   } else {
-      //     console.log("time is between 6 to 12 AM");
-      //   }
+      object.EmployeeID = name.split(" ")[0];
       const res = await axios.post(
-        "http://192.168.1.18:45455/TimeKeeper/HandleSendToPython",
+        "http://192.168.1.7:45455/TimeKeeper/CheckTime",
         object,
         {
           headers: {
@@ -125,7 +125,7 @@ export default function checkCamera() {
           },
         }
       );
-      console.log(res.data);
+      getInfoEmployee(object.EmployeeID);
     } else {
       console.log("Unknown");
     }
@@ -135,7 +135,7 @@ export default function checkCamera() {
   };
   const authPermission = async (object) => {
     const res = await axios.post(
-      "http://192.168.1.18:45455/TimeKeeper/HandleSendToPython",
+      "http://192.168.1.7:45455/TimeKeeper/AuthPermission",
       object,
       {
         headers: {
@@ -144,8 +144,8 @@ export default function checkCamera() {
       }
     );
     const { Status } = res.data;
-    if (typeof Status === "string") {
-      faceReco(object);
+    if (Status === 200) {
+      faceRecognition(object);
     } else {
       alert("Không có khuôn mặt");
     }
@@ -231,62 +231,64 @@ export default function checkCamera() {
           />
         </Camera>
       </MaskedView>
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.instructionsContainer}>
-          <Card
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#ffebcf",
-              borderRadius: 20,
-              padding: 10,
-              margin: 10,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View
+      {employees && (
+        <Modal open={open} animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.instructionsContainer}>
+            <Card
               style={{
                 width: "100%",
                 height: "100%",
                 backgroundColor: "#ffebcf",
-                borderRadius: 10,
+                borderRadius: 20,
                 padding: 10,
                 margin: 10,
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                Thông tin nhân viên
-              </Text>
-              <Text style={styles.text}>{name}</Text>
-              <Text style={styles.text}>Nhân viên</Text>
-              <Text style={styles.text}>Mã nhân viên: 123456789</Text>
-              <Text style={styles.text}>Mã nhân viên: 123456789</Text>
-              <TouchableOpacity
+              <View
                 style={{
                   width: "100%",
-                  height: 50,
-                  backgroundColor: "#fea621",
+                  height: "100%",
+                  backgroundColor: "#ffebcf",
                   borderRadius: 10,
-                  marginTop: 70,
+                  padding: 10,
+                  margin: 10,
                   alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
                 }}
               >
-                <Text
-                  style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}
-                >
-                  Xác nhận
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Thông tin nhân viên
                 </Text>
-              </TouchableOpacity>
-            </View>
-          </Card>
-        </View>
-      </Modal>
+                <Text style={styles.text}>{name}</Text>
+                <Text style={styles.text}>Nhân viên</Text>
+                <Text style={styles.text}>Mã nhân viên: {EmployeeID}</Text>
+                <Text style={styles.text}>Mã nhân viên: {EmployeeID}</Text>
+                <TouchableOpacity
+                  style={{
+                    width: "100%",
+                    height: 50,
+                    backgroundColor: "#fea621",
+                    borderRadius: 10,
+                    marginTop: 70,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}
+                  >
+                    Xác nhận
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </Card>
+          </View>
+        </Modal>
+      )}
     </SafeAreaView>
   );
 }
