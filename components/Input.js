@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 import PropTypes from 'prop-types';
 
 import { Input } from "galio-framework";
-
 import Icon from './Icon';
 import { argonTheme } from "../constants";
 
@@ -53,7 +52,6 @@ ArInput.propTypes = {
 
 const styles = StyleSheet.create({
   input: {
-    borderRadius: 4,
     borderColor: argonTheme.COLORS.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF'

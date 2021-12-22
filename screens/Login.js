@@ -5,13 +5,17 @@ import {
   Dimensions,
   StatusBar,
   KeyboardAvoidingView,
+  ScrollView,
+  View,
+  Text,
+  TextInput,
 } from "react-native";
-import { Block, Text } from "galio-framework";
-
-import { Button, Icon, Input } from "../components";
+import { Button, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import useToken from "../services/useToken";
 import axios from "../functions/BaseUrl";
+import { Card } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const { width, height } = Dimensions.get("screen");
 
@@ -38,99 +42,82 @@ function Login({ navigation }) {
       });
   };
   return (
-    <Block flex middle>
-      <StatusBar hidden />
-      <ImageBackground
-        source={Images.RegisterBackground}
-        style={{ width, height, zIndex: 1 }}
-      >
-        <Block safe flex middle>
-          <Block style={styles.registerContainer}>
-            <Block flex>
-              <Block flex={0.17} middle>
-                <Text color="#8898AA" size={12}>
-                  Login
-                </Text>
-              </Block>
-              <Block flex center>
-                <KeyboardAvoidingView
-                  style={{ flex: 1 }}
-                  behavior="padding"
-                  enabled
-                >
-                  <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                    <Input
-                      borderless
-                      onChangeText={(text) => {
-                        setAccount({ ...account, email: text });
-                      }}
-                      placeholder="Email"
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={argonTheme.COLORS.ICON}
-                          name="ic_mail_24px"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                    />
-                  </Block>
-                  <Block width={width * 0.8}>
-                    <Input
-                      password
-                      onChangeText={(text) => {
-                        setAccount({ ...account, password: text });
-                      }}
-                      borderless
-                      placeholder="Password"
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={argonTheme.COLORS.ICON}
-                          name="padlock-unlocked"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                    />
-                    <Block row style={styles.passwordCheck}>
-                      <Text size={12} color={argonTheme.COLORS.MUTED}>
-                        password strength:
-                      </Text>
-                      <Text bold size={12} color={argonTheme.COLORS.SUCCESS}>
-                        {" "}
-                        strong
-                      </Text>
-                    </Block>
-                  </Block>
-                  <Block middle>
-                    <Button
-                      onPress={() => login()}
-                      color="primary"
-                      style={styles.createButton}
-                    >
-                      <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                        LOGIN
-                      </Text>
-                    </Button>
-                  </Block>
-                </KeyboardAvoidingView>
-              </Block>
-            </Block>
-          </Block>
-        </Block>
-      </ImageBackground>
-    </Block>
+    <ScrollView>
+      <View >
+        <StatusBar hidden />
+        <ImageBackground
+          source={{ uri: 'https://4.bp.blogspot.com/-N0nLvYFDWXQ/VYJPitz6ecI/AAAAAAAABIg/jvYenaVkD3U/s1600/hinh-nen-iphone-4-nhung-bai-bien-dep-065-5.jpg' }}
+          style={{ width, height, zIndex: 1 }}
+        >
+          <View style={styles.loginContainer} >
+            <View style={{ marginTop: width / 2, alignItems: 'center' }}>
+              <Text style={{ fontSize: 36, color: 'white' }}>
+                ChamCongVN
+              </Text>
+            </View>
+            <View style={{ alignItems: 'flex-end', marginRight: width / 4 }}>
+              <Text style={{ fontSize: 24, color: 'white' }} >
+                Login
+              </Text>
+            </View>
+            <View style={styles.cardContainer}>
+              <Card style={styles.card}>
+                <View style={styles.input}>
+                  <Input
+                    onChangeText={(text) => {
+                      setAccount({ ...account, email: text });
+                    }}
+                    placeholder="Email"
+                    iconContent={
+                      <Icon
+                        size={22}
+                        color={argonTheme.COLORS.ICON}
+                        name="envelope"
+                        style={styles.icon}
+                      />
+                    }
+                  />
+                </View>
+                <View style={styles.input}>
+                  <Input
+                    password
+                    onChangeText={(text) => {
+                      setAccount({ ...account, password: text });
+                    }}
+                    placeholder="Password"
+                    iconContent={
+                      <Icon
+                        size={22}
+                        color={argonTheme.COLORS.ICON}
+                        name="lock"
+                        style={styles.icon}
+                      />
+                    }
+                  />
+                </View>
+                <View >
+                  <Button
+                    onPress={() => login()}
+                    color="primary"
+                    style={styles.createButton}
+                  >
+                    <Text bold size={14} color="white">
+                      LOGIN
+                    </Text>
+                  </Button>
+                </View>
+              </Card>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  registerContainer: {
-    width: width * 0.9,
-    height: height * 0.875,
-    backgroundColor: "#F4F5F7",
-    borderRadius: 4,
+  loginContainer: {
+    flex: 1,
     shadowColor: argonTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -141,40 +128,29 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: "hidden",
   },
-  socialConnect: {
-    backgroundColor: argonTheme.COLORS.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA",
+  cardContainer: {
+    marginVertical: 10,
+    marginHorizontal: 30,
   },
-  socialButtons: {
-    width: 120,
-    height: 40,
-    backgroundColor: "#fff",
-    shadowColor: argonTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
+  card: {
+    borderRadius: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
-  socialTextButtons: {
-    color: argonTheme.COLORS.PRIMARY,
-    fontWeight: "800",
-    fontSize: 14,
+  icon: {
+    marginHorizontal: 10,
   },
-  inputIcons: {
-    marginRight: 12,
-  },
-  passwordCheck: {
-    paddingLeft: 15,
-    paddingTop: 13,
-    paddingBottom: 30,
+  input: {
+    marginVertical: 20,
+    borderRadius: 20,
+    borderWidth: 0.5,
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25,
+    marginTop: 15,
+    borderRadius: 10,
+    alignSelf: 'center',
+    backgroundColor:'#00e5ff'
   },
 });
 

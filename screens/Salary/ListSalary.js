@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput, Modal } from "react-native";
 import { Button, Card, Title, Paragraph, Text, IconButton } from 'react-native-paper';
-
-
+import SimplePie from "../../components/PieChart"
 const { width, height } = Dimensions.get('window');
 export default function SalaryTable() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -19,35 +18,35 @@ export default function SalaryTable() {
                         setModalVisible(!modalVisible);
                     }}
                 >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <IconButton style={styles.iconButton}
-                                icon="window-close"
-                                onPress={() => setModalVisible(!modalVisible)}
-                            />
-                            <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: 'center' }}>Thông tin chi tiết lương</Text>
-                            <View style={styles.modalDetails}>
-                                <View>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
+                    <ScrollView>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <IconButton style={styles.iconButton}
+                                    icon="window-close"
+                                    onPress={() => setModalVisible(!modalVisible)}
+                                />
+                                <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: 'center', marginBottom: 15, }}>Thông tin chi tiết lương</Text>
+                                <SimplePie />
+                                <Text style={{ fontSize: 18, fontWeight: "bold" }}>Tổng thực nhận</Text>
+                                <View style={styles.modalDetails}>
+                                    <View>
+                                        <Text style={styles.modalText}>Lương cơ bản</Text>
+                                        <Text style={styles.modalText}>Tiền thưởng</Text>
+                                        <Text style={styles.modalText}>Tiền phạt</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                    </View>
                                 </View>
-                                <View>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Text style={styles.modalText}>Hello World!</Text>
+                                <View style={styles.total}>
+                                    <Text style={styles.modalText}>TỔng tiền</Text>
+                                    <Text style={styles.modalText}>30000000</Text>
                                 </View>
-                            </View>
-                            <View style={styles.total}>
-                                <Text style={styles.modalText}>TỔng tiền</Text>
-                                <Text style={styles.modalText}>30000000</Text>
                             </View>
                         </View>
-                    </View>
+                    </ScrollView>
                 </Modal>
             </View>
             <View style={styles.all}>
@@ -102,7 +101,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
                 <Card style={styles.card}>
@@ -112,7 +111,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
             </View>
@@ -124,7 +123,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
                 <Card style={styles.card}>
@@ -134,10 +133,11 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
             </View>
+            {/* <PieCharts/> */}
             <View style={styles.all}>
                 <Card style={styles.card}>
                     <Card.Content style={{ alignItems: 'center' }} >
@@ -146,7 +146,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
                 <Card style={styles.card}>
@@ -156,7 +156,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
             </View>
@@ -168,7 +168,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
                 <Card style={styles.card}>
@@ -178,7 +178,7 @@ export default function SalaryTable() {
                         <Paragraph >10 triệu</Paragraph>
                     </Card.Content>
                     <Card.Actions>
-                        <Button style={styles.buttonDetail}  color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
+                        <Button style={styles.buttonDetail} color="white" onPress={() => setModalVisible(true)} >Chi tiết</Button>
                     </Card.Actions>
                 </Card>
             </View>
@@ -242,14 +242,19 @@ const styles = StyleSheet.create({
     },
     modalDetails: {
         flexDirection: "row",
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderWidth: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        marginVertical: 10,
+        borderRadius: 20,
     },
     total: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderTopWidth: 1,
     },
-    iconButton:{
+    iconButton: {
         alignSelf: 'flex-end'
     },
 

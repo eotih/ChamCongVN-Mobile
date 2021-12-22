@@ -7,6 +7,7 @@ import { Select, Input, Header, Switch } from "../../components";
 import axios from "axios";
 import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 import { BarChart } from 'react-native-gifted-charts';
+import SimplePie from "../../components/PieChart"
 
 const { width, height } = Dimensions.get('window');
 const barData = [
@@ -102,21 +103,21 @@ export default class SalaryTable extends React.Component {
             <ScrollView style={{ marginHorizontal: 20 }}>
                 <View style={styles.header}>
                     <Button color="white" style={{ backgroundColor: 'blue' }} >Thống kê lương</Button>
-                    <Text style={{ fontSize: 28 }}>||</Text>
+                    <Text style={{ fontSize:27 }}>||</Text>
                     <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary')}>Ghi tiết lương</Button>
                 </View>
                 <View style={styles.card}>
                     <Card>
                         <Card.Content>
-                            <Title>Tổng thực nhận</Title>
+                            <Title>Lương trung bình</Title>
                             <Paragraph>10 triệu</Paragraph>
-                            <Title>Tổng thực nhận</Title>
+                            <Title>Tháng nhiều nhất</Title>
                             <Paragraph>10 triệu</Paragraph>
                         </Card.Content>
                     </Card>
                     <Card>
                         <Card.Content>
-                            <Title>Tổng thực nhận</Title>
+                            <Title>Tháng ít nhất</Title>
                             <Paragraph>10 triệu</Paragraph>
                             <Title>Tổng thực nhận</Title>
                             <Paragraph>10 triệu</Paragraph>
