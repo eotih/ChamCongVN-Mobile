@@ -5,40 +5,42 @@ import {
   Image
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-
 import Images from "../constants/Images";
 import { DrawerItem as DrawerCustomItem, Select } from '../components';
-import useToken from "../services/useToken";
+import { accountContext } from '../context/Hooks';
 
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
-
+  const account = accountContext();
+  const { DepartmentName, Employee, PositionName } = account.employees;
   return (
     <Block
       style={styles.container}
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
-      <Block flex={0.06} style={styles.header}>
-        <Block style={styles.all}>
-          <Block middle style={styles.avatarContainer}>
-            <Image
-              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              style={styles.avatar}
-            />
+      {account && account.employees && (
+        <Block flex={0.06} style={styles.header}>
+          <Block style={styles.all}>
+            <Block middle style={styles.avatarContainer}>
+              <Image
+                source={{ uri: Employee.Image }}
+                style={styles.avatar}
+              />
+            </Block>
+            <Block>
+              <Text bold style={styles.textname}  >
+                Tên: {Employee.FullName}
+              </Text>
+              <Text style={styles.text} >
+                Chức vụ: {PositionName}
+              </Text>
+              <Text style={styles.text} >
+                Phòng ban: {DepartmentName}
+              </Text>
+            </Block>
           </Block>
-          <Block>
-            <Text bold style={styles.textname}  >
-              Tên:
-            </Text>
-            <Text style={styles.text} >
-              Chức vụ:
-            </Text>
-            <Text style={styles.text} >
-              Phòng ban:
-            </Text>
-          </Block>
+          <Image styles={styles.logo} source={Images.ArgonLogo} />
         </Block>
-        <Image styles={styles.logo} source={Images.ArgonLogo} />
-      </Block>
+      )}
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <DrawerCustomItem title="Home" focused={state.index === 0 ? true : false} navigation={navigation} />
