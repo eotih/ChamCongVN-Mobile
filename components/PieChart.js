@@ -7,11 +7,6 @@ import { IconButton, Portal, Provider, Button, Card } from 'react-native-paper';
 
 
 function SimplePie() {
-    // const [visible, setVisible] = React.useState(false);
-
-    // const showModal = () => setVisible(true);
-    // const hideModal = () => setVisible(false);
-    // const containerStyle = { backgroundColor: 'blue' };
     const [modalVisible, setModalVisible] = useState(false);
 
     const pieData = [

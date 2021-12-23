@@ -45,8 +45,7 @@ function Onboarding({ navigation }) {
             <Button
               style={styles.button}
               color={argonTheme.COLORS.SECONDARY}
-              // onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
-              onPress={() => navigation.navigate("App")}
+              onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
               textStyle={{ color: argonTheme.COLORS.BLACK }}
             >
               BẮT ĐẦU
