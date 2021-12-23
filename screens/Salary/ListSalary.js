@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput, Modal } from "react-native";
+import { View, ScrollView, StyleSheet, Dimensions, Modal } from "react-native";
 import { Button, Card, Title, Paragraph, Text, IconButton } from 'react-native-paper';
 import SimplePie from "../../components/PieChart"
 const { width, height } = Dimensions.get('window');
@@ -14,7 +14,6 @@ export default function SalaryTable() {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
                         setModalVisible(!modalVisible);
                     }}
                 >
@@ -27,12 +26,29 @@ export default function SalaryTable() {
                                 />
                                 <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: 'center', marginBottom: 15, }}>Thông tin chi tiết lương</Text>
                                 <SimplePie />
+                                <Text style={{ fontSize: 18, fontWeight: "bold" }}>Thông tin trong tháng </Text>
+                                <View style={styles.modalDetails}>
+                                    <View>
+                                        <Text style={styles.modalText}>Tổng số giờ công</Text>
+                                        <Text style={styles.modalText}>Số ngày nghỉ</Text>
+                                        <Text style={styles.modalText}>Số ngày tăng ca</Text>
+                                        <Text style={styles.modalText}>Số tiền thưởng</Text>
+                                        <Text style={styles.modalText}>Tiền lương tăng ca</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                        <Text style={styles.modalText}>Hello World!</Text>
+                                    </View>
+                                </View>
                                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>Tổng thực nhận</Text>
                                 <View style={styles.modalDetails}>
                                     <View>
-                                        <Text style={styles.modalText}>Lương cơ bản</Text>
-                                        <Text style={styles.modalText}>Tiền thưởng</Text>
-                                        <Text style={styles.modalText}>Tiền phạt</Text>
+                                        <Text style={styles.modalText}>Tổng Lương cơ bản</Text>
+                                        <Text style={styles.modalText}>Tổng tiền thưởng</Text>
+                                        <Text style={styles.modalText}>Tổng tiền phạt</Text>
                                     </View>
                                     <View>
                                         <Text style={styles.modalText}>Hello World!</Text>
@@ -205,7 +221,7 @@ const styles = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
+        padding: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

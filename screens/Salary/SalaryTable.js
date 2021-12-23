@@ -109,18 +109,18 @@ export default class SalaryTable extends React.Component {
                 <View style={styles.card}>
                     <Card>
                         <Card.Content>
-                            <Title>Lương trung bình</Title>
+                            <Title>Lương cơ bản</Title>
                             <Paragraph>10 triệu</Paragraph>
-                            <Title>Tháng nhiều nhất</Title>
-                            <Paragraph>10 triệu</Paragraph>
+                            <Title>Tổng số giờ công</Title>
+                            <Paragraph>100 giờ</Paragraph>
                         </Card.Content>
                     </Card>
                     <Card>
                         <Card.Content>
-                            <Title>Tháng ít nhất</Title>
-                            <Paragraph>10 triệu</Paragraph>
-                            <Title>Tổng thực nhận</Title>
-                            <Paragraph>10 triệu</Paragraph>
+                            <Title>Số lần tăng ca</Title>
+                            <Paragraph>10 lần</Paragraph>
+                            <Title>Số ngày nghỉ</Title>
+                            <Paragraph>20 ngày</Paragraph>
                         </Card.Content>
                     </Card>
                 </View>
