@@ -36,7 +36,7 @@ export default function SalaryTable(props) {
                                 <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: 'center', marginBottom: 15, }}>
                                     Thông tin chi tiết lương
                                 </Text>
-                                <SimplePie />
+                                <SimplePie data={dataModal}/>
                                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>Thông tin trong tháng </Text>
                                 <View style={styles.modalDetails}>
                                     <View>
@@ -71,9 +71,7 @@ export default function SalaryTable(props) {
                                 </View>
                                 <View style={styles.total}>
                                     <Text style={styles.modalText}>TỔng tiền</Text>
-                                    <Text style={styles.modalText}>{dataModal[0].Salary
-                                        + dataModal[0].TotalLaudatory
-                                        - dataModal[0].TotalDeduction}</Text>
+                                    <Text style={styles.modalText}>{dataModal[0].TotalSalary}</Text>
                                 </View>
                             </View>
                         </View>

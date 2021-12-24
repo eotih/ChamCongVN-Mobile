@@ -6,13 +6,14 @@ import { IconButton, Portal, Provider, Button, Card } from 'react-native-paper';
 
 
 
-function SimplePie() {
+function SimplePie( {data}) {
     const [modalVisible, setModalVisible] = useState(false);
+    const { Salary, TotalOvertimeSalary, TotalLaudatory, TotalDeduction} = data[0]
     const pieData = [
-        { value: 1000, color: '#177AD5' },
-        { value: 3000, color: '#79D2DE' },
-        { value: 2600, color: '#ED6665' },
-        { value: 2600, color: 'black' },
+        { value: Salary, color: '#177AD5' },
+        { value: TotalOvertimeSalary, color: '#79D2DE' },
+        { value: TotalLaudatory, color: '#ED6665' },
+        { value: TotalDeduction, color: 'black' },
     ];
     return (
         <View >
@@ -31,14 +32,13 @@ function SimplePie() {
                 />
                 <View>
                     <IconButton style={styles.iconButton}
-
                         icon="lightbulb"
                         color='blue'
                         onPress={() => setModalVisible(true)}
                     />
                 </View>
             </View>
-            <View >
+            <View>
                 <Modal style={{ backgroundColor: 'white' }}
                     animationType="slide"
                     transparent={true}
@@ -48,15 +48,15 @@ function SimplePie() {
                     }}
                 >
                     <View style={styles.modalContainer} >
-                        <View >
+                        <View style={{ marginLeft: 40, alignItems: 'center', flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>Chú thích </Text>
                             <IconButton style={styles.iconButton}
                                 icon="window-close"
                                 onPress={() => setModalVisible(!modalVisible)}
                             />
-                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>Chú thích </Text>
                         </View>
                         <View style={{ flexDirection: 'row' }} >
-                            <View style={{ marginRight: 10 }}>
+                            <View style={{ marginHorizontal: 15 }}>
                                 <Icon size={26}
                                     name="circle"
                                     color="#177AD5" />
@@ -68,16 +68,15 @@ function SimplePie() {
                                     color="#ED6665" />
                                 <Icon size={26}
                                     name="circle"
-                                    color="#177AD5" />
+                                    color="black" />
                             </View>
                             <View>
                                 <Text style={styles.text}>Lương cơ bản</Text>
-                                <Text style={styles.text}>Thưởng tăng ca</Text>
-                                <Text style={styles.text}>Thưởng ngày lễ</Text>
-                                <Text style={styles.text}>Tiền bị phạt</Text>
+                                <Text style={styles.text}>Lương tăng ca</Text>
+                                <Text style={styles.text}>Tiền Thưởng</Text>
+                                <Text style={styles.text}>Tiền khấu trừ</Text>
                             </View>
                         </View>
-
                     </View>
                 </Modal>
             </View>

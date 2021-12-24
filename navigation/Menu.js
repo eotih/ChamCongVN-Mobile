@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -12,6 +12,9 @@ import { accountContext } from '../context/Hooks';
 function CustomDrawerContent({ drawerPosition, navigation, profile, focused, state, ...rest }) {
   const account = accountContext();
   const { DepartmentName, Employee, PositionName } = account.employees;
+  useEffect(() => {
+    // console.log(Employee)
+  }, [])
   return (
     <Block
       style={styles.container}
@@ -21,10 +24,10 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
         <Block flex={0.06} style={styles.header}>
           <Block style={styles.all}>
             <Block middle style={styles.avatarContainer}>
-              {/* <Image
+              <Image
                 source={{ uri: Employee.Image }}
                 style={styles.avatar}
-              /> */}
+              />
             </Block>
             <Block>
               <Text bold style={styles.textname}  >
@@ -78,8 +81,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start"
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderRadius: 62,
     borderWidth: 0
   },
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   textname: {
-    fontSize: 22,
+    fontSize: 16,
     color: 'black',
     marginLeft: 10
   },
