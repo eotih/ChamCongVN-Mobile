@@ -87,12 +87,12 @@ export default function AbsentApplications() {
     data.AbsentDate = currentDate;
   };
   const handleSubmit = () => {
-    Axios.post('Application/OverTimeApplications', data)
+    Axios.post('Application/AbsentApplications', data)
       .then((res) => {
         if (res.data.Status === 200) {
           alert(res.data.Message);
         } else {
-          alert('Data not update');
+          alert(res.data.Message);
         }
       })
   }

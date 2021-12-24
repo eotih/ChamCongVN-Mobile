@@ -38,7 +38,7 @@ export default function OverTimeApplications() {
                 if (res.data.Status === 200) {
                     alert(res.data.Message);
                 } else {
-                    alert('Data not update');
+                    alert(res.data.Message);
                 }
             })
     }
