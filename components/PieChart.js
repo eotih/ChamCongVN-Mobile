@@ -8,7 +8,6 @@ import { IconButton, Portal, Provider, Button, Card } from 'react-native-paper';
 
 function SimplePie() {
     const [modalVisible, setModalVisible] = useState(false);
-
     const pieData = [
         { value: 1000, color: '#177AD5' },
         { value: 3000, color: '#79D2DE' },
@@ -54,9 +53,9 @@ function SimplePie() {
                                 icon="window-close"
                                 onPress={() => setModalVisible(!modalVisible)}
                             />
-                            <Text style={{ fontSize: 18, fontWeight: "bold",textAlign: "center"}}>Chú thích </Text>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>Chú thích </Text>
                         </View>
-                        <View style={{flexDirection: 'row'}} >
+                        <View style={{ flexDirection: 'row' }} >
                             <View style={{ marginRight: 10 }}>
                                 <Icon size={26}
                                     name="circle"
@@ -95,9 +94,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: width / 1.8,
         paddingVertical: 10,
-        marginTop: height /3.5,
+        marginTop: height / 3.5,
         marginRight: 30,
-        alignSelf:'flex-end',
+        alignSelf: 'flex-end',
         position: 'relative'
     },
     iconButton: {

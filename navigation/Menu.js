@@ -21,10 +21,10 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
         <Block flex={0.06} style={styles.header}>
           <Block style={styles.all}>
             <Block middle style={styles.avatarContainer}>
-              <Image
+              {/* <Image
                 source={{ uri: Employee.Image }}
                 style={styles.avatar}
-              />
+              /> */}
             </Block>
             <Block>
               <Text bold style={styles.textname}  >
