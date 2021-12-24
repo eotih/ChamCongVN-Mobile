@@ -4,11 +4,9 @@ import { PieChart } from 'react-native-gifted-charts';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { IconButton, Portal, Provider, Button, Card } from 'react-native-paper';
 
-
-
-function SimplePie( {data}) {
+function SimplePie({ data }) {
     const [modalVisible, setModalVisible] = useState(false);
-    const { Salary, TotalOvertimeSalary, TotalLaudatory, TotalDeduction} = data[0]
+    const { Salary, TotalOvertimeSalary, TotalLaudatory, TotalDeduction } = data[0]
     const pieData = [
         { value: Salary, color: '#177AD5' },
         { value: TotalOvertimeSalary, color: '#79D2DE' },

@@ -16,9 +16,9 @@ export default function SalaryTable(props) {
         setDataModal(data)
     }
     return (
-        <ScrollView style={{ marginVertical: 20, marginHorizontal: 20 }}>
+        <View style={{ marginVertical: 20, marginHorizontal: 20 }}>
             <View>
-                {dataModal.length >0 && <Modal
+                {dataModal.length > 0 && <Modal
                     animationType="slide"
                     transparent={true}
                     visible={modalVisible}
@@ -36,7 +36,7 @@ export default function SalaryTable(props) {
                                 <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: 'center', marginBottom: 15, }}>
                                     Thông tin chi tiết lương
                                 </Text>
-                                <SimplePie data={dataModal}/>
+                                <SimplePie data={dataModal} />
                                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>Thông tin trong tháng </Text>
                                 <View style={styles.modalDetails}>
                                     <View>
@@ -101,7 +101,7 @@ export default function SalaryTable(props) {
                     contentContainer={styles.listContainer}
                 />
             </View>
-        </ScrollView>
+        </View>
     )
 }
 const styles = StyleSheet.create({

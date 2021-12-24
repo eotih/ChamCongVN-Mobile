@@ -10,7 +10,7 @@ import { AccountContext } from '../../context/AccountContext';
 
 function TimekeepingHistory() {
   const account = useContext(AccountContext);
-  const { EmployeeID } = account.Employee;
+  const { EmployeeID } = account.employees.Employee;
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [dayEnd, setDayEnd] = useState();
@@ -20,7 +20,7 @@ function TimekeepingHistory() {
   const [showIOS, setShowIOS] = useState();
   useEffect(() => {
     {
-      account && account.Employee && GetAllTimeKeepingByEmployeeID(EmployeeID).then(res => {
+      account && account.employees.Employee && GetAllTimeKeepingByEmployeeID(EmployeeID).then(res => {
         setTimeKeeper(res)
         setDataFilter(res)
       })
