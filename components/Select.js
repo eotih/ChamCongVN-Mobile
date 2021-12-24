@@ -9,14 +9,14 @@ import { argonTheme } from '../constants';
 
 class DropDown extends React.Component {
   state = {
-    value: "Vui lòng chọn",
+    value: "Please choose",
   }
 
   handleOnSelect = (index, value) => {
     const { onSelect, data, typeSelect } = this.props;
     this.setState({ value: value });
     onSelect && onSelect(index, value);
-    typeSelect == "AbsentDate" ? data.AbsentType = value :  data.NumberOfDays = value;
+    typeSelect == "AbsentDate" ? data.AbsentType = value :  data.NumberOfDays = value.slice(0,1);
   }
 
   render() {

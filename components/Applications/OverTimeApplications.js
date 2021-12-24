@@ -1,55 +1,63 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
 import { argonTheme, tabs } from "../../constants";
 import { IconButton, Colors, Text, TextInput } from 'react-native-paper';
-import moment from "moment";
 import Axios from "../../functions/BaseUrl";
 import SelectDropdown from 'react-native-select-dropdown';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { AccountContext } from '../../context/AccountContext';
 
 const { width, height } = Dimensions.get('window');
 export default function OverTimeApplications() {
+    const account = useContext(AccountContext);
+    const { EmployeeID, FullName } = account.employees.Employee;
     const [timeEnd, settimeEnd] = useState("");
     const [timeStart, settimeStart] = useState("");
     const [data, setData] = useState([]);
     const [dataRegister, setDataRegister] = useState({
-        EmployeeID: "1",
+        EmployeeID: EmployeeID,
         StateID: 1,
         OverTimeID: "",
         Note: "",
-        CreatedBy: "Trần Thanh Tú",
+        CreatedBy: FullName,
     });
     useEffect(() => {
-        getInfoEmployee().then((res) => {
+        getOverTime().then((res) => {
             const result = res.filter(item => item.Overtime.IsActive === true);
             setData(result);
         });
     }, []);
 
-    async function getInfoEmployee() {
+    async function getOverTime() {
         const res = await Axios.get('Organization/OverTime');
         return res.data;
     }
 
     const handleSubmit = () => {
-        console.log(dataRegister)
-      }
+        Axios.post('Application/OverTimeApplications', dataRegister)
+            .then((res) => {
+                if (res.data.Status === 200) {
+                    alert(res.data.Message);
+                } else {
+                    alert('Data not update');
+                }
+            })
+    }
     return (
         <ScrollView>
             <View style={{ paddingHorizontal: 20 }}>
                 <View style={{ marginVertical: 20 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Đơn Xin tăng ca</Text>
-                    <Text style={styles.text}>Chọn ngày tăng ca</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Overtime Application</Text>
+                    <Text style={styles.text}>Select shift overtime</Text>
                     <SelectDropdown
                         data={data}
                         onSelect={(selectedItem) => {
-                            settimeStart(selectedItem.Overtime.StartTime), 
-                            settimeEnd(selectedItem.Overtime.EndTime),
-                            dataRegister.OverTimeID = selectedItem.Overtime.OverTimeID
+                            settimeStart(selectedItem.Overtime.StartTime),
+                                settimeEnd(selectedItem.Overtime.EndTime),
+                                dataRegister.OverTimeID = selectedItem.Overtime.OverTimeID
                         }}
-                        dropdown icon position= "left"
+                        dropdown icon position="left"
                         buttonStyle={{
-                            width:'100%',
+                            width: '100%',
                             backgroundColor: '#ff9800',
                             alignItems: 'center',
                             paddingVertical: 12,
@@ -64,9 +72,9 @@ export default function OverTimeApplications() {
                         }}
                     />
                 </View>
-                <View style={{ marginVertical: 15, padding:10, borderWidth: 1  }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Khoảng thời gian tăng ca</Text>
-                    <Text style={styles.text}>Giờ bắt đầu</Text>
+                <View style={{ marginVertical: 15, padding: 10, borderWidth: 1 }}>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Overtime infomation</Text>
+                    <Text style={styles.text}>Start time</Text>
                     <View style={styles.time} >
                         <View style={{ alignSelf: 'center' }} >
                             <TextInput size={16} color="#32325D"
@@ -84,7 +92,7 @@ export default function OverTimeApplications() {
                             />
                         </View>
                     </View>
-                    <Text style={styles.text}>Giờ kết thúc</Text>
+                    <Text style={styles.text}>End time</Text>
                     <View style={styles.time} >
                         <View style={{ alignSelf: 'center' }} >
                             <TextInput size={16} color="#32325D"
@@ -104,21 +112,21 @@ export default function OverTimeApplications() {
                     </View>
                 </View>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }} >Lý do </Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }} >Note </Text>
                     <View style={{ marginTop: 20 }} >
                         <TextInput
                             multiline
                             numberOfLines={6}
-                            label="Nhập lý do xin nghỉ"
+                            label="Note"
                             onChangeText={text => dataRegister.Note = text}
                             mode="outlined"
                         />
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.createButton} color="info"  onPress={() => handleSubmit()}>
+                    <TouchableOpacity style={styles.createButton} color="info" onPress={() => handleSubmit()}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE} style={{ textAlign: 'center' }}>
-                            Gửi Yêu Cầu
+                            Send Application
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -137,7 +145,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     time: {
-       marginVertical: 10,
+        marginVertical: 10,
         flexDirection: 'row',
         borderWidth: 1,
         justifyContent: 'space-between',
