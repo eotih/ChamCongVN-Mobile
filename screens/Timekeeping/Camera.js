@@ -35,9 +35,9 @@ export default function checkCamera() {
   const [employees, setEmployees] = useState([]);
   const [fillCircle, setFillCircle] = useState(0);
   const [image, setImage] = useState("");
-  const [open, setOpen] = useState(false);
+  const [ipOrganization, setIpOrganization] = useState("");
   const ref = useRef(null);
-  const { name, EmployeeID } = employees;
+  const { Employee, EmployeeID, DepartmentName, PositionName } = employees;
 
   useEffect(() => {
     getPermissionCameraAsync();
@@ -45,6 +45,7 @@ export default function checkCamera() {
     getPublicIP();
     getDeviceInfo();
     getLocationInfo();
+    getIpOrganization();
     setLoading(true);
   }, [valueStatus]);
 
@@ -52,7 +53,8 @@ export default function checkCamera() {
     const response = await axios.get(`http://192.168.1.7:45455/Employee/Employee/${id}`);
     const data = response.data;
     setEmployees(data);
-    setOpen(true);
+    { data ? setModalVisible(true) : setModalVisible(false) }
+    { data ? setLoading(true) : setLoading(false) }
   }
   const getPermissionLocationAsync = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -104,7 +106,7 @@ export default function checkCamera() {
     const formData = new FormData();
     formData.append("base64", object.Image);
     const res = await axios.post(
-      "http://192.168.1.7:6868/nhandienkhuonmat",
+      `${ipOrganization}nhandienkhuonmat`,
       formData,
       {
         headers: {
@@ -112,7 +114,6 @@ export default function checkCamera() {
         },
       }
     );
-
     const { name } = res.data;
     if (name && name !== "Unknown") {
       object.EmployeeID = name.split(" ")[0];
@@ -125,7 +126,14 @@ export default function checkCamera() {
           },
         }
       );
-      getInfoEmployee(object.EmployeeID);
+      const { Status } = res.data;
+      if (Status !== 200) {
+        alert("Bạn đã chấm công rồi");
+        navigate('Home');
+      } else {
+        getInfoEmployee(object.EmployeeID);
+
+      }
     } else {
       console.log("Unknown");
     }
@@ -147,10 +155,14 @@ export default function checkCamera() {
     if (Status === 200) {
       faceRecognition(object);
     } else {
-      alert("Không có khuôn mặt");
+      alert("Vui lòng chấm công lại");
     }
   };
-
+  const getIpOrganization = async () => {
+    const res = await axios.get(`http://192.168.1.7:45455/Organization/Organization`);
+    const { PythonIP } = res.data;
+    setIpOrganization(PythonIP);
+  }
   const handleFacesDetected = ({ faces }) => {
     if (faces.length !== 1) {
       return;
@@ -207,110 +219,135 @@ export default function checkCamera() {
         style={StyleSheet.absoluteFill}
         maskElement={<View style={styles.mask} />}
       >
-        <Camera
-          style={StyleSheet.absoluteFill}
-          ref={ref}
-          type={Camera.Constants.Type.front}
-          onFacesDetected={handleFacesDetected}
-          faceDetectorSettings={{
-            mode: FaceDetector.Constants.Mode.fast, // ignore faces in the background
-            detectLandmarks: FaceDetector.Constants.Landmarks.none,
-            runClassifications: FaceDetector.Constants.Classifications.all,
-            minDetectionInterval: 125,
-            tracking: false,
-          }}
-        >
-          <AnimatedCircularProgress
-            style={styles.circularProgress}
-            fill={fillCircle}
-            size={PREVIEW_SIZE}
-            width={10}
-            backgroundWidth={7}
-            tintColor="#fea621"
-            backgroundColor="#e8e8e8"
-          />
-        </Camera>
+        {fillCircle == 100 ?
+          <Image
+            style={styles.image}
+            source={{ uri: "data:image/image/png;base64," + image }} />
+          : <Camera
+            style={StyleSheet.absoluteFill}
+            ref={ref}
+            type={Camera.Constants.Type.front}
+            onFacesDetected={handleFacesDetected}
+            faceDetectorSettings={{
+              mode: FaceDetector.Constants.Mode.fast, // ignore faces in the background
+              detectLandmarks: FaceDetector.Constants.Landmarks.none,
+              runClassifications: FaceDetector.Constants.Classifications.all,
+              minDetectionInterval: 125,
+              tracking: false
+            }}
+          >
+            <AnimatedCircularProgress
+              style={styles.circularProgress}
+              fill={fillCircle}
+              size={PREVIEW_SIZE}
+              width={10}
+              backgroundWidth={7}
+              tintColor="#fea621"
+              backgroundColor="#e8e8e8"
+            />
+          </Camera>}
       </MaskedView>
-      {employees && (
-        <Modal open={open} animationType="slide" transparent={true} visible={modalVisible}>
+
+      {employees.length !== 0 ?
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+        >
           <View style={styles.instructionsContainer}>
             <Card
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#ffebcf",
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={styles.cardPopUp}
             >
-              <View
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "#ffebcf",
-                  borderRadius: 10,
-                  padding: 10,
-                  margin: 10,
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  Thông tin nhân viên
-                </Text>
-                <Text style={styles.text}>{name}</Text>
-                <Text style={styles.text}>Nhân viên</Text>
-                <Text style={styles.text}>Mã nhân viên: {EmployeeID}</Text>
-                <Text style={styles.text}>Mã nhân viên: {EmployeeID}</Text>
+              <View style={styles.viewPopUp}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Thông tin nhân viên</Text>
+                <View style={styles.viewTextDisplay}>
+                  <Text style={styles.textPopUp}>Mã nhân viên: {EmployeeID}</Text>
+                  <Text style={styles.textPopUp}>Tên nhân viên: {Employee.FullName}</Text>
+                  <Text style={styles.textPopUp}>Vị trí: {DepartmentName}</Text>
+                  <Text style={styles.textPopUp}>Chức vụ: {PositionName}</Text>
+                </View>
                 <TouchableOpacity
-                  style={{
-                    width: "100%",
-                    height: 50,
-                    backgroundColor: "#fea621",
-                    borderRadius: 10,
-                    marginTop: 70,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                  style={styles.buttonPopUp}
                   onPress={() => {
-                    setModalVisible(!modalVisible);
+                    // go home screen
+                    navigate('Home');
+                    setModalVisible(!modalVisible)
+                    // clear data
+                    setImage('')
+                    setFillCircle(0)
                   }}
                 >
-                  <Text
-                    style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}
-                  >
-                    Xác nhận
-                  </Text>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>Xác nhận</Text>
                 </TouchableOpacity>
               </View>
             </Card>
           </View>
-        </Modal>
-      )}
+        </Modal> : null}
     </SafeAreaView>
   );
 }
 
-const { width: windowWidth } = Dimensions.get("window");
-const PREVIEW_SIZE = windowWidth * 0.9;
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window")
+const PREVIEW_SIZE = windowWidth * 0.9
 const PREVIEW_RECT = {
   minX: (windowWidth - PREVIEW_SIZE) / 2,
   minY: (windowWidth - PREVIEW_SIZE) / 2,
   maxX: (windowWidth + PREVIEW_SIZE) / 2,
   maxY: (windowWidth + PREVIEW_SIZE) / 2,
   width: PREVIEW_SIZE,
-  height: PREVIEW_SIZE,
-};
+  height: PREVIEW_SIZE
+}
 const styles = StyleSheet.create({
+  // get window width
+  cardPopUp: {
+    width: windowWidth,
+    height: windowHeight / 5,
+    backgroundColor: '#ffebcf',
+    borderRadius: 20,
+    padding: 10,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  viewPopUp: {
+    width: windowWidth,
+    height: windowHeight / 2,
+    backgroundColor: '#ffebcf',
+    borderRadius: 20,
+    padding: 10,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonPopUp: {
+    width: windowWidth - 20,
+    height: 50,
+    backgroundColor: '#fea621',
+    borderRadius: 10,
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textPopUp: {
+    fontSize: 20,
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5,
+  },
+  viewTextDisplay: {
+    // Overlay the view on top of the card
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 20,
+
+  },
   mask: {
     borderRadius: PREVIEW_SIZE / 2,
     height: PREVIEW_SIZE,
     width: PREVIEW_SIZE,
     marginTop: PREVIEW_RECT.minY,
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: "white"
   },
   circularProgress: {
     position: "absolute",
@@ -318,24 +355,18 @@ const styles = StyleSheet.create({
     left: PREVIEW_RECT.minX,
     width: PREVIEW_SIZE,
     height: PREVIEW_SIZE,
-    alignSelf: "center",
+    alignSelf: "center"
   },
   instructionsContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: PREVIEW_RECT.minY + PREVIEW_SIZE,
+    marginTop: PREVIEW_RECT.minY + PREVIEW_SIZE
   },
   image: {
     width: PREVIEW_SIZE,
     height: PREVIEW_SIZE,
     marginTop: PREVIEW_RECT.minY,
   },
-  text: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    color: "#333333",
-    marginBottom: 5,
-  },
-});
+
+})

@@ -20,7 +20,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
       style={styles.container}
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
-      {account && account.employees && (
+      {account && (
         <Block flex={0.06} style={styles.header}>
           <Block style={styles.all}>
             <Block middle style={styles.avatarContainer}>
