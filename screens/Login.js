@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
   input: {
     marginVertical: 20,
     borderRadius: 20,
-    borderWidth: 0.5,
   },
   createButton: {
     width: width * 0.5,

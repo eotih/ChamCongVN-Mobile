@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   text: {
     color: argonTheme.COLORS.BLACK,
     fontWeight: '600',
+    fontSize: 20
   },
   dropdown: {
     marginTop: 8,

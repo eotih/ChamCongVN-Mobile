@@ -27,7 +27,7 @@ function SalaryTable({ navigation }) {
             setDataChart(data)
         })
     }, []);
-    
+
     const styleDataChart = (salary, label, frontColor, sideColor, topColor) => {
         return ({
             value: salary,
@@ -71,24 +71,31 @@ function SalaryTable({ navigation }) {
         <ScrollView style={{ marginHorizontal: 20 }}>
             <View style={styles.header}>
                 <Button color="white" style={{ backgroundColor: 'blue' }} >Thống kê lương</Button>
-                <Text style={{ fontSize: 27 }}>||</Text>
-                <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary', {listdata})}>Chi tiết lương</Button>
+                <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary', { listdata })}>Chi tiết lương</Button>
             </View>
-            <View style={styles.card}>
-                <Card>
+            <View>
+                <Card style={styles.card}>
                     <Card.Content>
                         <Title>Cumulative salary</Title>
-                        <Paragraph>{Salary/1000000} Million</Paragraph>
-                        <Title>Total Working Hours</Title>
-                        <Paragraph>{totalTime} hours</Paragraph>
+                        <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
-                <Card>
+                <Card style={styles.card}>
                     <Card.Content>
-                        <Title>Số lần tăng ca</Title>
-                        <Paragraph>10 lần</Paragraph>
-                        <Title>Số ngày nghỉ</Title>
-                        <Paragraph>20 ngày</Paragraph>
+                        <Title>Cumulative salary</Title>
+                        <Paragraph>{Salary / 1000000} Million</Paragraph>
+                    </Card.Content>
+                </Card>
+                <Card style={styles.card}>
+                    <Card.Content>
+                        <Title>Cumulative salary</Title>
+                        <Paragraph>{Salary / 1000000} Million</Paragraph>
+                    </Card.Content>
+                </Card>
+                <Card style={styles.card}>
+                    <Card.Content>
+                        <Title>Cumulative salary</Title>
+                        <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
             </View>
@@ -116,12 +123,11 @@ export default SalaryTable;
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        marginVertical: 20
+        marginVertical: 20,
+        justifyContent: 'space-around'
     },
     card: {
-        marginVertical: 20,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
+        marginVertical: 10,
     },
 
 })

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 30,
         elevation: 0,
+        alignItems: 'center'
     },
     notSelected: {
         backgroundColor: "#FFCC00",
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
         elevation: 0,
     },
     tabTitle: {
-        lineHeight: 19,
         fontWeight: '400',
         color: "white",
         textAlign: 'center',

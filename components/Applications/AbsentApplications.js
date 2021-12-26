@@ -100,14 +100,16 @@ export default function AbsentApplications() {
                 options={["Việc cá nhân", "Nghỉ hàng tháng"]}
               />
             </View>
-            <View style={styles.all} >
-              <Text  >Chọn ngày bắt đầu nghỉ</Text>
+            <View style={styles.all}>
+              <Text>Chọn ngày bắt đầu nghỉ</Text>
               <View style={styles.day}  >
-                <View >
-                  <TextInput size={16} color="#32325D"
+                <View>
+                  <TextInput style={{ height: 45 }} size={16} color="#32325D"
                     placeholder="Select day"
                     backgroundColor="white"
                     value={day}
+                    underlineColor="white"
+                    activeUnderlineColor="white"
                   >
                   </TextInput>
                 </View>
@@ -120,10 +122,10 @@ export default function AbsentApplications() {
                 </View>
               </View>
               {show && showPicker}
-            </View >
+            </View>
             <View style={{ flexDirection: "row", justifyContent: 'center' }}>
               <Text style={{ fontSize: 24, fontWeight: "bold" }} >Số ngày nghỉ</Text>
-              <Switch
+              <Switch style={{ marginLeft: 10, marginTop: -5 }}
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
@@ -170,9 +172,6 @@ export default function AbsentApplications() {
   );
 }
 const styles = StyleSheet.create({
-  all: {
-    marginTop: 5,
-  },
   createButton: {
     marginTop: 10,
     borderRadius: 10,
@@ -188,12 +187,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   day: {
-    marginTop: 7,
+    marginVertical: 20,
     flexDirection: 'row',
     borderWidth: 1,
-    fontSize: 18,
     justifyContent: 'space-between',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    height: 50
   },
   select: {
     marginTop: 10,
@@ -213,7 +212,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-
   },
   modalTitle: {
     fontSize: 15,

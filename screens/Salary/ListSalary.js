@@ -90,7 +90,7 @@ export default function SalaryTable(props) {
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }} >Tổng thực nhận</Text>
                                 <Paragraph >10 triệu</Paragraph>
                             </Card.Content>
-                            <Card.Actions>
+                            <Card.Actions style={{ alignSelf: 'center'}} >
                                 <Button style={styles.buttonDetail} color="white" onPress={() => handleChooseMonth(item.Month)} >
                                     Chi tiết
                                 </Button>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         height: height / 4.5,
         borderWidth: 1,
         margin: 10,
+        justifyContent: 'center'
     },
     all: {
         flexDirection: 'row',
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
     buttonDetail: {
         borderRadius: 10,
         backgroundColor: "orange",
-        marginHorizontal: 25,
     },
     textStyle: {
         color: "white",
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginVertical: 10,
-        fontSize: 16,
+        fontSize: 18,
         textAlign: "justify"
     },
     modalDetails: {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
+import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View, TextInput } from "react-native";
 import { argonTheme, tabs } from "../../constants";
-import { IconButton, Colors, Text, TextInput } from 'react-native-paper';
+import { IconButton, Colors, Text } from 'react-native-paper';
 import moment from "moment";
 import Axios from "../../functions/BaseUrl";
 import SelectDropdown from 'react-native-select-dropdown';
@@ -52,9 +52,7 @@ export default function OverTimeApplications() {
                             width:'100%',
                             backgroundColor: '#ff9800',
                             alignItems: 'center',
-                            paddingVertical: 12,
                             borderRadius: 10,
-                            elevation: 3,
                         }}
                         buttonTextAfterSelection={(selectedItem) => {
                             return selectedItem.Overtime.OverTimeName
@@ -105,11 +103,11 @@ export default function OverTimeApplications() {
                 </View>
                 <View style={{ marginTop: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }} >Lý do </Text>
-                    <View style={{ marginTop: 20 }} >
+                    <View style={{borderWidth: 1, borderRadius: 10, marginVertical: 10}} >
                         <TextInput
                             multiline
                             numberOfLines={6}
-                            label="Nhập lý do xin nghỉ"
+                            placeholder="Nhập lý do xin nghỉ"
                             onChangeText={text => dataRegister.Note = text}
                             mode="outlined"
                         />

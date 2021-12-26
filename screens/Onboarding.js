@@ -4,87 +4,91 @@ import {
   Image,
   StyleSheet,
   StatusBar,
-  Dimensions
+  Dimensions,
+  View,
+  Text,
+  TouchableOpacity
 } from "react-native";
-import { Block, Button, Text, theme } from "galio-framework";
 const { height, width } = Dimensions.get("screen");
-import argonTheme from "../constants/Theme";
+import {Button} from 'react-native-paper'
 import Images from "../constants/Images";
 import useToken from "../services/useToken";
 
 function Onboarding({ navigation }) {
   const { token, setToken } = useToken();
   return (
-    <Block flex style={styles.container}>
+    <View style={styles.container}>
       <StatusBar hidden />
-      <Block flex center>
         <ImageBackground
           source={Images.Onboarding}
           style={{ height, width, zIndex: 1 }}
-        />
-      </Block>
-      <Block center>
+        >
+      <View>
         <Image source={Images.Logo} style={styles.logo} />
-      </Block>
-      <Block flex space="between" style={styles.padded}>
-        <Block flex space="around" style={{ zIndex: 2 }}>
-          <Block style={styles.title}>
-            <Block>
-              <Text color="white" size={48}>
+      </View>
+      <View style={styles.padded}>
+        <View style={{ zIndex: 2,justifyContent: 'space-around'}}>
+          <View style={styles.title}>
+            <View>
+              <Text style={{ fontSize: 48, fontWeight: "bold", color: 'white', textAlign: 'center'}}>
                 ChamCongVN
               </Text>
-            </Block>
-            <Block style={styles.subTitle}>
-              <Text color="white" size={16} style={{ textAlign: 'center' }}>
+            </View>
+            <View style={styles.subTitle}>
+              <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
                 GIẢI PHÁP CHẤM CÔNG ONLINE.
               </Text>
-            </Block>
-          </Block>
-          <Block center>
+            </View>
+          </View>
+          <View center>
             <Button
               style={styles.button}
-              color={argonTheme.COLORS.SECONDARY}
               onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
-              textStyle={{ color: argonTheme.COLORS.BLACK }}
+              // onPress={() =>  navigation.navigate("App") }
             >
-              BẮT ĐẦU
+              <Text style={{fontSize: 18, color: 'black'}}>BẮT ĐẦU</Text>
             </Button>
-          </Block>
-        </Block>
-      </Block>
-    </Block>
+          </View>
+        </View>
+      </View>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: 'black',
+    flex: 1,
+    justifyContent: 'center',
   },
   padded: {
-    paddingHorizontal: theme.SIZES.BASE * 2,
+    paddingHorizontal: 30,
     position: "relative",
-    bottom: theme.SIZES.BASE,
+    bottom: 15,
     zIndex: 2,
+    flex: 1,
+    justifyContent: 'space-between'
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
-    height: theme.SIZES.BASE * 3,
-    shadowRadius: 0,
-    shadowOpacity: 0
+    width: width - 70,
+    height: height/20,
+    marginTop: 30,
+    backgroundColor: 'white'
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: width/1.5,
+    height: height/2.6,
     zIndex: 2,
     position: 'relative',
-    marginTop: '-50%'
+    marginTop:height/4,
+    alignSelf: 'center',
   },
   title: {
-    marginTop: '-5%'
+    marginTop: '10%'
   },
   subTitle: {
     marginTop: 20,
-
   }
 });
 

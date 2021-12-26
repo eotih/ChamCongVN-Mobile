@@ -28,8 +28,8 @@ function SimplePie({ data }) {
                     textBackgroundRadius={22}
                     data={pieData}
                 />
-                <View>
-                    <IconButton style={styles.iconButton}
+                <View style={styles.iconButton} >
+                    <IconButton 
                         icon="lightbulb"
                         color='blue'
                         onPress={() => setModalVisible(true)}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         position: 'relative'
     },
     iconButton: {
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-start'
     },
 })
 export default SimplePie;
