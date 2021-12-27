@@ -42,8 +42,7 @@ export default function SalaryTable(props) {
                                     <View>
                                         <Text style={styles.modalText}>Tổng số giờ công</Text>
                                         <Text style={styles.modalText}>Số ngày nghỉ</Text>
-                                        <Text style={styles.modalText}>Số ngày tăng ca</Text>
-                                        <Text style={styles.modalText}>Số tiền thưởng</Text>
+                                        <Text style={styles.modalText}>Số giờ tăng ca</Text>
                                         <Text style={styles.modalText}>Tiền lương tăng ca</Text>
                                         <Text style={styles.modalText}>Tiền Tạm ứng</Text>
                                     </View>
@@ -51,7 +50,6 @@ export default function SalaryTable(props) {
                                         <Text style={styles.modalText}>{dataModal[0].Month}</Text>
                                         <Text style={styles.modalText}>Đợi Thành!</Text>
                                         <Text style={styles.modalText}>Đợi Thành!</Text>
-                                        <Text style={styles.modalText}>{dataModal[0].TotalLaudatory}</Text>
                                         <Text style={styles.modalText}>{dataModal[0].TotalOvertimeSalary}</Text>
                                         <Text style={styles.modalText}>{dataModal[0].TotalAdvance}</Text>
                                     </View>
@@ -88,7 +86,7 @@ export default function SalaryTable(props) {
                             <Card.Content style={{ alignItems: 'center' }} >
                                 <Title >Tháng {item.Month}</Title>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }} >Tổng thực nhận</Text>
-                                <Paragraph >10 triệu</Paragraph>
+                                <Paragraph >{dataModal[0].TotalSalary}</Paragraph>
                             </Card.Content>
                             <Card.Actions style={{ alignSelf: 'center'}} >
                                 <Button style={styles.buttonDetail} color="white" onPress={() => handleChooseMonth(item.Month)} >

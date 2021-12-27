@@ -1,7 +1,6 @@
 import React from "react";
-import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Text } from "react-native";
 // Galio components
-import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import moment from "moment";
 
 export default function TimeKeeperHistory({ data }) {
@@ -17,51 +16,51 @@ export default function TimeKeeperHistory({ data }) {
     }
     return (
         <ScrollView>
-            <Block style={styles.card}>
-                <Block style={[(CheckInStatus == "Đi muộn" && CheckOutStatus == "Về sớm")
+            <View style={styles.card}>
+                <View style={[(CheckInStatus == "Đi muộn" && CheckOutStatus == "Về sớm")
                     ? styles.cardHeaderLateAndSoon : (CheckInStatus == "Đi muộn" || CheckOutStatus == "Về sớm")
                         ? styles.cardHeaderLate : styles.cardHeader]}>
-                    <Block row>
-                        <Block style={styles.cardHeaderLeft}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={styles.cardHeaderLeft}>
                             <Text style={styles.day}>{day}</Text>
-                        </Block>
-                        <Block style={styles.cardHeaderRight}>
+                        </View>
+                        <View style={styles.cardHeaderRight}>
                             <Text style={styles.cardHeaderText}>{test}</Text>
                             <Text style={styles.cardHeaderText}>{monthYear}</Text>
-                        </Block>
-                    </Block>
-                    <Block style={styles.cardHeaderRightRight}>
+                        </View>
+                    </View>
+                    <View style={styles.cardHeaderRightRight}>
                         <Text style={styles.cardHeaderTextRight}>{CheckInStatus} /</Text>
                         <Text style={styles.cardHeaderTextRight}>{CheckOutStatus}</Text>
-                    </Block>
-                </Block>
-                <Block style={styles.cardContent}>
-                    <Block style={styles.cardContentLeft}>
+                    </View>
+                </View>
+                <View style={styles.cardContent}>
+                    <View style={styles.cardContentLeft}>
                         <View>
                             <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64," + CheckInImage }} />
                         </View>
                         <View>
                             <Image style={styles.cardContentImage} source={{ uri: "data:image/jpeg;base64," + CheckOutImage }} />
                         </View>
-                    </Block>
-                    <Block style={styles.cardContentRight}>
-                        <Block style={styles.cardContentRightLeft}>
+                    </View>
+                    <View style={styles.cardContentRight}>
+                        <View style={styles.cardContentRightLeft}>
                             <Text style={styles.cardContentRightTopText}>Giờ chấm công:</Text>
                             <Text style={styles.cardContentRightTopText}>Giờ ra về:</Text>
                             <Text style={styles.cardContentRightTopText}>Tổng giờ làm:</Text>
                             <Text style={styles.cardContentRightTopText}>Device check in:</Text>
                             <Text style={styles.cardContentRightTopText}>Device check out:</Text>
-                        </Block>
-                        <Block style={styles.cardContentRightRight}>
+                        </View>
+                        <View style={styles.cardContentRightRight}>
                             <Text style={styles.cardContentRightTopText}>{getTime(CheckInCreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{getTime(CheckOutCreatedAt)}</Text>
                             <Text style={styles.cardContentRightTopText}>{totalTime + ' Tiếng'}</Text>
                             <Text style={styles.cardContentRightTopText}> {CheckInDevice} </Text>
                             <Text style={styles.cardContentRightTopText}> {CheckOutDevice} </Text>
-                        </Block>
-                    </Block>
-                </Block>
-            </Block>
+                        </View>
+                    </View>
+                </View>
+            </View>
         </ScrollView>
     );
 }
@@ -70,9 +69,9 @@ const styles = StyleSheet.create({
     card: {
         width: width - 20,
         margin: 10,
-        backgroundColor: theme.COLORS.WHITE,
-        marginVertical: theme.SIZES.BASE,
-        borderRadius: theme.SIZES.BASE,
+        backgroundColor: "white",
+        marginVertical: 15,
+        borderRadius: 15,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 8,
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     cardHeader: {
-        padding: theme.SIZES.BASE - 7,
+        padding: 8,
         borderBottomWidth: 1,
         backgroundColor: 'green',
         borderColor: '#ddd',
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     cardHeaderLateAndSoon: {
-        padding: theme.SIZES.BASE - 7,
+        padding: 8,
         borderBottomWidth: 1,
         backgroundColor: 'red',
         borderColor: '#ddd',
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     cardHeaderLate: {
-        padding: theme.SIZES.BASE - 7,
+        padding: 8,
         borderBottomWidth: 1,
         backgroundColor: 'orange',
         borderColor: '#ddd',
@@ -105,25 +104,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     cardHeaderLeft: {
-        paddingLeft: theme.SIZES.BASE,
+        paddingLeft: 15,
     },
     day: {
         fontSize: 36,
         color: 'white',
     },
     cardHeaderRight: {
-        paddingLeft: theme.SIZES.BASE,
+        paddingLeft: 15,
     },
     cardHeaderText: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
     },
     cardHeaderRightRight: {
-        paddingRight: theme.SIZES.BASE,
+        paddingRight: 15,
         alignSelf: 'center',
     },
     cardHeaderTextRight: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
     },
     cardContent: {
@@ -151,14 +150,14 @@ const styles = StyleSheet.create({
     cardContentRight: {
         flex: 1,
         marginVertical: 10,
-        paddingRight: theme.SIZES.BASE,
+        paddingRight: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     cardContentRightLeft: {
         marginVertical: 20,
         justifyContent: 'space-between',
-        paddingHorizontal: theme.SIZES.BASE
+        paddingHorizontal: 15
     },
     cardContentRightRight: {
         marginVertical: 20,
@@ -167,6 +166,6 @@ const styles = StyleSheet.create({
     },
     cardContentRightTopText: {
         color: '#333',
-        fontSize: 14
+        fontSize: 18
     },
 });

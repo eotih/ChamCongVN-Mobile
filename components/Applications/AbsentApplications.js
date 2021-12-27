@@ -1,29 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ScrollBlock, ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
-// Galio components
-// Argon themed components
-import { argonTheme, tabs } from "../../constants";
-import { axios } from "../../functions/BaseUrl";
-import { Select, Input, Header } from "..";
+import React, { useState, useContext } from "react";
+import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
+import Axios from "../../functions/BaseUrl";
+import { Select } from "..";
 import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
-import { TextInput, Text, ToggleButton, Switch } from 'react-native-paper';
+import { TextInput, Text, Switch } from 'react-native-paper';
+import { AccountContext } from '../../context/AccountContext';
 
 const { width, height } = Dimensions.get('window');
 export default function AbsentApplications() {
+  const account = useContext(AccountContext);
+  const { EmployeeID, FullName } = account.employees.Employee;
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [show, setShow] = useState(false);
   const [showPicker, setShowPicker] = useState();
   const [data, setData] = useState({
-    EmployeeID: 1,
+    EmployeeID: EmployeeID,
     AbsentType: '',
     AbsentDate: '',
     Reason: '',
     NumberOfDays: '',
     StateID: 1,
-    CreatedBy: "Trần Thanh Tú",
+    CreatedBy: FullName,
   });
   const handleSetShow = () => {
     if (Platform.OS === 'ios') {
@@ -86,22 +86,32 @@ export default function AbsentApplications() {
     setDate(currentDate);
     data.AbsentDate = currentDate;
   };
+  const handleSubmit = () => {
+    Axios.post('Application/AbsentApplications', data)
+      .then((res) => {
+        if (res.data.Status === 200) {
+          alert(res.data.Message);
+        } else {
+          alert(res.data.Message);
+        }
+      })
+  }
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = (value) => setIsEnabled(value);
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 30, width }}>
         <View style={{ paddingHorizontal: 20 }}>
-          <View  >
-            <Text style={{ fontSize: 18, fontWeight: "bold" }}>Xin nghỉ</Text>
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>Infomation</Text>
             <View style={{ marginVertical: 20 }} >
-              <Text >Chọn loại nghỉ </Text>
+              <Text >Absent type</Text>
               <Select data={data} typeSelect="AbsentDate" style={styles.select}
-                options={["Việc cá nhân", "Nghỉ hàng tháng"]}
+                options={["Paid Leave", "UnPaid Leave"]}
               />
             </View>
-            <View style={styles.all}>
-              <Text>Chọn ngày bắt đầu nghỉ</Text>
+            <View style={styles.all} >
+              <Text>Select start days</Text>
               <View style={styles.day}  >
                 <View>
                   <TextInput style={{ height: 45 }} size={16} color="#32325D"
@@ -137,12 +147,13 @@ export default function AbsentApplications() {
             {isEnabled ? <View style={{ marginVertical: 15 }} >
               <TextInput label="Vui lòng nhập"
                 mode="outlined"
+                onChangeText={(text) => data.NumberOfDays = text}
               >
               </TextInput>
             </View> :
               <View style={{ marginVertical: 15 }} >
                 <Select data={data} typeSelect="NumberOfDays" style={styles.select}
-                  options={["1 Ngày", "2 Ngày", "3 Ngày", "4 Ngày"]}
+                  options={[1 + " day", 2 + " day", 3 + " day", 4 + " day"]}
                 />
               </View>}
           </View>
@@ -153,7 +164,7 @@ export default function AbsentApplications() {
               <TextInput
                 multiline
                 numberOfLines={8}
-                label="Nhập lý do xin nghỉ"
+                label="Enter reason for absence"
                 onChangeText={(text) => data.Reason = text}
                 mode="outlined"
               />
@@ -162,7 +173,7 @@ export default function AbsentApplications() {
           <View  >
             <TouchableOpacity style={styles.createButton} color="info" onPress={() => handleSubmit()}>
               <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
-                Gửi Yêu Cầu
+                Send Application
               </Text>
             </TouchableOpacity>
           </View>

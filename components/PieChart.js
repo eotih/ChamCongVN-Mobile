@@ -15,7 +15,7 @@ function SimplePie({ data }) {
     ];
     return (
         <View >
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            <Text style={styles.text}>
                 Biểu đồ chi tiết lương
             </Text>
             <View style={{ flexDirection: 'row' }} >
@@ -46,8 +46,8 @@ function SimplePie({ data }) {
                     }}
                 >
                     <View style={styles.modalContainer} >
-                        <View style={{ marginLeft: 40, alignItems: 'center', flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>Chú thích </Text>
+                        <View style={styles.modalTitle}>
+                            <Text style={styles.text}>Chú thích </Text>
                             <IconButton style={styles.iconButton}
                                 icon="window-close"
                                 onPress={() => setModalVisible(!modalVisible)}
@@ -89,15 +89,22 @@ const styles = StyleSheet.create({
     modalContainer: {
         backgroundColor: 'white',
         borderWidth: 1,
-        width: width / 1.8,
         paddingVertical: 10,
         marginTop: height / 3.5,
         marginRight: 30,
         alignSelf: 'flex-end',
-        position: 'relative'
+    },
+    modalTitle: {
+        marginLeft: 40, 
+        alignItems: 'center', 
+        flexDirection: 'row'
     },
     iconButton: {
         alignSelf: 'flex-start'
+    },
+    text: {
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 })
 export default SimplePie;

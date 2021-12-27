@@ -40,29 +40,29 @@ function SalaryTable({ navigation }) {
     const getValueColor = (salary, Month) => {
         switch (Month) {
             case 1:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'January', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 2:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'February', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 3:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'March', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 4:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'April', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 5:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 6:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'June', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 7:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'July', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 8:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'August', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 9:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'September', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 10:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'October', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 11:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'November', '#91E3E3', '#85E0E0', '#B0EAEB');
             case 12:
-                return styleDataChart(salary / 10000, 'May', '#91E3E3', '#85E0E0', '#B0EAEB');
+                return styleDataChart(salary / 1000000, 'December', '#91E3E3', '#85E0E0', '#B0EAEB');
             default:
                 return <View> </View>;
         }
@@ -82,19 +82,19 @@ function SalaryTable({ navigation }) {
                 </Card>
                 <Card style={styles.card}>
                     <Card.Content>
-                        <Title>Cumulative salary</Title>
+                        <Title>Total hours worked</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
                     <Card.Content>
-                        <Title>Cumulative salary</Title>
+                        <Title>Total overtime hours</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
                     <Card.Content>
-                        <Title>Cumulative salary</Title>
+                        <Title>Total number of days off</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
