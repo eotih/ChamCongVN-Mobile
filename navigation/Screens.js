@@ -20,6 +20,7 @@ import Application from "../screens/Application/Application"
 import Login from "../screens/Login";
 import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
+import ApplicationManagement from "../screens/Application/Manage";
 //salarytable
 import Salarytable from "../screens/Salary/SalaryTable"
 import ListSalary from "../screens/Salary/ListSalary";
@@ -120,6 +121,22 @@ function ArticlesStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Articles" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function ApplicationmanagementStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Quản Lý Đơn Từ"
+        component={ApplicationManagement}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Quản Lý Đơn Từ" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
@@ -363,7 +380,7 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="New Application" component={ApplicationStack} />
-      <Drawer.Screen name="Quản Lý Đơn Từ" component={OnboardingStack} />
+      <Drawer.Screen name="Quản Lý Đơn Từ" component={ApplicationmanagementStack} />
       <Drawer.Screen name="Quản Lý Báo Cáo" component={ArticlesStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />

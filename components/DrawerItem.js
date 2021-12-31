@@ -74,6 +74,14 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.INFO}
           />
         );
+        case "Bảng Lương":
+          return (
+            <Icon
+              name="credit-card"
+              size={18}
+              color="#388e3c"
+            />
+          );
       case "Đăng Xuất":
         return (<Icon
           name="sign-out"

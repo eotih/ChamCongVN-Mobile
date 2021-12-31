@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button, Modal, Text } from "react-native";
-import AbsentApplications from "../../components/Applications/AbsentApplications";
-import OvertimeApplications from "../../components/Applications/OverTimeApplications";
+import React, { useState, useEffect, useRef } from "react";
+import { View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { Button, Card, Title, Paragraph, Text, IconButton } from 'react-native-paper';
+import AbsentApplications from '../../components/ApplicationManagement/AbsentApplications';
+import OvertimeApplications from '../../components/ApplicationManagement/OverTimeApplications';
 
-const { width } = Dimensions.get('screen');
-function Application() {
+const { width, height } = Dimensions.get('window');
+function ApplicationManagement() {
     const [active, setActive] = useState(1);
-   
-
     return (
         <>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View row style={styles.options}>
+       <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.options}>
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
                         <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
-                        <View row middle>
+                        <View style={{flexDirection: 'row'}} middle>
                             <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
                         </View>
                     </TouchableOpacity>
@@ -31,10 +30,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 20,
         elevation: 4,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flexDirection: 'row',
     },
     tabSelected: {
-        backgroundColor: "#004dcf",
+        backgroundColor: "#ff7100",
         width: width * 0.4,
         borderRadius: 10,
         height: 30,
@@ -42,11 +42,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     notSelected: {
-        backgroundColor: "#FFCC00",
+        backgroundColor: "#adc965",
         width: width * 0.4,
         borderRadius: 10,
         height: 30,
         elevation: 0,
+        alignItems: 'center'
     },
     tabTitle: {
         fontWeight: '400',
@@ -58,4 +59,4 @@ const styles = StyleSheet.create({
         borderRightColor: 'black',
     },
 });
-export default Application;
+export default ApplicationManagement;

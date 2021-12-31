@@ -10,8 +10,8 @@
         }
       ]
     ],
-    "name": "Argon FREE React Native",
-    "slug": "argon-free-react-native",
+    "name": "Chấm công VN",
+    "slug": "Chấm công VN",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -19,9 +19,9 @@
     ],
     "version": "1.7.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Loading.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },

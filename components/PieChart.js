@@ -18,7 +18,7 @@ function SimplePie({ data }) {
             <Text style={styles.text}>
                 Biểu đồ chi tiết lương
             </Text>
-            <View style={{ flexDirection: 'row' }} >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around'}} >
                 <PieChart
                     donut
                     textColor="black"
@@ -28,13 +28,14 @@ function SimplePie({ data }) {
                     textBackgroundRadius={22}
                     data={pieData}
                 />
-                <View style={styles.iconButton} >
-                    <IconButton 
+                <View style={styles.icon} >
+                    <IconButton
                         icon="lightbulb"
                         color='blue'
                         onPress={() => setModalVisible(true)}
                     />
                 </View>
+
             </View>
             <View>
                 <Modal style={{ backgroundColor: 'white' }}
@@ -53,7 +54,7 @@ function SimplePie({ data }) {
                                 onPress={() => setModalVisible(!modalVisible)}
                             />
                         </View>
-                        <View style={{ flexDirection: 'row' }} >
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around'}} >
                             <View style={{ marginHorizontal: 15 }}>
                                 <Icon size={26}
                                     name="circle"
@@ -89,18 +90,22 @@ const styles = StyleSheet.create({
     modalContainer: {
         backgroundColor: 'white',
         borderWidth: 1,
+        width: width/3,
         paddingVertical: 10,
         marginTop: height / 3.5,
         marginRight: 30,
         alignSelf: 'flex-end',
     },
     modalTitle: {
-        marginLeft: 40, 
-        alignItems: 'center', 
+        marginLeft: 40,
+        alignItems: 'center',
         flexDirection: 'row'
     },
     iconButton: {
         alignSelf: 'flex-start'
+    },
+    icon: {
+        marginRight: 30,
     },
     text: {
         fontSize: 18,

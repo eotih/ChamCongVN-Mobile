@@ -86,7 +86,7 @@ export default function SalaryTable(props) {
                             <Card.Content style={{ alignItems: 'center' }} >
                                 <Title >Tháng {item.Month}</Title>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }} >Tổng thực nhận</Text>
-                                <Paragraph >{dataModal[0].TotalSalary}</Paragraph>
+                                <Paragraph >1000000</Paragraph>
                             </Card.Content>
                             <Card.Actions style={{ alignSelf: 'center'}} >
                                 <Button style={styles.buttonDetail} color="white" onPress={() => handleChooseMonth(item.Month)} >
