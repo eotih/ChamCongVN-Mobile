@@ -1,27 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { Button, Card, Title, Paragraph, Text, IconButton } from 'react-native-paper';
 import AbsentApplications from '../../components/ApplicationManagement/AbsentApplications';
 import OvertimeApplications from '../../components/ApplicationManagement/OverTimeApplications';
+import { AccountContext } from '../../context/AccountContext';
+import { getAbsentApplication, getOverTimeApplication } from '../../functions/Application';
 
 const { width, height } = Dimensions.get('window');
 function ApplicationManagement() {
+    const account = useContext(AccountContext);
+    const { EmployeeID } = account.employees.Employee;
     const [active, setActive] = useState(1);
+    const [overtimeData, setovertimeData] = useState([]);
+    const [absentData, setAbsentData] = useState([]);
+    useEffect(() => {
+        getAbsentApplication(EmployeeID).then(result => setAbsentData(result));
+        getOverTimeApplication(EmployeeID).then(result => setovertimeData(result));
+    }, [])
     return (
         <>
-       <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
                 <View style={styles.options}>
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
-                        <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
+                        <Text size={16} style={styles.tabTitle}>Absent Application</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
-                        <View style={{flexDirection: 'row'}} middle>
-                            <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
+                        <View style={{ flexDirection: 'row' }} middle>
+                            <Text size={16} style={styles.tabTitle}>Overtime Application</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-                {active === 1 ? <AbsentApplications /> : <OvertimeApplications />}
-            </ScrollView>
+                {active === 1 ? <AbsentApplications data={absentData} /> : <OvertimeApplications data={overtimeData} />}
+            </View>
         </>
     );
 }

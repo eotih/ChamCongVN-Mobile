@@ -10,9 +10,7 @@ import { Block } from "galio-framework";
 import Home from "../screens/Home";
 import BaseInformation from "../screens/Profile/BaseInformation";
 import Account from "../screens/Profile/Account";
-import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
-import AbsentApplications from "../components/Applications/AbsentApplications"
 import Statistics from "../screens/Statistics";
 
 // import Profile from "../screens/Profile";
@@ -113,22 +111,7 @@ function ProfileStack(props) {
     </Stack.Navigator>
   );
 }
-function ArticlesStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Quản Lý Báo Cáo"
-        component={Articles}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+
 function ApplicationmanagementStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -377,7 +360,6 @@ function AppStack(props) {
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="New Application" component={ApplicationStack} />
       <Drawer.Screen name="Quản Lý Đơn Từ" component={ApplicationmanagementStack} />
-      <Drawer.Screen name="Quản Lý Báo Cáo" component={ArticlesStack} />
       <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
       <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
       <Drawer.Screen name="Thông Báo" component={NotificationStack} />
