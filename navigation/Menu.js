@@ -18,7 +18,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const account = accountContext();
   const { DepartmentName, Employee, PositionName } = account.employees;
   useEffect(() => {
-    // console.log(Employee)
+    // console.log(Employee.Health)
   }, [])
   return (
     <View
@@ -58,7 +58,6 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
           </View>
           <DrawerCustomItem title="New Application" focused={state.index === 2 ? true : false} navigation={navigation} />
           <DrawerCustomItem title="Quản Lý Đơn Từ" focused={state.index === 3 ? true : false} navigation={navigation} />
-          <DrawerCustomItem title="Quản Lý Báo Cáo" focused={state.index === 4 ? true : false} navigation={navigation} />
           <View style={{ marginVertical: 8, paddingHorizontal: 8, flex: 1 }}>
             <View style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </View>

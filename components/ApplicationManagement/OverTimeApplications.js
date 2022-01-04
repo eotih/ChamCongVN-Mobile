@@ -1,95 +1,70 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, View, Text } from "react-native";
 import { IconButton, Colors, Card, Title, Paragraph } from 'react-native-paper';
+import Axios from '../../functions/BaseUrl';
+import moment from "moment";
 
+export default function OverTimeApplications({ data }) {
+    const [overTime, setoverTime] = useState([]);
+    useEffect(() => {
+        getOverTime().then((res) => {
+            setoverTime(res);
+        });
+    }, []);
+    async function getOverTime() {
+        const res = await Axios.get('Organization/OverTime');
+        return res.data;
+    }
 
-export default function OverTimeApplications() {
+    function getOverTimeName(ID) {
+        const name = overTime.filter(res => res.Overtime.OverTimeID === ID)
+        if (name[0].Overtime != "undifined") {
+            return name[0].Overtime.OverTimeName;
+        }
+        else{
+            return "moi";
+        }
+    }
     return (
         <ScrollView style={styles.container}>
-            <View >
-                <Card style={styles.cardContainer}>
+            {data.map((item, index) =>
+                <Card style={styles.cardContainer} key={index}>
                     <Card.Content>
                         <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: 'green', alignSelf: 'flex-end' }}>Đã Duyệt</Title>
-                            <Paragraph style={styles.paragraph}>Thời gian gửi đơn</Paragraph>
+                            {item.StateID === 1 ?
+                                <Title style={{ color: '#fbc02d', alignSelf: 'flex-end' }}>Pending</Title>
+                                : item.StateID === 2 ?
+                                    <Title style={{ color: '#388e3c', alignSelf: 'flex-end' }}>Approved</Title> :
+                                    <Title style={{ color: 'red', alignSelf: 'flex-end' }}>Not Approved</Title>
+                            }
+                            <Paragraph style={styles.paragraph}>{moment(item.CreatedAt).format('DD-MM-YYYY')}</Paragraph>
                         </View>
                         <View style={styles.cardDetails}>
                             <Text style={styles.text} >
-                                Loại tăng ca
+                                Type Overtime
                             </Text>
                             <Text style={styles.text}>
-                                Tăng ca làm việc
+                                Đợi thành tí
                             </Text>
                         </View>
                         <View style={styles.cardDetails}>
                             <Text style={styles.text} >
-                                Thời gain tăng ca
+                                Working Time
                             </Text>
                             <Text style={styles.text}>
-                                2 tiếng
+                                2 hour
                             </Text>
                         </View>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            Lý do:
-                        </Text>
+                        <View style={styles.cardDetails}>
+                            <Text style={styles.text} >
+                                Note:
+                            </Text>
+                            <Text style={styles.text}>
+                                {item.Note}
+                            </Text>
+                        </View>
                     </Card.Content>
-                </Card>
-                <Card style={styles.cardContainer}>
-                    <Card.Content>
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: '#fbc02d', alignSelf: 'flex-end' }}>Chờ Duyệt</Title>
-                            <Paragraph style={styles.paragraph}>Ngày gửi đơn</Paragraph>
-                        </View>
-
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text}>
-                                Loại tăng ca:
-                            </Text>
-                            <Text style={styles.text}>
-                                Tăng ca làm việc
-                            </Text>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Thời gain tăng ca
-                            </Text>
-                            <Text style={styles.text}>
-                                2 tiếng
-                            </Text>
-                        </View>
-                        <Text style={styles.text}>
-                            Lý do:
-                        </Text>
-                    </Card.Content>
-                </Card>
-                <Card style={styles.cardContainer}>
-                    <Card.Content>
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: '#e25b45', alignSelf: 'flex-end' }}>Từ Chối</Title>
-                            <Paragraph style={styles.paragraph}>Ngày gửi đơn</Paragraph>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text}>
-                                Loại tăng ca:
-                            </Text>
-                            <Text style={styles.text}>
-                                Tăng ca làm việc
-                            </Text>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Thời gain tăng ca
-                            </Text>
-                            <Text style={styles.text}>
-                                2 tiếng
-                            </Text>
-                        </View>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            Lý do:
-                        </Text>
-                    </Card.Content>
-                </Card>
-            </View>
+                </Card>)}
         </ScrollView>
     )
 }

@@ -1,96 +1,51 @@
 import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, View, Text } from "react-native";
 import { IconButton, Colors, Card, Title, Paragraph } from 'react-native-paper';
+import moment from "moment";
 
 
-export default function AbsentApplications() {
+export default function AbsentApplications({ data }) {
     return (
         <ScrollView style={styles.container}>
-            <View >
-                <Card style={styles.cardContainer}>
+            {data.map((item, index) =>
+                <Card style={styles.cardContainer} key={index}> 
                     <Card.Content>
                         <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: '#388e3c', alignSelf: 'flex-end' }}>Đã Duyệt</Title>
-                            <Paragraph style={styles.paragraph}>Thời gian gửi đơn</Paragraph>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Loại nghỉ:
-                            </Text>
-                            <Text style={styles.text} >
-                                Nghỉ việc cá nhân
-                            </Text>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Thời gian xin nghỉ:
-                            </Text>
-                            <Text style={styles.text}>
-                                12/12/2000
-                            </Text>
-                        </View>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            Lý do:
-                        </Text>
-                    </Card.Content>
-                </Card>
-                <Card style={styles.cardContainer}>
-                    <Card.Content>
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: '#fbc02d', alignSelf: 'flex-end' }}>Chờ Duyệt</Title>
-                            <Paragraph style={styles.paragraph}>Ngày gửi đơn</Paragraph>
-                        </View>
+                            {item.StateID === 1 ?
+                                <Title style={{ color: '#fbc02d', alignSelf: 'flex-end' }}>Pending</Title>
+                                : item.StateID === 2 ?
+                                    <Title style={{ color: '#388e3c', alignSelf: 'flex-end' }}>Approved</Title> :
+                                    <Title style={{ color: 'red', alignSelf: 'flex-end' }}>Not Approved</Title>
+                            }
 
+                            <Paragraph style={styles.paragraph}>{moment(item.CreatedAt).format('DD-MM-YYYY')}</Paragraph>
+                        </View>
                         <View style={styles.cardDetails}>
-                            <Text style={styles.text}>
-                                Loại nghỉ:
+                            <Text style={styles.text} >
+                                Type absent:
                             </Text>
-                            <Text style={styles.text}>
-                                Nghỉ theo tháng
+                            <Text style={styles.text} >
+                                {item.AbsentType}
                             </Text>
                         </View>
                         <View style={styles.cardDetails}>
                             <Text style={styles.text} >
-                                Thời gian xin nghỉ:
+                                Number of days:
                             </Text>
                             <Text style={styles.text}>
-                                12/12/2000
+                                {item.NumberOfDays} days
                             </Text>
                         </View>
-                        <Text style={styles.text}>
-                            Lý do:
-                        </Text>
-
+                        <View style={styles.cardDetails}>
+                            <Text style={styles.text} >
+                            Reason:
+                            </Text>
+                            <Text style={styles.text}>
+                                {item.Reason}
+                            </Text>
+                        </View>
                     </Card.Content>
-                </Card>
-                <Card style={styles.cardContainer}>
-                    <Card.Content>
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Title style={{ color: '#e25b45', alignSelf: 'flex-end' }}>Từ Chối</Title>
-                            <Paragraph style={styles.paragraph}>Ngày gửi đơn</Paragraph>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Loại nghỉ:
-                            </Text>
-                            <Text style={styles.text}>
-                                Nghỉ trong năm
-                            </Text>
-                        </View>
-                        <View style={styles.cardDetails}>
-                            <Text style={styles.text} >
-                                Thời gian xin nghỉ:
-                            </Text>
-                            <Text style={styles.text}>
-                                12/12/2000
-                            </Text>
-                        </View>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            Lý do:
-                        </Text>
-                    </Card.Content>
-                </Card>
-            </View>
+                </Card>)}
         </ScrollView>
     )
 }
