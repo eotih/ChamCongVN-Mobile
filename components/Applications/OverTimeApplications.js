@@ -70,51 +70,53 @@ export default function OverTimeApplications() {
                         }}
                     />
                 </View>
-                <View style={{ marginVertical: 15, padding: 10, borderWidth: 1 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Overtime infomation</Text>
-                    <Text style={styles.text}>Start time</Text>
-                    <View style={styles.time} >
-                        <View style={{ alignSelf: 'center' }} >
-                            <TextInput
-                                style={{ height: 45 }}
-                                backgroundColor="white"
-                                placeholder="Select Time"
-                                value={timeStart}
-                                underlineColor="white"
-                                activeUnderlineColor="white"
-                            >
-                            </TextInput>
+                {timeStart === "" ?
+                    null
+                    : <View style={{ marginVertical: 15, padding: 10, borderWidth: 1 }}>
+                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Overtime infomation</Text>
+                        <Text style={styles.text}>Start time</Text>
+                        <View style={styles.time} >
+                            <View style={{ alignSelf: 'center' }} >
+                                <TextInput
+                                    style={{ height: 45 }}
+                                    backgroundColor="white"
+                                    placeholder="Select Time"
+                                    value={timeStart}
+                                    underlineColor="white"
+                                    activeUnderlineColor="white"
+                                >
+                                </TextInput>
+                            </View>
+                            <View>
+                                <IconButton
+                                    icon="clock"
+                                    color="#ff9800"
+                                    onPress={() => handleSetShow()}
+                                />
+                            </View>
                         </View>
-                        <View>
-                            <IconButton
-                                icon="clock"
-                                color="#ff9800"
-                                onPress={() => handleSetShow()}
-                            />
+                        <Text style={styles.text}>End time</Text>
+                        <View style={styles.time} >
+                            <View style={{ alignSelf: 'center' }} >
+                                <TextInput
+                                    style={{ height: 45 }}
+                                    backgroundColor="white"
+                                    placeholder="Select Time"
+                                    value={timeEnd}
+                                    underlineColor="white"
+                                    activeUnderlineColor="white"
+                                >
+                                </TextInput>
+                            </View>
+                            <View>
+                                <IconButton
+                                    icon="clock"
+                                    color="#1273de"
+                                    onPress={() => handleSetShow()}
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <Text style={styles.text}>End time</Text>
-                    <View style={styles.time} >
-                        <View style={{ alignSelf: 'center' }} >
-                            <TextInput
-                                style={{ height: 45 }}
-                                backgroundColor="white"
-                                placeholder="Select Time"
-                                value={timeEnd}
-                                underlineColor="white"
-                                activeUnderlineColor="white"
-                            >
-                            </TextInput>
-                        </View>
-                        <View>
-                            <IconButton
-                                icon="clock"
-                                color="#1273de"
-                                onPress={() => handleSetShow()}
-                            />
-                        </View>
-                    </View>
-                </View>
+                    </View>}
                 <View style={{ marginTop: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }} >Note </Text>
                     <View style={{ marginVertical: 10 }} >
