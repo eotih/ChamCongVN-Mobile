@@ -1,116 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   ImageBackground,
   Dimensions,
   StatusBar,
+  Image,
   KeyboardAvoidingView,
   ScrollView,
   View,
-  Text,
-  TextInput,
+  Text
 } from "react-native";
-import { Button, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import useToken from "../services/useToken";
 import axios from "../functions/BaseUrl";
-import { Card } from 'react-native-paper';
+import { Card, TextInput, Button, IconButton, Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome'
-
-const { width, height } = Dimensions.get("screen");
 
 function Login({ navigation }) {
   const { setToken } = useToken();
-  const [account, setAccount] = React.useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [isHidePassword, setIsHidePassword] = useState(true);
+  const [account, setAccount] = useState({
     email: "",
     password: "",
   });
-  const login = () => {
-    axios
-      .post(`Organization/Login`, account)
-      .then((res) => {
-        if (res.data.Status === 200) {
-          alert("Đăng nhập thành công");
-          setToken(res.data.Message);
-          navigation.navigate("App");
-        } else {
-          alert("Đăng nhập thất bại, vui lòng thử lại sau");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleShowPassword = () => {
+    setIsHidePassword((show) => !show);
+  };
+  const handleLogin = () => {
+    setIsLoading(true);
+    const { email, password } = account;
+    if (email == "" || password == "") {
+      alert("Please fill all fields");
+      setIsLoading(false);
+    } else {
+      axios.post("Organization/Login", account)
+        .then((res) => {
+          const { Status, Message } = res.data;
+          if (Status === 200) {
+            alert("Đăng nhập thành công");
+            setToken(Message);
+            navigation.navigate("App");
+          } else {
+            setIsLoading(false);
+            alert("Wrong email or password");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <ScrollView>
-      <View >
+      <View style={styles.container}>
         <StatusBar hidden />
         <ImageBackground
-          source={{ uri: 'https://4.bp.blogspot.com/-N0nLvYFDWXQ/VYJPitz6ecI/AAAAAAAABIg/jvYenaVkD3U/s1600/hinh-nen-iphone-4-nhung-bai-bien-dep-065-5.jpg' }}
-          style={{ width:width, height:'100%', zIndex: 1 }}
+          source={Images.Onboarding}
+          style={{ height, width, zIndex: 1 }}
         >
-          <View style={styles.loginContainer} >
-            <View style={{ marginTop: width /2, alignItems: 'center' }}>
-              <Text style={{ fontSize: 36, color: 'white' }}>
-                ChamCongVN
-              </Text>
-            </View>
-            <View style={styles.cardContainer}>
-              <Card style={styles.card}>
-                <Text style={{ fontSize: 24, color: 'black', textAlign: 'center' }} >
-                  Login to ChamCongVN
-                </Text>
-                <View style={styles.input}>
+          <View>
+            <Image source={Images.Logo} style={styles.logo} />
+          </View>
+          <View style={styles.padded}>
+            <View style={{ zIndex: 2, justifyContent: 'space-around' }}>
+              <View style={styles.title}>
+                <View>
                   <Text style={styles.text}>
-                    Email Address
+                    Chấm Công VN
                   </Text>
-                  <Input
-                    onChangeText={(text) => {
-                      setAccount({ ...account, email: text });
-                    }}
-                    placeholder="Email"
-                    iconContent={
-                      <Icon
-                        size={22}
-                        color="#3366CC"
-                        name="envelope"
-                        style={styles.icon}
-                      />
-                    }
-                  />
                 </View>
-                <View style={styles.input}>
-                  <Text style={styles.text}>
-                    Password
-                  </Text>
-                  <Input 
-                  keyboardType="email"
-                    password
-                    onChangeText={(text) => {
-                      setAccount({ ...account, password: text });
-                    }}
-                    placeholder="Password"
-                    iconContent={
-                      <Icon
-                        size={22}
-                        color="#3366CC"
-                        name="lock"
-                        style={styles.icon}
-                      />
-                    }
-                  />
-                </View>
-                <View >
-                  <Button
-                    onPress={() => login()}
-                    style={styles.createButton}
-                  > 
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: 'white'}}>
-                      LOGIN
-                    </Text>
-                  </Button>
-                </View>
-              </Card>
+              </View>
+              <View center>
+                <TextInput
+                  style={styles.input}
+                  label="Email"
+                  value={account.email}
+                  onChangeText={(text) => setAccount({ ...account, email: text })}
+                />
+                <TextInput
+                  label="Password"
+                  style={styles.input}
+                  secureTextEntry={isHidePassword}
+                  right={<TextInput.Icon name={isHidePassword ? 'eye' : 'eye-off'} onPress={handleShowPassword} />}
+                  value={account.password}
+                  onChangeText={(text) => setAccount({ ...account, password: text })}
+                />
+                <Button style={styles.input} loading={isLoading} mode="contained" onPress={() => handleLogin()}>
+                  Login
+                </Button>
+              </View>
             </View>
           </View>
         </ImageBackground>
@@ -119,43 +98,55 @@ function Login({ navigation }) {
   );
 }
 
+const { width, height } = Dimensions.get("screen");
 const styles = StyleSheet.create({
-  loginContainer: {
+  container: {
+    backgroundColor: 'black',
     flex: 1,
-    shadowColor: argonTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-    overflow: "hidden",
+    justifyContent: 'center',
   },
-  cardContainer: {
-    marginVertical: 10,
-    marginHorizontal: 30,
+  padded: {
+    paddingHorizontal: 30,
+    position: "relative",
+    bottom: 15,
+    zIndex: 2,
+    flex: 1,
+    justifyContent: 'space-between'
   },
-  card: {
-    borderRadius: 20,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    marginTop: height /7
+  button: {
+    width: width - 70,
+    height: height / 20,
+    marginTop: 30,
+    backgroundColor: 'white'
   },
-  icon: {
-    marginHorizontal: 10,
+  logo: {
+    width: width / 3,
+    height: height / 4,
+    zIndex: 2,
+    position: 'relative',
+    marginTop: height / 4,
+    alignSelf: 'center',
+  },
+  title: {
+    marginTop: '10%'
+  },
+  subTitle: {
+    marginTop: 20,
   },
   input: {
-    marginVertical: 20,
-    borderRadius: 20,
+    margin: 10,
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
+    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
   },
-  createButton: {
-    width: width * 0.5,
-    marginTop: 15,
-    borderRadius: 10,
-    alignSelf: 'center',
-    backgroundColor: '#FF9933'
-  },
+  text: {
+    fontSize: 48,
+    fontWeight: "bold",
+    color: 'white',
+    paddingBottom: 20,
+    textAlign: 'center'
+  }
 });
 
 export default Login;
