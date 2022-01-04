@@ -13,11 +13,11 @@ function Application() {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View row style={styles.options}>
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
-                        <Text size={16} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
+                        <Text size={22} style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
                         <View row middle>
-                            <Text size={16} style={styles.tabTitle}>Đơn tăng ca</Text>
+                            <Text size={22} style={styles.tabTitle}>Đơn tăng ca</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 20,
         elevation: 4,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flexDirection: 'row',
     },
     tabSelected: {
         backgroundColor: "#004dcf",

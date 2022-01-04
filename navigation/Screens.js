@@ -13,6 +13,7 @@ import Account from "../screens/Profile/Account";
 import DSNguoiDung from "../screens/DSNguoiDung";
 import Onboarding from "../screens/Onboarding";
 import AbsentApplications from "../components/Applications/AbsentApplications"
+import Statistics from "../screens/Statistics";
 
 // import Profile from "../screens/Profile";
 import checkCamera from "../screens/Timekeeping/Camera"
@@ -191,23 +192,6 @@ function ApplicationStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
-      {/* <Stack.Screen
-        name="ChuaLam"
-        component={DSNguoiDung}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      /> */}
     </Stack.Navigator>
   );
 }
@@ -265,24 +249,6 @@ function NotificationStack(props) {
           headerTransparent: true
         }}
       />
-      {/* <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          
-          headerTransparent: true
-        }}
-      /> */}
     </Stack.Navigator>
   );
 }
@@ -319,6 +285,21 @@ function HomeStack(props) {
             />
           ),
           headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="Statistics"
+        component={Statistics}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Thống kê checkin"
+              back
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#FFFFFF" },
         }}
       />
     </Stack.Navigator>

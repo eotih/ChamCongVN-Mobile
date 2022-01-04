@@ -159,7 +159,7 @@ export default function AbsentApplications() {
           </View>
 
           <View style={{ marginTop: 20 }}>
-            <Text style={{ fontSize: 18, fontWeight: "bold" }} >Lý do </Text>
+            <Text style={{ fontSize: 18, fontWeight: "bold" }} >Note</Text>
             <View style={{ marginTop: 20 }} >
               <TextInput
                 multiline
