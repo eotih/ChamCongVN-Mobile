@@ -12,18 +12,33 @@ export default function Home({ navigation }) {
     <>
       <ScrollView style={styles.container}>
         <View>
-          <View style={{marginHorizontal: 30, marginVertical: 35}}>
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: 'white' }}>
-              Hi, Quốc bảo
-            </Text>
-            <Text style={{ fontSize: 18, color: 'white'}}>
-              Chúc bạn có 1 ngày làm việc vui vẻ
-            </Text>
+          <View style={styles.info}>
+            <View>
+              <Text style={styles.textInfo}>
+                Đào Quốc Bảo
+              </Text>
+              <Text style={styles.textInfo}>
+                Nhân vien kế toán
+              </Text>
+              <Text style={styles.textInfo}>
+                Phòng nhân sự
+              </Text>
+              <Text style={styles.textInfo}>
+                Nhóm 10
+              </Text>
+              <Text style={styles.textInfo}>
+                Phòng nhân sự
+              </Text>
+            </View>
+            <Image style={{ width: width / 4, height: height / 6 }}
+              source={require("../assets/imgs/logo.png")}>
+            </Image>
           </View>
+
           <View>
-            <Card style={{ marginTop: 30, borderTopWidth: 2, borderTopRightRadius: 50, borderTopLeftRadius: 50, paddingHorizontal: 20, }}>
+            <Card>
               <View style={styles.card}>
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon style={styles.icon}
                       name="camera"
@@ -33,101 +48,102 @@ export default function Home({ navigation }) {
                       <Title style={{ textAlign: 'center' }}>Thống kê Checkin</Title>
                       <Text>Xem thông tin check in</Text>
                     </View>
-                    <View style={{ marginLeft: 30, alignSelf: 'center' }}>
-                      <IconButton
-                        onPress={() => navigation.navigate('Statistics')}
-                        size={38}
-                        icon="arrow-right-circle">
-                      </IconButton>
-                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => navigation.navigate('Statistics')}
+                      size={38}
+                      icon="arrow-right-circle">
+                    </IconButton>
                   </View>
                 </View>
               </View>
               <View style={styles.card}>
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon style={styles.icon}
                       name="wpforms"
-                      color="red">
+                      color="#00bcd4">
                     </Icon>
                     <View>
                       <Title style={{ textAlign: 'center' }}>Đơn xin nghỉ phép</Title>
                       <Text>2 đơn</Text>
                     </View>
-                    <View style={{ marginLeft: 30, alignSelf: 'center' }}>
-                      <IconButton
-                        onPress={() => navigation.navigate('Statistics')}
-                        size={38}
-                        icon="arrow-right-circle">
-                      </IconButton>
-                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => navigation.navigate('Quản Lý Đơn Từ')}
+                      size={38}
+                      icon="arrow-right-circle">
+                    </IconButton>
                   </View>
                 </View>
               </View>
               <View style={styles.card}>
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon style={styles.icon}
                       name="wpforms"
-                      color="red">
+                      color="#000000">
                     </Icon>
                     <View>
                       <Title style={{ textAlign: 'center' }}>Đơn xin tăng ca</Title>
                       <Text>2 đơn</Text>
                     </View>
-                    <View style={{ marginLeft: 50, alignSelf: 'center' }}>
-                      <IconButton
-                        onPress={() => navigation.navigate('Statistics')}
-                        size={38}
-                        icon="arrow-right-circle">
-                      </IconButton>
-                    </View>
+
+                  </View>
+                  <View >
+                    <IconButton
+                      onPress={() => navigation.navigate('Quản Lý Đơn Từ')}
+                      size={38}
+                      icon="arrow-right-circle">
+                    </IconButton>
                   </View>
                 </View>
               </View>
               <View style={styles.card}>
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon style={styles.icon}
                       name="briefcase"
-                      color="red">
+                      color="#e91e63">
                     </Icon>
                     <View>
                       <Title style={{ textAlign: 'center' }}>Thâm niên</Title>
                       <Text>2 đơn</Text>
                     </View>
-                    <View style={{ marginLeft: 95, alignSelf: 'center' }}>
-                      <IconButton
-                        onPress={() => setModalVisible(true)}
-                        size={38}
-                        icon="arrow-right-circle">
-                      </IconButton>
-                    </View>
+
+                  </View>
+                  <View style={{ marginLeft: 95, alignSelf: 'center' }}>
+                    <IconButton
+                      onPress={() => setModalVisible(true)}
+                      size={38}
+                      icon="arrow-right-circle">
+                    </IconButton>
                   </View>
                 </View>
               </View>
               <View style={styles.card}>
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon style={styles.icon}
                       name="camera"
-                      color="red">
+                      color="#9c27b0">
                     </Icon>
                     <View>
                       <Title style={{ textAlign: 'center' }}>Tổng kết</Title>
                       <Text>2 đơn</Text>
                     </View>
-                    <View style={{ marginLeft: 95, alignSelf: 'center' }}>
-                      <IconButton
-                        onPress={() => setModalVisible(true)}
-                        size={38}
-                        icon="arrow-right-circle">
-                      </IconButton>
-                    </View>
+                  </View>
+                  <View style={{ marginLeft: 95, alignSelf: 'center' }}>
+                    <IconButton
+                      onPress={() => setModalVisible(true)}
+                      size={38}
+                      icon="arrow-right-circle">
+                    </IconButton>
                   </View>
                 </View>
               </View>
-
             </Card>
           </View>
           <View>
@@ -179,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#89d5c9'
   },
   card: {
-    marginVertical: 10,
+    marginTop: 20,
     marginHorizontal: 10,
     borderWidth: 1,
     borderRadius: 20,
@@ -218,6 +234,22 @@ const styles = StyleSheet.create({
   },
   orange: {
     color: '#fac172'
+  },
+  info: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderRadius: 20,
+    marginTop: 30,
+    marginHorizontal: 50,
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    marginBottom: 30
+  },
+  textInfo: {
+    fontSize: 18,
+    paddingVertical: 5,
   },
 
 });
