@@ -12,7 +12,7 @@ export default function Home({ navigation }) {
   const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
   const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (!account.employees && !Employee && !Employee.FullName) {
+  if (!account.employees && !EmployeeName && !EmployeeImage) {
     return (
       // set loading in center of screen
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -28,7 +28,7 @@ export default function Home({ navigation }) {
     <>
       <ScrollView style={styles.container}>
         <View>
-          {account && (<View style={styles.info}>
+          {account.employees && (<View style={styles.info}>
             <View>
               <Text style={styles.textInfo}>
                 {EmployeeName}
