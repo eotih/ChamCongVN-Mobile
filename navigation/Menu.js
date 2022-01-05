@@ -36,7 +36,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
             )}
           </View>
           <View>
-            <Text style={styles.textname}  >
+            <Text style={styles.textName}  >
               Tên: {Employee.FullName}
             </Text>
             <Text style={styles.text} >
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginLeft: 10
   },
-  textname: {
+  textName: {
     width: width / 2,
     fontSize: 16,
     color: 'black',
