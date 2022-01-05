@@ -12,7 +12,7 @@ export default function Home({ navigation }) {
   const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
   const { Employee, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (!account.employees) {
+  if (!account.employees && Employee && Employee.FullName) {
     return (
       // set loading in center of screen
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
