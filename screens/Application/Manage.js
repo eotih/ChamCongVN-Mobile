@@ -22,11 +22,11 @@ function ApplicationManagement() {
             <View>
                 <View style={styles.options}>
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
-                        <Text size={16} style={styles.tabTitle}>Absent Application</Text>
+                        <Text style={styles.tabTitle}>Absent Application</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
                         <View style={{ flexDirection: 'row' }} middle>
-                            <Text size={16} style={styles.tabTitle}>Overtime Application</Text>
+                            <Text style={styles.tabTitle}>Overtime Application</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -60,9 +60,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     tabTitle: {
-        fontWeight: '400',
+        fontWeight: 'bold',
         color: "white",
         textAlign: 'center',
+        fontSize: 18,
     },
     divider: {
         borderRightWidth: 0.3,

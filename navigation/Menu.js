@@ -36,9 +36,9 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
             )}
           </View>
           <View>
-            <Text style={styles.textname}  >
+            {/* <Text style={styles.textname}  >
               Tên: {Employee.FullName}
-            </Text>
+            </Text> */}
             <Text style={styles.text} >
               Chức vụ: {PositionName}
             </Text>
