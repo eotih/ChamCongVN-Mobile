@@ -11,8 +11,8 @@ export default function Home({ navigation }) {
   // using promise to load all resources
   const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
-  const { Employee, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (!account.employees && Employee && Employee.FullName) {
+  const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  if (!account.employees && !Employee && !Employee.FullName) {
     return (
       // set loading in center of screen
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -31,7 +31,7 @@ export default function Home({ navigation }) {
           {account && (<View style={styles.info}>
             <View>
               <Text style={styles.textInfo}>
-                {Employee.FullName}
+                {EmployeeName}
               </Text>
               <Text style={styles.textInfo}>
                 Vị trí: {PositionName}
@@ -47,7 +47,7 @@ export default function Home({ navigation }) {
               </Text>
             </View>
             <Image style={{ width: width / 4, height: height / 7 }}
-              source={require("../assets/imgs/logo.png")}>
+              source={{ uri: EmployeeImage }}>
             </Image>
           </View>)}
 
