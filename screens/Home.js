@@ -81,7 +81,7 @@ export default function Home({ navigation }) {
           >
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width: '70%' }}>
                   <Icon style={styles.icon} name="camera" color="red"></Icon>
                   <View>
                     <Title>
@@ -101,7 +101,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width: '70%' }}>
                   <Icon
                     style={styles.icon}
                     name="wpforms"
@@ -125,7 +125,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width: '70%' }}>
                   <Icon
                     style={styles.icon}
                     name="wpforms"
@@ -149,7 +149,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width: '70%'}}>
                   <Icon
                     style={styles.icon}
                     name="briefcase"
@@ -160,7 +160,7 @@ export default function Home({ navigation }) {
                     <Text>36 ngày</Text>
                   </View>
                 </View>
-                <View style={{ marginLeft: 95, alignSelf: "center" }}>
+                <View>
                   <IconButton
                     onPress={() => setModalVisible(true)}
                     size={38}
@@ -171,7 +171,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width: '70%' }}>
                   <Icon
                     style={styles.icon}
                     name="camera"
@@ -182,7 +182,7 @@ export default function Home({ navigation }) {
                     <Text>Summary infomation</Text>
                   </View>
                 </View>
-                <View style={{ marginLeft: 95, alignSelf: "center" }}>
+                <View>
                   <IconButton
                     onPress={() => setModalVisible(true)}
                     size={38}
