@@ -16,7 +16,7 @@ function ApplicationManagement() {
     useEffect(() => {
         getAbsentApplication(EmployeeID).then(result => setAbsentData(result));
         getOverTimeApplication(EmployeeID).then(result => setovertimeData(result));
-    }, [])
+    }, [absentData, overtimeData]); 
     return (
         <>
             <View>
