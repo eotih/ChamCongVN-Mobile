@@ -42,34 +42,17 @@ function TimekeepinghistoryStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Lịch Sử Chấm Công"
+        name="Timekeeping History"
         component={Timekeepinghistory}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Lịch Sử Chấm Công"
+            <Header title="Timekeeping History"
               navigation={navigation}
               scene={scene}
             />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
 
-        }}
-      />
-      <Stack.Screen
-        name="Elements"
-        component={Timekeepinghistory}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
         }}
       />
     </Stack.Navigator>
@@ -84,7 +67,7 @@ function ProfileStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Thông Tin Cá Nhân"
+              title="Profile"
               navigation={navigation}
               scene={scene}
             />
@@ -98,7 +81,7 @@ function ProfileStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Account"
+              title="Password"
               back
               black
               navigation={navigation}
@@ -116,11 +99,11 @@ function ApplicationmanagementStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Quản Lý Đơn Từ"
+        name="Management Application"
         component={ApplicationManagement}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Quản Lý Đơn Từ" navigation={navigation} scene={scene} />
+            <Header title="Management Application" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
@@ -134,11 +117,11 @@ function SalarytableStack(props) {
 
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Bảng Lương"
+        name="Salary Table"
         component={Salarytable}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Thông tin lương" navigation={navigation} scene={scene} />
+            <Header title="Salary statistics" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
@@ -182,7 +165,7 @@ function checkCameraStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
-        name="Chấm Công"
+        name="Timekeeping"
         component={checkCamera}
         options={{
           header: ({ navigation, scene }) => (
@@ -216,7 +199,7 @@ function NotificationStack(props) {
   return (
     <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
       <Stack.Screen
-        name="Thông Báo"
+        name="Notification"
         component={Notification}
         options={{
           header: ({ navigation, scene }) => (
@@ -286,12 +269,12 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="Quản Lý Đơn Từ"
+        name="Management Application"
         component={ApplicationManagement}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Thống kê checkin"
+              title="Management Application"
               back
               navigation={navigation}
               scene={scene}
@@ -359,11 +342,11 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="New Application" component={ApplicationStack} />
-      <Drawer.Screen name="Quản Lý Đơn Từ" component={ApplicationmanagementStack} />
-      <Drawer.Screen name="Chấm Công" component={checkCameraStack} />
-      <Drawer.Screen name="Lịch Sử Chấm Công" component={TimekeepinghistoryStack} />
-      <Drawer.Screen name="Thông Báo" component={NotificationStack} />
-      <Drawer.Screen name="Bảng Lương" component={SalarytableStack} />
+      <Drawer.Screen name="Management Application" component={ApplicationmanagementStack} />
+      <Drawer.Screen name="Timekeeping" component={checkCameraStack} />
+      <Drawer.Screen name="Timekeeping History" component={TimekeepinghistoryStack} />
+      <Drawer.Screen name="Notification" component={NotificationStack} />
+      <Drawer.Screen name="Salary Table" component={SalarytableStack} />
     </Drawer.Navigator>
   );
 }

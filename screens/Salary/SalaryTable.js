@@ -70,8 +70,8 @@ function SalaryTable({ navigation }) {
     return (
         <ScrollView style={{ marginHorizontal: 20 }}>
             <View style={styles.header}>
-                <Button color="white" style={{ backgroundColor: 'blue' }} >Thống kê lương</Button>
-                <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary', { listdata })}>Chi tiết lương</Button>
+                <Button color="white" style={{ backgroundColor: 'blue' }} >Salary statistics</Button>
+                <Button color="white" style={{ backgroundColor: 'orange' }} onPress={() => navigation.navigate('ListSalary', { listdata })}>Salary details</Button>
             </View>
             <View>
                 <Card style={styles.card}>

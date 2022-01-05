@@ -1,39 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Dimensions, ScrollView, View, TouchableOpacity, Modal, Image, ImageBackground } from 'react-native';
 import { Card, Title, Text, IconButton } from 'react-native-paper';
 import Notifications from '../screens/Notification'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { accountContext } from '../context/Hooks';
 
 const { width, height } = Dimensions.get('screen');
 
 export default function Home({ navigation }) {
+  // using promise to load all resources
+  const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
+  const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  if (!account.employees && !EmployeeName && !EmployeeImage) {
+    return (
+      // set loading in center of screen
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          style={{ width: 200, height: 200 }}
+          source={require("../assets/imgs/logo.png")}
+        />
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <>
       <ScrollView style={styles.container}>
         <View>
-          <View style={styles.info}>
+          {account.employees && (<View style={styles.info}>
             <View>
               <Text style={styles.textInfo}>
-                Đào Quốc Bảo
+                {EmployeeName}
               </Text>
               <Text style={styles.textInfo}>
-                Nhân vien kế toán
+                Vị trí: {PositionName}
               </Text>
               <Text style={styles.textInfo}>
-                Phòng nhân sự
+                Phòng ban: {DepartmentName}
               </Text>
               <Text style={styles.textInfo}>
-                Nhóm 10
+                Nhóm: {GroupName}
               </Text>
               <Text style={styles.textInfo}>
-                Phòng nhân sự
+                Công việc: {WorkName}
               </Text>
             </View>
-            <Image style={{ width: width / 3, height: height / 6, marginTop: 20 }}
-              source={require("../assets/imgs/logo.png")}>
+            <Image style={{ width: width / 4, height: height / 7 }}
+              source={{ uri: EmployeeImage }}>
             </Image>
-          </View>
+          </View>)}
 
           <View>
             <Card>

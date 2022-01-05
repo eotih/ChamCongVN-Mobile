@@ -15,11 +15,17 @@ function AccountProvider({ children, token }) {
       const AccountID = decoded.nameid[0];
       const EmployeeID = decoded.nameid[2];
       getAccountById(AccountID).then((res) => {
-        setAccount(res);
+        return res
       });
       getEmployees(EmployeeID).then((res) => {
-        setEmployees(res);
+        return res;
       });
+      Promise.all([getAccountById(AccountID), getEmployees(EmployeeID)]).then(
+        ([res1, res2]) => {
+          setAccount(res1);
+          setEmployees(res2);
+        }
+      );
     }
     else {
       return <Login />;
