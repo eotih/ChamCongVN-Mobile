@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
                 Phòng nhân sự
               </Text>
             </View>
-            <Image style={{ width: width / 4, height: height / 6 }}
+            <Image style={{ width: width / 3, height: height / 6, marginTop: 20 }}
               source={require("../assets/imgs/logo.png")}>
             </Image>
           </View>
@@ -45,8 +45,8 @@ export default function Home({ navigation }) {
                       color="red">
                     </Icon>
                     <View>
-                      <Title style={{ textAlign: 'center' }}>Thống kê Checkin</Title>
-                      <Text>Xem thông tin check in</Text>
+                      <Title style={{ textAlign: 'center' }}>Check-in statistics</Title>
+                      <Text>Check-in infomation</Text>
                     </View>
                   </View>
                   <View>
@@ -66,7 +66,7 @@ export default function Home({ navigation }) {
                       color="#00bcd4">
                     </Icon>
                     <View>
-                      <Title style={{ textAlign: 'center' }}>Đơn xin nghỉ phép</Title>
+                      <Title style={{ textAlign: 'center' }}>Absent applications</Title>
                       <Text>2 đơn</Text>
                     </View>
                   </View>
@@ -87,7 +87,7 @@ export default function Home({ navigation }) {
                       color="#000000">
                     </Icon>
                     <View>
-                      <Title style={{ textAlign: 'center' }}>Đơn xin tăng ca</Title>
+                      <Title style={{ textAlign: 'center' }}>Overtime application</Title>
                       <Text>2 đơn</Text>
                     </View>
 
@@ -109,12 +109,12 @@ export default function Home({ navigation }) {
                       color="#e91e63">
                     </Icon>
                     <View>
-                      <Title style={{ textAlign: 'center' }}>Thâm niên</Title>
-                      <Text>2 đơn</Text>
+                      <Title style={{ textAlign: 'center' }}>Seniority</Title>
+                      <Text>36 ngày</Text>
                     </View>
 
                   </View>
-                  <View style={{ marginLeft: 95, alignSelf: 'center' }}>
+                  <View>
                     <IconButton
                       onPress={() => setModalVisible(true)}
                       size={38}
@@ -131,8 +131,8 @@ export default function Home({ navigation }) {
                       color="#9c27b0">
                     </Icon>
                     <View>
-                      <Title style={{ textAlign: 'center' }}>Tổng kết</Title>
-                      <Text>2 đơn</Text>
+                      <Title>Summary</Title>
+                      <Text>Summary infomation</Text>
                     </View>
                   </View>
                   <View style={{ marginLeft: 95, alignSelf: 'center' }}>
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     marginTop: 30,
-    marginHorizontal: 50,
+    marginHorizontal: 30,
     justifyContent: 'space-between',
     paddingVertical: 10,
     backgroundColor: 'white',
