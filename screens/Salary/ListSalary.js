@@ -84,7 +84,9 @@ export default function SalaryTable(props) {
                     renderItem={({ item }) =>
                         <Card style={styles.card}>
                             <Card.Content style={{ alignItems: 'center' }} >
-                                <Title >Tháng {item.Month}</Title>
+                                <View style={styles.title}>
+                                    <Title >Tháng {item.Month}</Title>
+                                </View>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }} >Tổng thực nhận</Text>
                                 <Paragraph >{item.TotalSalary}</Paragraph>
                             </Card.Content>
@@ -108,12 +110,15 @@ const styles = StyleSheet.create({
         height: height / 4.5,
         borderWidth: 1,
         margin: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: 20
     },
     all: {
         flexDirection: 'row',
         marginVertical: 20,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: "#89d5c9",
+        marginHorizontal: 10,
     },
     centeredView: {
         flex: 1,
@@ -147,6 +152,7 @@ const styles = StyleSheet.create({
     buttonDetail: {
         borderRadius: 10,
         backgroundColor: "orange",
+        marginTop: 20,
     },
     textStyle: {
         color: "white",
@@ -181,6 +187,11 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         alignItems: 'center'
+    },
+    title: {
+        marginBottom: 10,
+        backgroundColor: "#fac172",
+        width: width / 2.5,
     },
 
 })

@@ -16,7 +16,7 @@ function SalaryTable({ navigation }) {
     var year = new Date().getFullYear();
     useEffect(() => {
         GetSalaryByEmloyeeID(EmployeeID).then((salary) => {
-            const datafilter = salary.filter(item => item.Year === year);
+            const datafilter = salary.filter(item => item.Year === year - 1);
             setlistdata(datafilter);
             datafilter.map(item => {
                 setSalary(Salary + item.TotalSalary);
@@ -75,25 +75,25 @@ function SalaryTable({ navigation }) {
             </View>
             <View>
                 <Card style={styles.card}>
-                    <Card.Content>
+                    <Card.Content style={{backgroundColor:'#fac172'}}>
                         <Title>Cumulative salary</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content>
+                    <Card.Content style={{backgroundColor:'#89d5c9'}}>
                         <Title>Total hours worked</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content>
+                    <Card.Content style={{backgroundColor:'#adc965'}}>
                         <Title>Total overtime hours</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content>
+                    <Card.Content style={{backgroundColor:'#e25b45'}}>
                         <Title>Total number of days off</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>

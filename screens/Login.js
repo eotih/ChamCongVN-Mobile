@@ -71,25 +71,29 @@ function Login({ navigation }) {
                   </Text>
                 </View>
               </View>
-              <View center>
-                <TextInput
-                  style={styles.input}
-                  label="Email"
-                  value={account.email}
-                  onChangeText={(text) => setAccount({ ...account, email: text })}
-                />
-                <TextInput
-                  label="Password"
-                  style={styles.input}
-                  secureTextEntry={isHidePassword}
-                  right={<TextInput.Icon name={isHidePassword ? 'eye' : 'eye-off'} onPress={handleShowPassword} />}
-                  value={account.password}
-                  onChangeText={(text) => setAccount({ ...account, password: text })}
-                />
-                <Button style={styles.input} loading={isLoading} mode="contained" onPress={() => handleLogin()}>
-                  Login
-                </Button>
-              </View>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+              >
+                <View center>
+                  <TextInput
+                    style={styles.input}
+                    label="Email"
+                    value={account.email}
+                    onChangeText={(text) => setAccount({ ...account, email: text })}
+                  />
+                  <TextInput
+                    label="Password"
+                    style={styles.input}
+                    secureTextEntry={isHidePassword}
+                    right={<TextInput.Icon name={isHidePassword ? 'eye' : 'eye-off'} onPress={handleShowPassword} />}
+                    value={account.password}
+                    onChangeText={(text) => setAccount({ ...account, password: text })}
+                  />
+                  <Button style={styles.input} loading={isLoading} mode="contained" onPress={() => handleLogin()}>
+                    Login
+                  </Button>
+                </View>
+              </KeyboardAvoidingView>
             </View>
           </View>
         </ImageBackground>
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   logo: {
-    width: width / 3,
+    width: width / 2,
     height: height / 4,
     zIndex: 2,
     position: 'relative',

@@ -285,6 +285,21 @@ function HomeStack(props) {
           cardStyle: { backgroundColor: "#FFFFFF" },
         }}
       />
+      <Stack.Screen
+        name="Quản Lý Đơn Từ"
+        component={ApplicationManagement}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Thống kê checkin"
+              back
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          cardStyle: { backgroundColor: "#FFFFFF" },
+        }}
+      />
     </Stack.Navigator>
   );
 }
