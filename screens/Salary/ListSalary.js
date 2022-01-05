@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 20,
     justifyContent: "space-between",
-    marginHorizontal: 10,
   },
   centeredView: {
     flex: 1,
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
   buttonDetail: {
     borderRadius: 10,
     backgroundColor: "orange",
-    marginTop: 20,
+    marginTop: 10,
   },
   iconButton:{
   },

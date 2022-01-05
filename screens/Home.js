@@ -46,7 +46,7 @@ export default function Home({ navigation }) {
                 Công việc: {WorkName}
               </Text>
             </View>
-            <Image style={{ width: width / 4, height: height / 7 }}
+            <Image style={{ width: width / 4, height: height / 7, marginTop: 20 }}
               source={{ uri: EmployeeImage }}>
             </Image>
           </View>)}

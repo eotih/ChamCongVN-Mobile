@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 10,
   },
   text: {
-    fontSize: 48,
+    fontSize: 42,
     fontWeight: "bold",
     color: 'white',
     paddingBottom: 20,

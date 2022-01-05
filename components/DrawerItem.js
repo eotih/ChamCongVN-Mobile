@@ -66,14 +66,6 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.INFO}
           />
         );
-      case "Quản Lý Báo Cáo":
-        return (
-          <Icon
-            name="user-circle"
-            size={18}
-            color={focused ? "white" : argonTheme.COLORS.INFO}
-          />
-        );
         case "Salary Table":
           return (
             <Icon
@@ -106,7 +98,7 @@ function DrawerItem({ focused, title, navigation }) {
     <TouchableOpacity
       style={{ height: 60 }}
       onPress={() => {
-        if (title === "Đăng Xuất") {
+        if (title === "Log Out") {
           removeToken();
           navigation.navigate("Login");
         } else if (title === "Log out") {

@@ -4,7 +4,6 @@ import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
@@ -17,7 +16,6 @@ import Statistics from "../screens/Statistics";
 import checkCamera from "../screens/Timekeeping/Camera"
 import Application from "../screens/Application/Application"
 import Login from "../screens/Login";
-import Articles from "../screens/Articles";
 import Notification from "../screens/Notification"
 import ApplicationManagement from "../screens/Application/Manage";
 //salarytable
@@ -29,8 +27,6 @@ import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
 
 // header for screens
 import { Header } from "../components";
-import { argonTheme, tabs } from "../constants";
-
 
 const { width } = Dimensions.get("screen");
 
@@ -234,23 +230,6 @@ function HomeStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-      <Stack.Screen
-        name="Elements"
-        component={Timekeepinghistory}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
         }}
       />
       <Stack.Screen
