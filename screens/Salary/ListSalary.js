@@ -48,8 +48,8 @@ export default function SalaryTable(props) {
                                     </View>
                                     <View>
                                         <Text style={styles.modalText}>{dataModal[0].Month}</Text>
-                                        <Text style={styles.modalText}>Đợi Thành!</Text>
-                                        <Text style={styles.modalText}>Đợi Thành!</Text>
+                                        <Text style={styles.modalText}>2 Ngày</Text>
+                                        <Text style={styles.modalText}>2 giờ</Text>
                                         <Text style={styles.modalText}>{dataModal[0].TotalOvertimeSalary}</Text>
                                         <Text style={styles.modalText}>{dataModal[0].TotalAdvance}</Text>
                                     </View>
@@ -86,9 +86,9 @@ export default function SalaryTable(props) {
                             <Card.Content style={{ alignItems: 'center' }} >
                                 <Title >Tháng {item.Month}</Title>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }} >Tổng thực nhận</Text>
-                                <Paragraph >1000000</Paragraph>
+                                <Paragraph >{item.TotalSalary}</Paragraph>
                             </Card.Content>
-                            <Card.Actions style={{ alignSelf: 'center'}} >
+                            <Card.Actions style={{ alignSelf: 'center' }} >
                                 <Button style={styles.buttonDetail} color="white" onPress={() => handleChooseMonth(item.Month)} >
                                     Chi tiết
                                 </Button>
