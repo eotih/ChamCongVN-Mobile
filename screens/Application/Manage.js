@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "white",
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 14,
     },
     divider: {
         borderRightWidth: 0.3,

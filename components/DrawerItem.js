@@ -18,7 +18,7 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-      case "Lịch Sử Chấm Công":
+      case "Timekeeping History":
         return (
           <Icon
             name="history"
@@ -26,7 +26,7 @@ function DrawerItem({ focused, title, navigation }) {
             color="#525F7F"
           />
         );
-      case "Quản Lý Đơn Từ":
+      case "Management Application":
         return (
           <Icon
             name="clipboard"
@@ -34,7 +34,7 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-      case "Chấm Công":
+      case "Timekeeping":
         return (
           <Icon
             name="camera"
@@ -42,7 +42,7 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
-      case "Thông Báo":
+      case "Notification":
         return (
           <Icon
             name="bell"
@@ -66,15 +66,7 @@ function DrawerItem({ focused, title, navigation }) {
             color={focused ? "white" : argonTheme.COLORS.INFO}
           />
         );
-      case "Quản Lý Báo Cáo":
-        return (
-          <Icon
-            name="user-circle"
-            size={18}
-            color={focused ? "white" : argonTheme.COLORS.INFO}
-          />
-        );
-        case "Bảng Lương":
+        case "Salary Table":
           return (
             <Icon
               name="credit-card"
@@ -82,7 +74,7 @@ function DrawerItem({ focused, title, navigation }) {
               color="#388e3c"
             />
           );
-      case "Đăng Xuất":
+      case "Log Out":
         return (<Icon
           name="sign-out"
           size={18}
@@ -106,7 +98,7 @@ function DrawerItem({ focused, title, navigation }) {
     <TouchableOpacity
       style={{ height: 60 }}
       onPress={() => {
-        if (title === "Đăng Xuất") {
+        if (title === "Log Out") {
           removeToken();
           navigation.navigate("Login");
         } else if (title === "Log out") {

@@ -13,11 +13,11 @@ function Application() {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View row style={styles.options}>
                     <TouchableOpacity style={[(active == 1) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(1) }}>
-                        <Text style={styles.tabTitle}>Đơn xin nghỉ phép</Text>
+                        <Text style={styles.tabTitle}>Absent Application</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[(active == 2) ? styles.tabSelected : styles.notSelected, styles.divider]} onPress={() => { setActive(2) }} >
                         <View row middle>
-                            <Text style={styles.tabTitle}>Đơn tăng ca</Text>
+                            <Text style={styles.tabTitle}>Overtime Application</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: 'center',
         alignSelf: 'center',
-        fontSize: 18
+        fontSize: 14
     },
     divider: {
         borderRightWidth: 0.3,

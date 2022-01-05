@@ -20,15 +20,8 @@ export default function Home({ navigation }) {
   // using promise to load all resources
   const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
-  const {
-    EmployeeName,
-    EmployeeImage,
-    DepartmentName,
-    PositionName,
-    GroupName,
-    WorkName,
-  } = account.employees;
-  if (!account.employees && !EmployeeName && !EmployeeImage) {
+  const { Employee, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  if (!account.employees && Employee && Employee.FullName) {
     return (
       // set loading in center of screen
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -44,7 +37,7 @@ export default function Home({ navigation }) {
     <>
       <ScrollView style={styles.container}>
         <View>
-          {account.employees && (
+          {account && (
             <View style={styles.info}>
               <View style={{ alignItems: "center" }}>
                 <Image
@@ -54,60 +47,47 @@ export default function Home({ navigation }) {
                     borderRadius: 10,
                     marginBottom: 20,
                   }}
-                  source={{ uri: EmployeeImage }}
+                  source={{ uri: Employee.Image }}
                 ></Image>
               </View>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Tên:</Text>
-                <Text style={styles.textInfo}>{EmployeeName}</Text>
+                <Text style={styles.textInfo}>{Employee.FullName}</Text>
               </View>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Vị trí:</Text>
                 <Text style={styles.textInfo}>{PositionName}</Text>
               </View>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Phòng ban:</Text>
                 <Text style={styles.textInfo}>{DepartmentName}</Text>
               </View>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Nhóm:</Text>
                 <Text style={styles.textInfo}>{GroupName}</Text>
               </View>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Công việc:</Text>
                 <Text style={styles.textInfo}>{WorkName}</Text>
               </View>
             </View>
           )}
-
           <View
             style={{
               backgroundColor: "white",
-              marginBottom: 30,
+              paddingBottom: 30,
               padding: 10,
             }}
           >
             <View style={styles.card}>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon style={styles.icon} name="camera" color="red"></Icon>
                   <View>
-                    <Title style={{ textAlign: "center" }}>
-                      Thống kê Checkin
+                    <Title>
+                      Check-in statistics
                     </Title>
-                    <Text>Xem thông tin check in</Text>
+                    <Text>Check-in infomation</Text>
                   </View>
                 </View>
                 <View>
@@ -120,9 +100,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <View style={styles.card}>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     style={styles.icon}
@@ -130,8 +108,8 @@ export default function Home({ navigation }) {
                     color="#00bcd4"
                   ></Icon>
                   <View>
-                    <Title style={{ textAlign: "center" }}>
-                      Đơn xin nghỉ phép
+                    <Title>
+                      Absent applications
                     </Title>
                     <Text>2 đơn</Text>
                   </View>
@@ -146,9 +124,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <View style={styles.card}>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     style={styles.icon}
@@ -156,8 +132,8 @@ export default function Home({ navigation }) {
                     color="#000000"
                   ></Icon>
                   <View>
-                    <Title style={{ textAlign: "center" }}>
-                      Đơn xin tăng ca
+                    <Title>
+                      Overtime application
                     </Title>
                     <Text>2 đơn</Text>
                   </View>
@@ -172,9 +148,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <View style={styles.card}>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     style={styles.icon}
@@ -182,8 +156,8 @@ export default function Home({ navigation }) {
                     color="#e91e63"
                   ></Icon>
                   <View>
-                    <Title style={{ textAlign: "center" }}>Thâm niên</Title>
-                    <Text>2 đơn</Text>
+                    <Title>Seniority</Title>
+                    <Text>36 ngày</Text>
                   </View>
                 </View>
                 <View style={{ marginLeft: 95, alignSelf: "center" }}>
@@ -196,9 +170,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <View style={styles.card}>
-              <View
-                style={styles.spaceBetween}
-              >
+              <View style={styles.spaceBetween}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon
                     style={styles.icon}
@@ -206,8 +178,8 @@ export default function Home({ navigation }) {
                     color="#9c27b0"
                   ></Icon>
                   <View>
-                    <Title style={{ textAlign: "center" }}>Tổng kết</Title>
-                    <Text>2 đơn</Text>
+                    <Title>Summary</Title>
+                    <Text>Summary infomation</Text>
                   </View>
                 </View>
                 <View style={{ marginLeft: 95, alignSelf: "center" }}>
@@ -286,14 +258,14 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#89d5c9",
+    backgroundColor: "#fac172",
   },
   card: {
     marginTop: 20,
     marginHorizontal: 10,
     borderRadius: 20,
     paddingVertical: 10,
-    backgroundColor: "#fac172",
+    backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -301,7 +273,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 6,
   },
   icon: {
     fontSize: 24,
@@ -341,9 +313,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 30,
     marginHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 20,
     backgroundColor: "white",
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: {
@@ -361,7 +333,7 @@ const styles = StyleSheet.create({
   textTitleInfo: {
     fontSize: 18,
     paddingVertical: 5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   spaceBetween: {
     flexDirection: "row",

@@ -134,7 +134,7 @@ export default function AbsentApplications() {
               {show && showPicker}
             </View>
             <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 24, fontWeight: "bold" }} >Số ngày nghỉ</Text>
+              <Text style={{ fontSize: 24, fontWeight: "bold" }} >Number Of Days Off</Text>
               <Switch style={{ marginLeft: 10, marginTop: -5 }}
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
