@@ -14,7 +14,7 @@ import { Images, argonTheme } from "../constants";
 import useToken from "../services/useToken";
 import axios from "../functions/BaseUrl";
 import { Card, TextInput, Button, IconButton, Avatar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 function Login({ navigation }) {
   const { setToken } = useToken();

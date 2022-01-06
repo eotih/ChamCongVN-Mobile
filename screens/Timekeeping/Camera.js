@@ -19,7 +19,7 @@ import * as FaceDetector from "expo-face-detector";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaskedView from "@react-native-community/masked-view";
-import axios from "axios";
+import axios from "../../functions/BaseUrl";
 import { Card } from "react-native-paper";
 
 export default function checkCamera() {
@@ -50,7 +50,7 @@ export default function checkCamera() {
   }, [valueStatus]);
 
   const getInfoEmployee = async (id) => {
-    const response = await axios.get(`http://192.168.1.7:45455/Employee/Employee/${id}`);
+    const response = await axios.get(`Employee/Employee/${id}`);
     const data = response.data;
     setEmployees(data);
     { data ? setModalVisible(true) : setModalVisible(false) }
@@ -118,7 +118,7 @@ export default function checkCamera() {
     if (name && name !== "Unknown") {
       object.EmployeeID = name.split(" ")[0];
       const res = await axios.post(
-        "http://192.168.1.7:45455/TimeKeeper/CheckTime",
+        "TimeKeeper/CheckTime",
         object,
         {
           headers: {
@@ -127,6 +127,7 @@ export default function checkCamera() {
         }
       );
       const { Status } = res.data;
+      console.log(res.data)
       if (Status !== 200) {
         alert("Bạn đã chấm công rồi");
         navigate('Home');
@@ -143,7 +144,7 @@ export default function checkCamera() {
   };
   const authPermission = async (object) => {
     const res = await axios.post(
-      "http://192.168.1.7:45455/TimeKeeper/AuthPermission",
+      "TimeKeeper/AuthPermission",
       object,
       {
         headers: {
@@ -152,6 +153,7 @@ export default function checkCamera() {
       }
     );
     const { Status } = res.data;
+    console.log(res.data)
     if (Status === 200) {
       faceRecognition(object);
     } else {
@@ -159,7 +161,7 @@ export default function checkCamera() {
     }
   };
   const getIpOrganization = async () => {
-    const res = await axios.get(`http://192.168.1.7:45455/Organization/Organization`);
+    const res = await axios.get(`Organization/Organization`);
     const { PythonIP } = res.data;
     setIpOrganization(PythonIP);
   }

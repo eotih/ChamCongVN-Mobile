@@ -17,10 +17,9 @@ import { accountContext } from "../context/Hooks";
 const { width, height } = Dimensions.get("screen");
 
 export default function Home({ navigation }) {
-  // using promise to load all resources
   const [account, setAccount] = useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
-  const { Employee, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
   if (!account.employees && Employee && Employee.FullName) {
     return (
       // set loading in center of screen
@@ -47,12 +46,12 @@ export default function Home({ navigation }) {
                     borderRadius: 10,
                     marginBottom: 20,
                   }}
-                  source={{ uri: Employee.Image }}
+                  source={{ uri: EmployeeImage }}
                 ></Image>
               </View>
               <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Tên:</Text>
-                <Text style={styles.textInfo}>{Employee.FullName}</Text>
+                <Text style={styles.textInfo}>{EmployeeName}</Text>
               </View>
               <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Vị trí:</Text>
@@ -149,7 +148,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.card}>
               <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%'}}>
+                <View style={{ flexDirection: "row", width: '70%' }}>
                   <Icon
                     style={styles.icon}
                     name="briefcase"

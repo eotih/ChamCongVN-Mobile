@@ -7,13 +7,17 @@ import { Block, GalioProvider } from "galio-framework";
 import { NavigationContainer } from "@react-navigation/native";
 import { AccountProvider } from "./context/AccountContext";
 import useToken from "./services/useToken";
+import { createStackNavigator } from "@react-navigation/stack";
 
+const Stack = createStackNavigator();
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
 enableScreens();
 
 import Screens from "./navigation/Screens";
+import OnboardingStack, { AppStack } from "./navigation/Screens";
 import { Images, articles, argonTheme } from "./constants";
+import Login from "./screens/Login";
 
 // cache app images
 const assetImages = [
@@ -40,7 +44,7 @@ function cacheImages(images) {
 }
 
 export default props => {
-  const { token } = useToken();
+  const { token, setToken } = useToken();
   const [isLoadingComplete, setLoading] = useState(false);
 
   let [fontsLoaded] = useFonts({
@@ -70,7 +74,18 @@ export default props => {
       />
     );
   }
-  else if (fontsLoaded) {
+  if (!token) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator mode="card" headerMode="none">
+          <Stack.Screen name="Onboarding" component={OnboardingStack} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="App" component={AppStack} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+  else if (fontsLoaded && token) {
     return (
       <NavigationContainer>
         <GalioProvider theme={argonTheme}>

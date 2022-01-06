@@ -21,6 +21,7 @@ import ApplicationManagement from "../screens/Application/Manage";
 //salarytable
 import Salarytable from "../screens/Salary/SalaryTable"
 import ListSalary from "../screens/Salary/ListSalary";
+import useToken from "../services/useToken";
 // drawer
 import CustomDrawerContent from "./Menu";
 import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
@@ -90,7 +91,6 @@ function ProfileStack(props) {
     </Stack.Navigator>
   );
 }
-
 function ApplicationmanagementStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -107,7 +107,6 @@ function ApplicationmanagementStack(props) {
     </Stack.Navigator>
   );
 }
-
 function SalarytableStack(props) {
   return (
 
@@ -149,7 +148,7 @@ function ApplicationStack(props) {
         component={Application}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Application" navigation={navigation} scene={scene}/>
+            <Header title="Application" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
@@ -214,7 +213,27 @@ function NotificationStack(props) {
     </Stack.Navigator>
   );
 }
-
+export default function OnboardingStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="none">
+      <Stack.Screen
+        name="Onboarding"
+        component={Onboarding}
+        option={{
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        option={{
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen name="App" component={AppStack} />
+    </Stack.Navigator>
+  );
+}
 function HomeStack(props) {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -264,30 +283,9 @@ function HomeStack(props) {
       />
     </Stack.Navigator>
   );
-}
-export default function OnboardingStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
-  );
-}
 
-function AppStack(props) {
+}
+export function AppStack(props) {
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}

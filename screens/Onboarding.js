@@ -44,7 +44,6 @@ function Onboarding({ navigation }) {
             <Button
               style={styles.button}
               onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
-              // onPress={() =>  navigation.navigate("App") }
             >
               <Text style={{fontSize: 18, color: 'black'}}>BẮT ĐẦU</Text>
             </Button>
