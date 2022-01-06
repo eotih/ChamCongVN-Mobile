@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
   const [account, setAccount] = React.useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
   const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (account && !account.employees && !EmployeeName) {
+  if (!account && !account.employees && !EmployeeName && !EmployeeImage) {
     Alert('Vui lòng đăng nhập lại')
     navigation.navigate("Login");
   }
