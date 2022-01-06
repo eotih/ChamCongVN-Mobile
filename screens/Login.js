@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: width / 2,
-    height: height / 4,
+    height: height / 3.5,
     zIndex: 2,
     position: 'relative',
     marginTop: height / 4,

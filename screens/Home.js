@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
                   source={{ uri: EmployeeImage }}
                 ></Image>
               </View>
-              <View style={styles.spaceBetween}>
+               <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Tên:</Text>
                 <Text style={styles.textInfo}>{EmployeeName}</Text>
               </View>
@@ -208,10 +208,10 @@ export default function Home({ navigation }) {
                   marginHorizontal: 20,
                 }}
               >
-                {/* <ImageBackground source={{
+                <ImageBackground source={{
                   uri: 'https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg',
                 }}
-                style={{height:height/2}}> */}
+                style={{height:height/2}}>
 
                 <IconButton
                   style={styles.iconButton}
@@ -245,7 +245,7 @@ export default function Home({ navigation }) {
                     36 ngày
                   </Text>
                 </View>
-                {/* </ImageBackground> */}
+                </ImageBackground>
               </Card>
             </Modal>
           </View>

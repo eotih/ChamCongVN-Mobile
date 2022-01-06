@@ -127,7 +127,6 @@ export default function checkCamera() {
         }
       );
       const { Status } = res.data;
-      console.log(res.data)
       if (Status !== 200) {
         alert("Bạn đã chấm công rồi");
         navigate('Home');
@@ -153,11 +152,10 @@ export default function checkCamera() {
       }
     );
     const { Status } = res.data;
-    console.log(res.data)
     if (Status === 200) {
-      faceRecognition(object);
-    } else {
       alert("Vui lòng chấm công lại");
+    } else {
+      faceRecognition(object);
     }
   };
   const getIpOrganization = async () => {

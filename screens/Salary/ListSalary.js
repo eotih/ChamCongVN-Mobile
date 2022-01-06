@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 20,
     justifyContent: "space-between",
+    marginRight: 10
   },
   centeredView: {
     flex: 1,
