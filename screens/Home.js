@@ -40,7 +40,7 @@ export default function Home({ navigation }) {
           {account && (
             <View style={styles.info}>
               <View style={{ alignItems: "center" }}>
-                <Image
+                {/* <Image
                   style={{
                     width: width / 4,
                     height: height / 7,
@@ -48,12 +48,12 @@ export default function Home({ navigation }) {
                     marginBottom: 20,
                   }}
                   source={{ uri: Employee.Image }}
-                ></Image>
+                ></Image> */}
               </View>
-              <View style={styles.spaceBetween}>
+              {/* <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Tên:</Text>
                 <Text style={styles.textInfo}>{Employee.FullName}</Text>
-              </View>
+              </View> */}
               <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Vị trí:</Text>
                 <Text style={styles.textInfo}>{PositionName}</Text>
