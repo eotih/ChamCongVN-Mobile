@@ -34,14 +34,14 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
           <View style={{ marginVertical: 8, paddingHorizontal: 8, flex: 1 }}>
             <View style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </View>
-          <DrawerCustomItem title="Timekeeping" focused={state.index === 5 ? true : false} navigation={navigation} />
-          <DrawerCustomItem title="Timekeeping History" focused={state.index === 6 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Timekeeping" focused={state.index === 4 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Timekeeping History" focused={state.index === 5 ? true : false} navigation={navigation} />
 
           <View style={{ marginVertical: 8, paddingHorizontal: 8, flex: 1 }}>
             <View style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }} />
           </View>
-          <DrawerCustomItem title="Notification" focused={state.index === 7 ? true : false} navigation={navigation} />
-          <DrawerCustomItem title="Salary Table" focused={state.index === 8 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Notification" focused={state.index === 6 ? true : false} navigation={navigation} />
+          <DrawerCustomItem title="Salary Table" focused={state.index === 7 ? true : false} navigation={navigation} />
           <DrawerCustomItem title="Log Out" navigation={navigation} />
         </ScrollView>
       </SafeAreaView>

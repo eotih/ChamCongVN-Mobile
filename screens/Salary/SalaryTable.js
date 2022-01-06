@@ -4,6 +4,7 @@ import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 import { BarChart } from 'react-native-gifted-charts';
 import { AccountContext } from '../../context/AccountContext';
 import { GetSalaryByEmloyeeID } from '../../functions/Salary';
+import { getAbsentApplication } from '../../functions/Application';
 
 function SalaryTable({ navigation }) {
     const account = useContext(AccountContext);
@@ -12,6 +13,8 @@ function SalaryTable({ navigation }) {
     const [Salary, setSalary] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
     const [listdata, setlistdata] = useState([]);
+    const [overtime, setOvertime] = useState(0);
+    const [totalAbsent, setTotalAbsent] = useState(0);
     const data = [];
     var year = new Date().getFullYear();
     useEffect(() => {
@@ -19,12 +22,21 @@ function SalaryTable({ navigation }) {
             const datafilter = salary.filter(item => item.Year === year - 1);
             setlistdata(datafilter);
             datafilter.map(item => {
-                setSalary(Salary + item.TotalSalary);
-                setTotalTime(totalTime + item.TotalTime);
                 const month = item.Month;
                 data.push(getValueColor(item.TotalSalary, month))
             })
+            const totalsalary = datafilter.map(item => item.TotalSalary).reduce((prev, curr) => prev + curr, 0);
+            const hours = datafilter.map(item => item.TotalTime).reduce((prev, curr) => prev + curr, 0);
+            const overTimeHour = datafilter.map(item => item.TotalOvertimeSalary).reduce((prev, curr) => prev + curr, 0);
+            setSalary(totalsalary);
+            setOvertime(overTimeHour);
+            setTotalTime(hours);
             setDataChart(data)
+        })
+        getAbsentApplication(EmployeeID).then((res) => {
+            const datafilter = res.filter(item => item.Year === year && item.StateID === 2);
+            const totalAbsentDay = datafilter.map(item => item.NumberOfDays).reduce((prev, curr) => prev + curr, 0);
+            setTotalAbsent(totalAbsentDay);
         })
     }, []);
 
@@ -75,27 +87,27 @@ function SalaryTable({ navigation }) {
             </View>
             <View>
                 <Card style={styles.card}>
-                    <Card.Content style={{backgroundColor:'#fac172'}}>
+                    <Card.Content style={{ backgroundColor: '#fac172' }}>
                         <Title>Cumulative salary</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{backgroundColor:'#89d5c9'}}>
+                    <Card.Content style={{ backgroundColor: '#89d5c9' }}>
                         <Title>Total hours worked</Title>
-                        <Paragraph>{Salary / 1000000} Million</Paragraph>
+                        <Paragraph> {totalTime} hour</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{backgroundColor:'#adc965'}}>
+                    <Card.Content style={{ backgroundColor: '#adc965' }}>
                         <Title>Total overtime hours</Title>
-                        <Paragraph>{Salary / 1000000} Million</Paragraph>
+                        <Paragraph>{overtime} hour</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{backgroundColor:'#e25b45'}}>
+                    <Card.Content style={{ backgroundColor: '#e25b45' }}>
                         <Title>Total number of days off</Title>
-                        <Paragraph>{Salary / 1000000} Million</Paragraph>
+                        <Paragraph>{totalAbsent} days</Paragraph>
                     </Card.Content>
                 </Card>
             </View>
