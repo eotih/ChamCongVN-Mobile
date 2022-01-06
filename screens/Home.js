@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, BackHandler  } from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -8,6 +8,7 @@ import {
   Modal,
   Image,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Card, Title, Text, IconButton } from "react-native-paper";
 import Notifications from "../screens/Notification";
@@ -17,26 +18,18 @@ import { accountContext } from "../context/Hooks";
 const { width, height } = Dimensions.get("screen");
 
 export default function Home({ navigation }) {
-  const [account, setAccount] = useState(accountContext());
+  const [account, setAccount] = React.useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
   const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (!account.employees && Employee && Employee.FullName) {
-    return (
-      // set loading in center of screen
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Image
-          style={{ width: 200, height: 200 }}
-          source={require("../assets/imgs/logo.png")}
-        />
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
-      </View>
-    );
+  if (account && !account.employees && !EmployeeName) {
+    Alert('Vui lòng đăng nhập lại')
+    navigation.navigate("Login");
   }
   return (
     <>
       <ScrollView style={styles.container}>
         <View>
-          {account && (
+          {account.employees && EmployeeName && (
             <View style={styles.info}>
               <View style={{ alignItems: "center" }}>
                 <Image
@@ -211,40 +204,40 @@ export default function Home({ navigation }) {
                 <ImageBackground source={{
                   uri: 'https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg',
                 }}
-                style={{height:height/2}}>
+                  style={{ height: height / 2 }}>
 
-                <IconButton
-                  style={styles.iconButton}
-                  icon="window-close"
-                  onPress={() => setModalVisible(!modalVisible)}
-                  color="white"
-                />
-                <View style={styles.avatarContainer}>
-                  <Image
-                    source={{
-                      uri: "https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg",
-                    }}
-                    style={styles.avatar}
+                  <IconButton
+                    style={styles.iconButton}
+                    icon="window-close"
+                    onPress={() => setModalVisible(!modalVisible)}
+                    color="white"
                   />
-                </View>
-                <Text style={styles.textName}>Ho va ten</Text>
-                <Text
-                  style={{ fontSize: 18, textAlign: "center", color: "white" }}
-                >
-                  Cảm ơn bạn đã đòng hành cùng công ty
-                </Text>
-                <View
-                  style={{
-                    alignSelf: "center",
-                    marginVertical: 20,
-                    color: "white",
-                  }}
-                >
-                  <Text style={{ color: "white" }}>Tổng số ngày làm việc</Text>
-                  <Text style={{ textAlign: "center", color: "white" }}>
-                    36 ngày
+                  <View style={styles.avatarContainer}>
+                    <Image
+                      source={{
+                        uri: "https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg",
+                      }}
+                      style={styles.avatar}
+                    />
+                  </View>
+                  <Text style={styles.textName}>Ho va ten</Text>
+                  <Text
+                    style={{ fontSize: 18, textAlign: "center", color: "white" }}
+                  >
+                    Cảm ơn bạn đã đòng hành cùng công ty
                   </Text>
-                </View>
+                  <View
+                    style={{
+                      alignSelf: "center",
+                      marginVertical: 20,
+                      color: "white",
+                    }}
+                  >
+                    <Text style={{ color: "white" }}>Tổng số ngày làm việc</Text>
+                    <Text style={{ textAlign: "center", color: "white" }}>
+                      36 ngày
+                    </Text>
+                  </View>
                 </ImageBackground>
               </Card>
             </Modal>

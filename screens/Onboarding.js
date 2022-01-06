@@ -43,7 +43,7 @@ function Onboarding({ navigation }) {
           <View center>
             <Button
               style={styles.button}
-              onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
+              onPress={() => navigation.navigate("Login")}
             >
               <Text style={{fontSize: 18, color: 'black'}}>BẮT ĐẦU</Text>
             </Button>

@@ -74,18 +74,7 @@ export default props => {
       />
     );
   }
-  if (!token) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator mode="card" headerMode="none">
-          <Stack.Screen name="Onboarding" component={OnboardingStack} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="App" component={AppStack} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-  else if (fontsLoaded && token) {
+  else if (fontsLoaded) {
     return (
       <NavigationContainer>
         <GalioProvider theme={argonTheme}>

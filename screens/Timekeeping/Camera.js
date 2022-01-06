@@ -194,10 +194,12 @@ export default function checkCamera() {
   }
   if (hasPermission === false) {
     return (
-      <Button
-        title="Click vào đây để bật máy ảnh"
-        onPress={() => setValueStatus("granted")}
-      />
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Button
+          title="Click vào đây để bật máy ảnh"
+          onPress={() => setValueStatus("granted")}
+        />
+      </View>
     );
   }
 

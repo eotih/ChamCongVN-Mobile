@@ -11,6 +11,8 @@ function AccountProvider({ children, token }) {
   const [employees, setEmployees] = useState([]);
   useEffect(() => {
     if (token) {
+      setAccount([])
+      setEmployees([])
       const decoded = jwtDecode(token);
       const AccountID = decoded.nameid[0];
       const EmployeeID = decoded.nameid[2];

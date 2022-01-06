@@ -25,7 +25,6 @@ import useToken from "../services/useToken";
 // drawer
 import CustomDrawerContent from "./Menu";
 import Timekeepinghistory from "../screens/Timekeeping/Timekeepinghistory";
-
 // header for screens
 import { Header } from "../components";
 
@@ -244,6 +243,7 @@ function HomeStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Home"
+              account='{account.employees}'
               navigation={navigation}
               scene={scene}
             />
