@@ -115,6 +115,7 @@ export default function checkCamera() {
       }
     );
     const { name } = res.data;
+    console.log(name.split(" ")[0]);
     if (name && name !== "Unknown") {
       object.EmployeeID = name.split(" ")[0];
       const res = await axios.post(
@@ -153,14 +154,14 @@ export default function checkCamera() {
     );
     const { Status } = res.data;
     if (Status === 200) {
-      alert("Vui lòng chấm công lại");
-    } else {
       faceRecognition(object);
+    } else {
+      alert("Vui lòng chấm công lại");
     }
   };
   const getIpOrganization = async () => {
     const res = await axios.get(`Organization/Organization`);
-    const { PythonIP } = res.data;
+    const { PythonIP } = res.data[0];
     setIpOrganization(PythonIP);
   }
   const handleFacesDetected = ({ faces }) => {
