@@ -239,11 +239,11 @@ function HomeStack(props) {
       <Stack.Screen
         name="Home"
         component={Home}
+        account='TAC'
         options={{
           header: ({ navigation, scene }) => (
             <Header
               title="Home"
-              account='{account.employees}'
               navigation={navigation}
               scene={scene}
             />

@@ -1,4 +1,4 @@
-import React, { useState, BackHandler  } from "react";
+import React, { useState, BackHandler } from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -18,18 +18,14 @@ import { accountContext } from "../context/Hooks";
 const { width, height } = Dimensions.get("screen");
 
 export default function Home({ navigation }) {
-  const [account, setAccount] = React.useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
-  const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
-  if (!account && !account.employees && !EmployeeName && !EmployeeImage) {
-    Alert('Vui lòng đăng nhập lại')
-    navigation.navigate("Login");
-  }
-  return (
-    <>
-      <ScrollView style={styles.container}>
-        <View>
-          {account.employees && EmployeeName && (
+  const cardView = () => {
+    const [account, setAccount] = React.useState(accountContext());
+    const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+    return (
+      <>
+        <ScrollView style={styles.container}>
+          <View>
             <View style={styles.info}>
               <View style={{ alignItems: "center" }}>
                 <Image
@@ -42,7 +38,7 @@ export default function Home({ navigation }) {
                   source={{ uri: EmployeeImage }}
                 ></Image>
               </View>
-               <View style={styles.spaceBetween}>
+              <View style={styles.spaceBetween}>
                 <Text style={styles.textTitleInfo}>Tên:</Text>
                 <Text style={styles.textInfo}>{EmployeeName}</Text>
               </View>
@@ -63,189 +59,191 @@ export default function Home({ navigation }) {
                 <Text style={styles.textInfo}>{WorkName}</Text>
               </View>
             </View>
-          )}
-          <View
-            style={{
-              backgroundColor: "white",
-              paddingBottom: 30,
-              padding: 10,
-            }}
-          >
-            <View style={styles.card}>
-              <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%' }}>
-                  <Icon style={styles.icon} name="camera" color="red"></Icon>
-                  <View>
-                    <Title>
-                      Check-in statistics
-                    </Title>
-                    <Text>Check-in infomation</Text>
-                  </View>
-                </View>
-                <View>
-                  <IconButton
-                    onPress={() => navigation.navigate("Statistics")}
-                    size={38}
-                    icon="arrow-right-circle"
-                  ></IconButton>
-                </View>
-              </View>
-            </View>
-            <View style={styles.card}>
-              <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%' }}>
-                  <Icon
-                    style={styles.icon}
-                    name="wpforms"
-                    color="#00bcd4"
-                  ></Icon>
-                  <View>
-                    <Title>
-                      Absent applications
-                    </Title>
-                    <Text>2 đơn</Text>
-                  </View>
-                </View>
-                <View>
-                  <IconButton
-                    onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
-                    size={38}
-                    icon="arrow-right-circle"
-                  ></IconButton>
-                </View>
-              </View>
-            </View>
-            <View style={styles.card}>
-              <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%' }}>
-                  <Icon
-                    style={styles.icon}
-                    name="wpforms"
-                    color="#000000"
-                  ></Icon>
-                  <View>
-                    <Title>
-                      Overtime application
-                    </Title>
-                    <Text>2 đơn</Text>
-                  </View>
-                </View>
-                <View>
-                  <IconButton
-                    onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
-                    size={38}
-                    icon="arrow-right-circle"
-                  ></IconButton>
-                </View>
-              </View>
-            </View>
-            <View style={styles.card}>
-              <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%' }}>
-                  <Icon
-                    style={styles.icon}
-                    name="briefcase"
-                    color="#e91e63"
-                  ></Icon>
-                  <View>
-                    <Title>Seniority</Title>
-                    <Text>36 ngày</Text>
-                  </View>
-                </View>
-                <View>
-                  <IconButton
-                    onPress={() => setModalVisible(true)}
-                    size={38}
-                    icon="arrow-right-circle"
-                  ></IconButton>
-                </View>
-              </View>
-            </View>
-            <View style={styles.card}>
-              <View style={styles.spaceBetween}>
-                <View style={{ flexDirection: "row", width: '70%' }}>
-                  <Icon
-                    style={styles.icon}
-                    name="camera"
-                    color="#9c27b0"
-                  ></Icon>
-                  <View>
-                    <Title>Summary</Title>
-                    <Text>Summary infomation</Text>
-                  </View>
-                </View>
-                <View>
-                  <IconButton
-                    onPress={() => setModalVisible(true)}
-                    size={38}
-                    icon="arrow-right-circle"
-                  ></IconButton>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View>
-            <Modal
-              style={{ backgroundColor: "white" }}
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                setModalVisible(!modalVisible);
+            <View
+              style={{
+                backgroundColor: "white",
+                paddingBottom: 30,
+                padding: 10,
               }}
             >
-              <Card
-                style={{
-                  marginTop: height / 3,
-                  backgroundColor: "#89d5c9",
-                  marginHorizontal: 20,
+              <View style={styles.card}>
+                <View style={styles.spaceBetween}>
+                  <View style={{ flexDirection: "row", width: '70%' }}>
+                    <Icon style={styles.icon} name="camera" color="red"></Icon>
+                    <View>
+                      <Title>
+                        Check-in statistics
+                      </Title>
+                      <Text>Check-in infomation</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => navigation.navigate("Statistics")}
+                      size={38}
+                      icon="arrow-right-circle"
+                    ></IconButton>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.spaceBetween}>
+                  <View style={{ flexDirection: "row", width: '70%' }}>
+                    <Icon
+                      style={styles.icon}
+                      name="wpforms"
+                      color="#00bcd4"
+                    ></Icon>
+                    <View>
+                      <Title>
+                        Absent applications
+                      </Title>
+                      <Text>2 đơn</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
+                      size={38}
+                      icon="arrow-right-circle"
+                    ></IconButton>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.spaceBetween}>
+                  <View style={{ flexDirection: "row", width: '70%' }}>
+                    <Icon
+                      style={styles.icon}
+                      name="wpforms"
+                      color="#000000"
+                    ></Icon>
+                    <View>
+                      <Title>
+                        Overtime application
+                      </Title>
+                      <Text>2 đơn</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
+                      size={38}
+                      icon="arrow-right-circle"
+                    ></IconButton>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.spaceBetween}>
+                  <View style={{ flexDirection: "row", width: '70%' }}>
+                    <Icon
+                      style={styles.icon}
+                      name="briefcase"
+                      color="#e91e63"
+                    ></Icon>
+                    <View>
+                      <Title>Seniority</Title>
+                      <Text>36 ngày</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => setModalVisible(true)}
+                      size={38}
+                      icon="arrow-right-circle"
+                    ></IconButton>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.spaceBetween}>
+                  <View style={{ flexDirection: "row", width: '70%' }}>
+                    <Icon
+                      style={styles.icon}
+                      name="camera"
+                      color="#9c27b0"
+                    ></Icon>
+                    <View>
+                      <Title>Summary</Title>
+                      <Text>Summary infomation</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <IconButton
+                      onPress={() => setModalVisible(true)}
+                      size={38}
+                      icon="arrow-right-circle"
+                    ></IconButton>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View>
+              <Modal
+                style={{ backgroundColor: "white" }}
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  setModalVisible(!modalVisible);
                 }}
               >
-                <ImageBackground source={{
-                  uri: 'https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg',
-                }}
-                  style={{ height: height / 2 }}>
+                <Card
+                  style={{
+                    marginTop: height / 3,
+                    backgroundColor: "#89d5c9",
+                    marginHorizontal: 20,
+                  }}
+                >
+                  <ImageBackground source={{
+                    uri: 'https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg',
+                  }}
+                    style={{ height: height / 2 }}>
 
-                  <IconButton
-                    style={styles.iconButton}
-                    icon="window-close"
-                    onPress={() => setModalVisible(!modalVisible)}
-                    color="white"
-                  />
-                  <View style={styles.avatarContainer}>
-                    <Image
-                      source={{
-                        uri: "https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg",
-                      }}
-                      style={styles.avatar}
+                    <IconButton
+                      style={styles.iconButton}
+                      icon="window-close"
+                      onPress={() => setModalVisible(!modalVisible)}
+                      color="white"
                     />
-                  </View>
-                  <Text style={styles.textName}>Ho va ten</Text>
-                  <Text
-                    style={{ fontSize: 18, textAlign: "center", color: "white" }}
-                  >
-                    Cảm ơn bạn đã đòng hành cùng công ty
-                  </Text>
-                  <View
-                    style={{
-                      alignSelf: "center",
-                      marginVertical: 20,
-                      color: "white",
-                    }}
-                  >
-                    <Text style={{ color: "white" }}>Tổng số ngày làm việc</Text>
-                    <Text style={{ textAlign: "center", color: "white" }}>
-                      36 ngày
+                    <View style={styles.avatarContainer}>
+                      <Image
+                        source={{
+                          uri: "https://i.pinimg.com/564x/91/d8/16/91d8168b2659797cb9471d6e0796120c.jpg",
+                        }}
+                        style={styles.avatar}
+                      />
+                    </View>
+                    <Text style={styles.textName}>Ho va ten</Text>
+                    <Text
+                      style={{ fontSize: 18, textAlign: "center", color: "white" }}
+                    >
+                      Cảm ơn bạn đã đòng hành cùng công ty
                     </Text>
-                  </View>
-                </ImageBackground>
-              </Card>
-            </Modal>
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        marginVertical: 20,
+                        color: "white",
+                      }}
+                    >
+                      <Text style={{ color: "white" }}>Tổng số ngày làm việc</Text>
+                      <Text style={{ textAlign: "center", color: "white" }}>
+                        36 ngày
+                      </Text>
+                    </View>
+                  </ImageBackground>
+                </Card>
+              </Modal>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </>
-  );
+        </ScrollView>
+      </>
+    )
+  }
+  return cardView();
+
 }
 
 const styles = StyleSheet.create({

@@ -28,6 +28,7 @@ function Login({ navigation }) {
     setIsHidePassword((show) => !show);
   };
   const handleLogin = () => {
+    setToken("");
     setIsLoading(true);
     const { email, password } = account;
     if (email == "" || password == "") {

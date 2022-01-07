@@ -15,7 +15,11 @@ import Images from "../constants/Images";
 import useToken from "../services/useToken";
 
 function Onboarding({ navigation }) {
-  const { token, setToken } = useToken();
+  const { setToken } = useToken();
+  const setDefault = () => {
+    setToken("");
+    navigation.navigate("Login")
+  }
   return (
     <View style={styles.container}>
       <StatusBar hidden />
@@ -43,7 +47,7 @@ function Onboarding({ navigation }) {
           <View center>
             <Button
               style={styles.button}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => setDefault()}
             >
               <Text style={{fontSize: 18, color: 'black'}}>BẮT ĐẦU</Text>
             </Button>
