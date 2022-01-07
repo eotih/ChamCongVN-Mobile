@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function useToken() {
-
-  const [token, setToken] = useState('');
   const getToken = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('token', (err, result) => {
@@ -21,9 +19,7 @@ export default function useToken() {
     }
   };
 
-  useEffect(() => {
-    getToken();
-  }, [])
+  const [token, setToken] = useState(getToken());
 
   const saveToken = async (userToken) => {
     try {

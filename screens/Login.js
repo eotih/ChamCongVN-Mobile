@@ -29,6 +29,7 @@ function Login({ navigation }) {
     setIsHidePassword((show) => !show);
   };
   const handleLogin = () => {
+    setToken("");
     setIsLoading(true);
     const { email, password } = account;
     if (email == "" || password == "") {
@@ -39,9 +40,7 @@ function Login({ navigation }) {
         .then((res) => {
           const { Status, Message } = res.data;
           if (Status === 200) {
-            ToastAndroid.show(
-              'Login Success', ToastAndroid.SHORT
-            );
+            ToastAndroid.show('Login Success', ToastAndroid.SHORT);
             setToken(Message);
             navigation.navigate("App");
           } else {

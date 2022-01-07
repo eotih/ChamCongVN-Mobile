@@ -23,7 +23,6 @@ export default function Home({ navigation }) {
   const [account, setAccount] = React.useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
   const [dataEmp, setDataEmp] = useState([]);
-  // const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
   useEffect(() => {
     const jsonValue = AsyncStorage.getItem('token', (err, result) => {
       const decoded = jwtDecode(result);
