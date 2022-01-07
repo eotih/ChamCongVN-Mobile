@@ -74,7 +74,7 @@ export default function MatKhau({ route }) {
     <ScrollView
     >
       <View style={styles.card}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Bạn muốn thay đổi mật khẩu</Text>
+        <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: 'center' }}>Bạn muốn thay đổi mật khẩu</Text>
         <View >
           <TextInput style={styles.text}
             label="Nhập mật khẩu cũ"
@@ -114,11 +114,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     backgroundColor: 'white',
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 8,
-    shadowOpacity: 0.2,
-    zIndex: 2
   },
   text: {
     marginTop: 20
