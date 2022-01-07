@@ -226,7 +226,8 @@ export default function checkCamera() {
           <Image
             style={styles.image}
             source={{ uri: "data:image/image/png;base64," + image }} />
-          : <Camera
+            
+          :<Camera
             style={StyleSheet.absoluteFill}
             ref={ref}
             type={Camera.Constants.Type.front}
@@ -239,15 +240,16 @@ export default function checkCamera() {
               tracking: false
             }}
           >
-            <AnimatedCircularProgress
-              style={styles.circularProgress}
-              fill={fillCircle}
-              size={PREVIEW_SIZE}
-              width={10}
-              backgroundWidth={7}
-              tintColor="#fea621"
-              backgroundColor="#e8e8e8"
-            />
+            <View style={{marginTop: PREVIEW_RECT.minY * 7 }}></View>
+              <AnimatedCircularProgress
+                style={styles.circularProgress}
+                fill={fillCircle}
+                size={PREVIEW_SIZE}
+                width={10}
+                backgroundWidth={7}
+                tintColor="#fea621"
+                backgroundColor="#e8e8e8"
+              />
           </Camera>}
       </MaskedView>
 
@@ -348,17 +350,16 @@ const styles = StyleSheet.create({
     borderRadius: PREVIEW_SIZE / 2,
     height: PREVIEW_SIZE,
     width: PREVIEW_SIZE,
-    marginTop: PREVIEW_RECT.minY,
+    marginTop: PREVIEW_RECT.minY * 8,
     alignSelf: "center",
     backgroundColor: "white"
   },
   circularProgress: {
-    position: "absolute",
     top: PREVIEW_RECT.minY,
     left: PREVIEW_RECT.minX,
     width: PREVIEW_SIZE,
     height: PREVIEW_SIZE,
-    alignSelf: "center"
+    justifyContent: "center",
   },
   instructionsContainer: {
     flex: 1,
@@ -367,9 +368,9 @@ const styles = StyleSheet.create({
     marginTop: PREVIEW_RECT.minY + PREVIEW_SIZE
   },
   image: {
-    width: PREVIEW_SIZE,
+    width: PREVIEW_SIZE.minY,
     height: PREVIEW_SIZE,
-    marginTop: PREVIEW_RECT.minY,
+    marginTop: PREVIEW_RECT.minY * 8,
   },
 
 })
