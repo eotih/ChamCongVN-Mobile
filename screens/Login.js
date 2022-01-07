@@ -42,6 +42,7 @@ function Login({ navigation }) {
           if (Status === 200) {
             ToastAndroid.show('Login Success', ToastAndroid.SHORT);
             setToken(Message);
+            setIsLoading(false);
             navigation.navigate("App");
           } else {
             setIsLoading(false);

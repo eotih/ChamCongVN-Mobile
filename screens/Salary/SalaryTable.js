@@ -5,10 +5,11 @@ import { BarChart } from 'react-native-gifted-charts';
 import { AccountContext } from '../../context/AccountContext';
 import { GetSalaryByEmloyeeID } from '../../functions/Salary';
 import { getAbsentApplication } from '../../functions/Application';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
 
 function SalaryTable({ navigation }) {
-    const account = useContext(AccountContext);
-    const { EmployeeID } = account.employees.Employee;
+    const [EmployeeID, setEmployeeID] = useState('');
     const [dataChart, setDataChart] = useState([]);
     const [Salary, setSalary] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
@@ -18,6 +19,10 @@ function SalaryTable({ navigation }) {
     const data = [];
     var year = new Date().getFullYear();
     useEffect(() => {
+        const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+            const decoded = jwtDecode(result);
+            setEmployeeID(decoded.nameid[2]);
+        })
         GetSalaryByEmloyeeID(EmployeeID).then((salary) => {
             const datafilter = salary.filter(item => item.Year === year - 1);
             setlistdata(datafilter);

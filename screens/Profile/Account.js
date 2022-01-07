@@ -7,45 +7,22 @@ import {
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
 import BaseUrl from '../../functions/BaseUrl';
-import { GetAccountByID } from "../../functions/TimeKeeper"
-
+import md5 from 'md5';
 import { TextInput, Button, Text } from 'react-native-paper';
 
 export default function MatKhau({ route }) {
+  const { MaND, Name, password } = route.params;
   const [data, setData] = useState({
-    OldPassword: '',
-    FullName: '',
+    OldPassword: password,
+    FullName: Name,
     OldPasswordInput: '',
     NewPassword: '',
     NewPassword2: '',
-    AccountID: '',
+    AccountID: MaND,
   });
 
-  useEffect(() => {
-    const id = route.params.MaND;
-    GetAccountByID(id).then(res => {
-      const password = getMD5(res.Password)
-      data.OldPassword = password;
-      data.AccountID = id;
-      data.FullName = res.Employee.FullName;
-    })
-  }, []);
-
-  const getMD5 = (password) => {
-    var ReverseMd5 = require('reverse-md5');
-    var rev = ReverseMd5({
-      lettersUpper: false,
-      lettersLower: true,
-      numbers: true,
-      special: false,
-      whitespace: true,
-      maxLen: 12
-    })
-    return (rev(password).str);
-  };
-
   const handleSubmit = (event) => {
-    if (data.OldPassword !== data.OldPasswordInput) {
+    if (data.OldPassword !== md5(data.OldPasswordInput)) {
       alert("Invalid Olđ Password!")
     }
     else {
