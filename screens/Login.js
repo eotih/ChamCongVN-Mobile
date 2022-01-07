@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   View,
+  ToastAndroid,
   Text
 } from "react-native";
 import { Images, argonTheme } from "../constants";
@@ -38,7 +39,9 @@ function Login({ navigation }) {
         .then((res) => {
           const { Status, Message } = res.data;
           if (Status === 200) {
-            alert("Đăng nhập thành công");
+            ToastAndroid.show(
+              'Login Success', ToastAndroid.SHORT
+            );
             setToken(Message);
             navigation.navigate("App");
           } else {

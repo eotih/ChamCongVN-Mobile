@@ -16,12 +16,6 @@ function AccountProvider({ children, token }) {
       const decoded = jwtDecode(token);
       const AccountID = decoded.nameid[0];
       const EmployeeID = decoded.nameid[2];
-      getAccountById(AccountID).then((res) => {
-        return res
-      });
-      getEmployees(EmployeeID).then((res) => {
-        return res;
-      });
       Promise.all([getAccountById(AccountID), getEmployees(EmployeeID)]).then(
         ([res1, res2]) => {
           setAccount(res1);
@@ -33,7 +27,6 @@ function AccountProvider({ children, token }) {
       return <Login />;
     }
   }, [token]);
-
   return (
     <AccountContext.Provider value={{ account, employees }}>
       {children}

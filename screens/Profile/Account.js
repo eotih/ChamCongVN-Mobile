@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -8,22 +8,30 @@ import {
 const { height, width } = Dimensions.get('screen');
 import BaseUrl from '../../functions/BaseUrl';
 import { GetAccountByID } from "../../functions/TimeKeeper"
-import md5 from "md5"
 
 import { TextInput, Button, Text } from 'react-native-paper';
 
-export default class MatKhau extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      OldPassword: '1',
-      OldPasswordInput: '',
-      NewPassword: '',
-      NewPassword2: '',
-      FullName: '',
-    }
-  }
-  getMD5(password) {
+export default function MatKhau({ route }) {
+  const [data, setData] = useState({
+    OldPassword: '',
+    FullName: '',
+    OldPasswordInput: '',
+    NewPassword: '',
+    NewPassword2: '',
+    AccountID: '',
+  });
+
+  useEffect(() => {
+    const id = route.params.MaND;
+    GetAccountByID(id).then(res => {
+      const password = getMD5(res.Password)
+      data.OldPassword = password;
+      data.AccountID = id;
+      data.FullName = res.Employee.FullName;
+    })
+  }, []);
+
+  const getMD5 = (password) => {
     var ReverseMd5 = require('reverse-md5');
     var rev = ReverseMd5({
       lettersUpper: false,
@@ -34,76 +42,68 @@ export default class MatKhau extends React.Component {
       maxLen: 12
     })
     return (rev(password).str);
-  }
-  handleSubmit(event) {
-    if (this.state.OldPassword !== this.state.OldPasswordInput) {
+  };
+
+  const handleSubmit = (event) => {
+    if (data.OldPassword !== data.OldPasswordInput) {
       alert("Invalid Olđ Password!")
     }
     else {
-      if (this.state.NewPassword !== this.state.NewPassword2) {
+      if (data.NewPassword !== data.NewPassword2) {
         alert("The password does not match.")
       }
       else {
-        var newpassword = md5(this.state.NewPassword);
-        BaseUrl.post('Organization/PasswordAccount/' + 1, {
-          AccountID: 1,
-          Password: newpassword,
-          UpdatedBy: this.state.FullName,
+        console.log(data.NewPassword)
+        BaseUrl.put('Organization/Account/Password/' + data.AccountID, {
+          AccountID: data.AccountID,
+          Password: data.NewPassword,
+          UpdatedBy: data.FullName,
         })
           .then(res => {
-            if (res.data.Status === 'Updated') {
+            if (res.data.Status === 200) {
               alert(res.data.Message);
             } else {
-              alert('Data not update');
+              alert(res.data.Message);
             }
           })
       }
     }
-  }
-  componentDidMount() {
-    GetAccountByID(1).then(res => {
-      const password = this.getMD5(res.Password)
-      this.setState({
-        OldPassword: password,
-        FullName: this.props.route.params.TenND
-      })
-    })
-  }
+  };
 
-  render() {
-    const { navigation, route } = this.props;
-    return (
-      <ScrollView
-      >
-        <View style={styles.card}>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>Bạn muốn thay đổi mật khẩu</Text>
-          <View >
-            <TextInput style={styles.text}
-              label="Nhập mật khẩu cũ"
-              mode="outlined"
-              activeOutlineColor="black"
-              onChangeText={text => this.setState({ OldPasswordInput: text })}>
-            </TextInput>
-            <TextInput style={styles.text}
-              label="Nhập mật khẩu cũ"
-              mode="outlined"
-              onChangeText={text => this.setState({ OldPasswordInput: text })}>
-            </TextInput>
-            <TextInput style={styles.text}
-              label="Nhập mật khẩu cũ"
-              mode="outlined"
-              onChangeText={text => this.setState({ OldPasswordInput: text })}>
-            </TextInput>
-            <View>
-              <Button style={styles.commandButton} onPress={() => this.handleSubmit()}>
-                <Text style={{ color: "white" }}>Submit</Text>
-              </Button>
-            </View>
+  return (
+    <ScrollView
+    >
+      <View style={styles.card}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Bạn muốn thay đổi mật khẩu</Text>
+        <View >
+          <TextInput style={styles.text}
+            label="Nhập mật khẩu cũ"
+            mode="outlined"
+            activeOutlineColor="black"
+            value={data.OldPasswordInput}
+            onChangeText={(text) => setData({ ...data, OldPasswordInput: text })}>
+          </TextInput>
+          <TextInput style={styles.text}
+            label="Nhập mật khẩu mới"
+            mode="outlined"
+            value={data.NewPassword}
+            onChangeText={(text) => setData({ ...data, NewPassword: text })}>
+          </TextInput>
+          <TextInput style={styles.text}
+            label="Nhập lại mật khẩu"
+            mode="outlined"
+            value={data.NewPassword2}
+            onChangeText={(text) => setData({ ...data, NewPassword2: text })}>
+          </TextInput>
+          <View>
+            <Button style={styles.commandButton} onPress={() => handleSubmit()}>
+              <Text style={{ color: "white" }}>Submit</Text>
+            </Button>
           </View>
         </View>
-      </ScrollView>
-    );
-  }
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({

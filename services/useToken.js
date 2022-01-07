@@ -14,7 +14,7 @@ export default function useToken() {
           return (result);
         }
       })
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      return (jsonValue != null ? JSON.parse(jsonValue) : null);
     }
     catch (error) {
       console.log(error);

@@ -16,12 +16,23 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Images, argonTheme } from "../../constants";
 import { HeaderHeight } from "../../constants/utils";
-import { AccountContext } from "../../context/AccountContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getEmployees } from "../../functions/Employee";
+import jwtDecode from "jwt-decode";
 
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 function BaseInformation({ navigation }) {
-  const account = React.useContext(AccountContext);
+  const [dataEmp, setDataEmp] = useState([]);
+  const [accountID, setAccountID] = useState('');
+  useEffect(() => {
+    const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+      const decoded = jwtDecode(result);
+      const EmployeeID = decoded.nameid[2];
+      setAccountID(decoded.nameid[0]);
+      getEmployees(EmployeeID).then(response => setDataEmp(response));
+    })
+  }, [])
   const {
     Employee,
     FullName,
@@ -29,13 +40,12 @@ function BaseInformation({ navigation }) {
     GroupName,
     WorkName,
     DepartmentName,
-  } = account.employees;
-  const { NickName, Phone, Gender, Address } = Employee;
+  } = dataEmp;
   const renderInformation = () => {
     return (
       <ScrollView>
         <View style={styles.profile}>
-          <View>
+          {Employee && (<View>
             <ImageBackground
               source={Images.ProfileBackground}
               style={styles.profileContainer}
@@ -68,14 +78,14 @@ function BaseInformation({ navigation }) {
                             name="user"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
                             color="#32325D"
                             style={{ marginLeft: 13 }}
                           >
-                            NickName: {NickName}
+                            NickName: {Employee.NickName}
                           </Text>
                         </View>
                         <View style={styles.text}>
@@ -83,14 +93,14 @@ function BaseInformation({ navigation }) {
                             name="phone"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
                             color="#32325D"
                             style={{ marginLeft: 10 }}
                           >
-                            Số điện thoại: {Phone}
+                            Số điện thoại: {Employee.Phone}
                           </Text>
                         </View>
                         <View style={styles.text}>
@@ -98,14 +108,14 @@ function BaseInformation({ navigation }) {
                             name="user"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
                             color="#32325D"
                             style={{ marginLeft: 13 }}
                           >
-                            Giới tính: {Gender}
+                            Giới tính: {Employee.Gender}
                           </Text>
                         </View>
                         <View style={styles.text}>
@@ -113,14 +123,14 @@ function BaseInformation({ navigation }) {
                             name="globe"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
                             color="#32325D"
                             style={{ marginLeft: 10 }}
                           >
-                            Địa chỉ: {Address}
+                            Địa chỉ: {Employee.Address}
                           </Text>
                         </View>
                       </View>
@@ -133,7 +143,7 @@ function BaseInformation({ navigation }) {
                             name="calendar"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
@@ -148,7 +158,7 @@ function BaseInformation({ navigation }) {
                             name="users"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
@@ -163,7 +173,7 @@ function BaseInformation({ navigation }) {
                             name="user"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
@@ -178,7 +188,7 @@ function BaseInformation({ navigation }) {
                             name="briefcase"
                             size={24}
                             color="#00CCCC"
-                            style={{ marginLeft: 10, marginTop: -3, paddingBottom:10, }}
+                            style={{ marginLeft: 10, marginTop: -3, paddingBottom: 10, }}
                           />
                           <Text
                             size={18}
@@ -195,7 +205,7 @@ function BaseInformation({ navigation }) {
                     <TouchableOpacity
                       style={styles.Button}
                       onPress={() =>
-                        navigation.navigate("Account", { MaND: "A3" })
+                        navigation.navigate("Account", { MaND: accountID })
                       }
                     >
                       <Text
@@ -210,7 +220,7 @@ function BaseInformation({ navigation }) {
                 </View>
               </ScrollView>
             </ImageBackground>
-          </View>
+          </View>)}
         </View>
       </ScrollView>
     );
@@ -220,9 +230,9 @@ function BaseInformation({ navigation }) {
     <View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{  width }}
+        contentContainerStyle={{ width }}
       >
-        {account.employees ? renderInformation() : <View></View>}
+        {dataEmp ? renderInformation() : <View></View>}
       </ScrollView>
     </View>
   );

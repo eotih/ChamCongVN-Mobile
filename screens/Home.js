@@ -1,4 +1,4 @@
-import React, { useState, BackHandler  } from "react";
+import React, { useState, BackHandler, useEffect } from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -11,16 +11,26 @@ import {
   Alert,
 } from "react-native";
 import { Card, Title, Text, IconButton } from "react-native-paper";
-import Notifications from "../screens/Notification";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { accountContext } from "../context/Hooks";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getEmployees } from "../functions/Employee";
+import jwtDecode from "jwt-decode";
 
 const { width, height } = Dimensions.get("screen");
 
 export default function Home({ navigation }) {
   const [account, setAccount] = React.useState(accountContext());
   const [modalVisible, setModalVisible] = useState(false);
-  const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  const [dataEmp, setDataEmp] = useState([]);
+  // const { EmployeeName, EmployeeImage, DepartmentName, PositionName, GroupName, WorkName } = account.employees;
+  useEffect(() => {
+    const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+      const decoded = jwtDecode(result);
+      const EmployeeID = decoded.nameid[2];
+      getEmployees(EmployeeID).then(response => setDataEmp(response));
+    })
+  }, [])
   if (account && !account.employees && !EmployeeName) {
     Alert('Vui lòng đăng nhập lại')
     navigation.navigate("Login");
@@ -29,41 +39,39 @@ export default function Home({ navigation }) {
     <>
       <ScrollView style={styles.container}>
         <View>
-          {account.employees && EmployeeName && (
-            <View style={styles.info}>
-              <View style={{ alignItems: "center" }}>
-                <Image
-                  style={{
-                    width: width / 4,
-                    height: height / 7,
-                    borderRadius: 10,
-                    marginBottom: 20,
-                  }}
-                  source={{ uri: EmployeeImage }}
-                ></Image>
-              </View>
-               <View style={styles.spaceBetween}>
-                <Text style={styles.textTitleInfo}>Tên:</Text>
-                <Text style={styles.textInfo}>{EmployeeName}</Text>
-              </View>
-              <View style={styles.spaceBetween}>
-                <Text style={styles.textTitleInfo}>Vị trí:</Text>
-                <Text style={styles.textInfo}>{PositionName}</Text>
-              </View>
-              <View style={styles.spaceBetween}>
-                <Text style={styles.textTitleInfo}>Phòng ban:</Text>
-                <Text style={styles.textInfo}>{DepartmentName}</Text>
-              </View>
-              <View style={styles.spaceBetween}>
-                <Text style={styles.textTitleInfo}>Nhóm:</Text>
-                <Text style={styles.textInfo}>{GroupName}</Text>
-              </View>
-              <View style={styles.spaceBetween}>
-                <Text style={styles.textTitleInfo}>Công việc:</Text>
-                <Text style={styles.textInfo}>{WorkName}</Text>
-              </View>
+          {dataEmp && (<View style={styles.info}>
+            <View style={{ alignItems: "center" }}>
+              <Image
+                style={{
+                  width: width / 4,
+                  height: height / 7,
+                  borderRadius: 10,
+                  marginBottom: 20,
+                }}
+                source={{ uri: dataEmp.EmployeeImage }}
+              ></Image>
             </View>
-          )}
+            <View style={styles.spaceBetween}>
+              <Text style={styles.textTitleInfo}>Tên:</Text>
+              <Text style={styles.textInfo}>{dataEmp.EmployeeName}</Text>
+            </View>
+            <View style={styles.spaceBetween}>
+              <Text style={styles.textTitleInfo}>Vị trí:</Text>
+              <Text style={styles.textInfo}>{dataEmp.PositionName}</Text>
+            </View>
+            <View style={styles.spaceBetween}>
+              <Text style={styles.textTitleInfo}>Phòng ban:</Text>
+              <Text style={styles.textInfo}>{dataEmp.DepartmentName}</Text>
+            </View>
+            <View style={styles.spaceBetween}>
+              <Text style={styles.textTitleInfo}>Nhóm:</Text>
+              <Text style={styles.textInfo}>{dataEmp.GroupName}</Text>
+            </View>
+            <View style={styles.spaceBetween}>
+              <Text style={styles.textTitleInfo}>Công việc:</Text>
+              <Text style={styles.textInfo}>{dataEmp.WorkName}</Text>
+            </View>
+          </View>)}
           <View
             style={{
               backgroundColor: "white",
