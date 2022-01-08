@@ -22,7 +22,7 @@ export default function OverTimeApplications({ data }) {
                 <Card style={styles.cardContainer} key={index}>
                     <Card.Content>
                         <View style={{ borderBottomWidth: 1 }}>
-                            {item.StateID === 1 ?
+                            {item.OverTimeApplications.StateID === 1 ?
                                 <Title style={{ color: '#fbc02d', alignSelf: 'flex-end' }}>Pending</Title>
                                 : item.StateID === 2 ?
                                     <Title style={{ color: '#388e3c', alignSelf: 'flex-end' }}>Approved</Title> :

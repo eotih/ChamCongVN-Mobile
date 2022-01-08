@@ -42,8 +42,7 @@ export default function OverTimeApplications({ navigation }) {
             .then((res) => {
                 if (res.data.Status === 200) {
                     alert(res.data.Message);
-                    navigation.replace("Management Application");
-
+                    navigation.navigate('Management Application')
                 } else {
                     alert(res.data.Message);
                 }
