@@ -4,23 +4,28 @@ import { argonTheme, tabs } from "../../constants";
 import { IconButton, Colors, Text, TextInput } from 'react-native-paper';
 import Axios from "../../functions/BaseUrl";
 import SelectDropdown from 'react-native-select-dropdown';
-import { AccountContext } from '../../context/AccountContext';
+import { getEmployees } from "../../functions/Employee";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
 
 const { width, height } = Dimensions.get('window');
-export default function OverTimeApplications() {
-    const account = useContext(AccountContext);
-    const { EmployeeID, FullName } = account.employees.Employee;
+export default function OverTimeApplications({ navigation }) {
     const [timeEnd, settimeEnd] = useState("");
     const [timeStart, settimeStart] = useState("");
     const [data, setData] = useState([]);
     const [dataRegister, setDataRegister] = useState({
-        EmployeeID: EmployeeID,
+        EmployeeID: '',
         StateID: 1,
         OverTimeID: "",
-        Note: "",
-        CreatedBy: FullName,
+        Note: '',
+        CreatedBy: '',
     });
     useEffect(() => {
+        const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+            const decoded = jwtDecode(result);
+            const EmployeeID = decoded.nameid[2];
+            getEmployees(EmployeeID).then(response => { dataRegister.EmployeeID = response.Employee.EmployeeID, dataRegister.CreatedBy = response.Employee.FullName });
+        });
         getOverTime().then((res) => {
             const result = res.filter(item => item.Overtime.IsActive === true);
             setData(result);
@@ -37,6 +42,8 @@ export default function OverTimeApplications() {
             .then((res) => {
                 if (res.data.Status === 200) {
                     alert(res.data.Message);
+                    navigation.replace("Management Application");
+
                 } else {
                     alert(res.data.Message);
                 }
@@ -124,7 +131,7 @@ export default function OverTimeApplications() {
                             multiline
                             numberOfLines={6}
                             label="Note"
-                            onChangeText={text => dataRegister.Note = text}
+                            onChangeText={(text) => setDataRegister({ ...dataRegister, Note: text })}
                             mode="outlined"
                         />
                     </View>

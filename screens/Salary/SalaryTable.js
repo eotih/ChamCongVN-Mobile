@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
+import { ScrollBlock, Image, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
 import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 import { BarChart } from 'react-native-gifted-charts';
-import { AccountContext } from '../../context/AccountContext';
 import { GetSalaryByEmloyeeID } from '../../functions/Salary';
 import { getAbsentApplication } from '../../functions/Application';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +9,7 @@ import jwtDecode from "jwt-decode";
 
 function SalaryTable({ navigation }) {
     const [EmployeeID, setEmployeeID] = useState('');
+    const [loading, setLoading] = useState(true);
     const [dataChart, setDataChart] = useState([]);
     const [Salary, setSalary] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
@@ -19,32 +19,38 @@ function SalaryTable({ navigation }) {
     const data = [];
     var year = new Date().getFullYear();
     useEffect(() => {
-        const jsonValue = AsyncStorage.getItem('token', (err, result) => {
-            const decoded = jwtDecode(result);
-            setEmployeeID(decoded.nameid[2]);
-        })
-        GetSalaryByEmloyeeID(EmployeeID).then((salary) => {
-            const datafilter = salary.filter(item => item.Year === year - 1);
-            setlistdata(datafilter);
-            datafilter.map(item => {
-                const month = item.Month;
-                data.push(getValueColor(item.TotalSalary, month))
-            })
-            const totalsalary = datafilter.map(item => item.TotalSalary).reduce((prev, curr) => prev + curr, 0);
-            const hours = datafilter.map(item => item.TotalTime).reduce((prev, curr) => prev + curr, 0);
-            const overTimeHour = datafilter.map(item => item.TotalOvertimeSalary).reduce((prev, curr) => prev + curr, 0);
-            setSalary(totalsalary);
-            setOvertime(overTimeHour);
-            setTotalTime(hours);
-            setDataChart(data)
-        })
-        getAbsentApplication(EmployeeID).then((res) => {
-            const datafilter = res.filter(item => item.Year === year && item.StateID === 2);
-            const totalAbsentDay = datafilter.map(item => item.NumberOfDays).reduce((prev, curr) => prev + curr, 0);
-            setTotalAbsent(totalAbsentDay);
-        })
+        getData();
     }, []);
 
+    const getData = async () => {
+        const jsonValue = await AsyncStorage.getItem('token', (err, result) => {
+            if (result) {
+                const decoded = jwtDecode(result);
+                setEmployeeID(decoded.nameid[2]);
+                GetSalaryByEmloyeeID(decoded.nameid[2]).then((salary) => {
+                    const datafilter = salary.filter(item => item.Year === year - 1);
+                    setlistdata(datafilter);
+                    datafilter.map(item => {
+                        const month = item.Month;
+                        data.push(getValueColor(item.TotalSalary, month))
+                    })
+                    const totalsalary = datafilter.map(item => item.TotalSalary).reduce((prev, curr) => prev + curr, 0);
+                    const hours = datafilter.map(item => item.TotalTime).reduce((prev, curr) => prev + curr, 0);
+                    const overTimeHour = datafilter.map(item => item.TotalOvertimeSalary).reduce((prev, curr) => prev + curr, 0);
+                    setSalary(totalsalary);
+                    setOvertime(overTimeHour);
+                    setTotalTime(hours);
+                    setDataChart(data)
+                });
+                getAbsentApplication(decoded.nameid[2]).then((res) => {
+                    const datafilter = res.filter(item => item.Year === year && item.StateID === 2);
+                    const totalAbsentDay = datafilter.map(item => item.NumberOfDays).reduce((prev, curr) => prev + curr, 0);
+                    setTotalAbsent(totalAbsentDay);
+                    setLoading(false);
+                });
+            }
+        })
+    }
     const styleDataChart = (salary, label, frontColor, sideColor, topColor) => {
         return ({
             value: salary,
@@ -54,6 +60,7 @@ function SalaryTable({ navigation }) {
             topColor: topColor,
         });
     }
+
     const getValueColor = (salary, Month) => {
         switch (Month) {
             case 1:
@@ -83,6 +90,19 @@ function SalaryTable({ navigation }) {
             default:
                 return <View> </View>;
         }
+    }
+
+    if (loading) {
+        return (
+            // set loading in center of screen
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <Image
+                    style={{ width: 200, height: 200 }}
+                    source={require("../../assets/imgs/logo.png")}
+                />
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
+            </View>
+        );
     }
     return (
         <ScrollView style={{ marginHorizontal: 20 }}>

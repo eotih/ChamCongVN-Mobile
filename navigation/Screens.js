@@ -152,6 +152,16 @@ function ApplicationStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
+      <Stack.Screen
+        name="Management Application"
+        component={ApplicationManagement}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Management Application" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" }
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -239,7 +249,6 @@ function HomeStack(props) {
       <Stack.Screen
         name="Home"
         component={Home}
-        account='TAC'
         options={{
           header: ({ navigation, scene }) => (
             <Header

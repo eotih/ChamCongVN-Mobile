@@ -3,20 +3,23 @@ import { View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "reac
 import { Button, Card, Title, Paragraph, Text, IconButton } from 'react-native-paper';
 import AbsentApplications from '../../components/ApplicationManagement/AbsentApplications';
 import OvertimeApplications from '../../components/ApplicationManagement/OverTimeApplications';
-import { AccountContext } from '../../context/AccountContext';
 import { getAbsentApplication, getOverTimeApplication } from '../../functions/Application';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
 
 const { width, height } = Dimensions.get('window');
 function ApplicationManagement() {
-    const account = useContext(AccountContext);
-    const { EmployeeID } = account.employees.Employee;
     const [active, setActive] = useState(1);
     const [overtimeData, setovertimeData] = useState([]);
     const [absentData, setAbsentData] = useState([]);
     useEffect(() => {
-        getAbsentApplication(EmployeeID).then(result => setAbsentData(result));
-        getOverTimeApplication(EmployeeID).then(result => setovertimeData(result));
-    }, [absentData, overtimeData]); 
+        const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+            const decoded = jwtDecode(result);
+            const EmployeeID = decoded.nameid[2];
+            getAbsentApplication(EmployeeID).then(result => setAbsentData(result));
+            getOverTimeApplication(EmployeeID).then(result => setovertimeData(result));
+        })
+    }, []);
     return (
         <>
             <View>
