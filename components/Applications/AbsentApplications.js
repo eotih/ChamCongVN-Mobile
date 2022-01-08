@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, View } from "react-native";
 import Axios from "../../functions/BaseUrl";
 import { Select } from "..";
@@ -6,25 +6,35 @@ import { IconButton, Colors } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from "moment";
 import { TextInput, Text, Switch } from 'react-native-paper';
-import { AccountContext } from '../../context/AccountContext';
+import { getEmployees } from "../../functions/Employee";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
+
 
 const { width, height } = Dimensions.get('window');
-export default function AbsentApplications() {
-  const account = useContext(AccountContext);
-  const { EmployeeID, FullName } = account.employees.Employee;
+export default function AbsentApplications({ navigation }) {
+  // const { EmployeeID, FullName } = account.employees.Employee;
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState();
   const [show, setShow] = useState(false);
   const [showPicker, setShowPicker] = useState();
   const [data, setData] = useState({
-    EmployeeID: EmployeeID,
+    EmployeeID: '',
     AbsentType: '',
     AbsentDate: '',
     Reason: '',
     NumberOfDays: '',
     StateID: 1,
-    CreatedBy: FullName,
+    CreatedBy: '',
   });
+
+  useEffect(() => {
+    const jsonValue = AsyncStorage.getItem('token', (err, result) => {
+      const decoded = jwtDecode(result);
+      const EmployeeID = decoded.nameid[2];
+      getEmployees(EmployeeID).then(response => { data.EmployeeID = response.Employee.EmployeeID, data.CreatedBy = response.Employee.FullName });
+    })
+  }, [])
   const handleSetShow = () => {
     if (Platform.OS === 'ios') {
       setShow(true)
@@ -91,6 +101,7 @@ export default function AbsentApplications() {
       .then((res) => {
         if (res.data.Status === 200) {
           alert(res.data.Message);
+          navigation.replace("Management Application");
         } else {
           alert(res.data.Message);
         }

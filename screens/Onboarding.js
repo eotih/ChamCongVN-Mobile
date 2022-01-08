@@ -13,13 +13,8 @@ const { height, width } = Dimensions.get("screen");
 import {Button} from 'react-native-paper'
 import Images from "../constants/Images";
 import useToken from "../services/useToken";
-
 function Onboarding({ navigation }) {
-  const { setToken } = useToken();
-  const setDefault = () => {
-    setToken("");
-    navigation.navigate("Login")
-  }
+  const { token, setToken } = useToken();
   return (
     <View style={styles.container}>
       <StatusBar hidden />
@@ -47,7 +42,7 @@ function Onboarding({ navigation }) {
           <View center>
             <Button
               style={styles.button}
-              onPress={() => setDefault()}
+              onPress={() => token ? navigation.navigate("App") : navigation.navigate("Login")}
             >
               <Text style={{fontSize: 18, color: 'black'}}>BẮT ĐẦU</Text>
             </Button>
@@ -58,7 +53,6 @@ function Onboarding({ navigation }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
@@ -94,5 +88,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
   }
 });
-
 export default Onboarding;

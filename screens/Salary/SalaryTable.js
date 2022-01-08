@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ScrollBlock, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
+import { ScrollBlock, Image, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, TextInput } from "react-native";
 import { Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 import { BarChart } from 'react-native-gifted-charts';
-import { AccountContext } from '../../context/AccountContext';
 import { GetSalaryByEmloyeeID } from '../../functions/Salary';
 import { getAbsentApplication } from '../../functions/Application';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
 
 function SalaryTable({ navigation }) {
-    const account = useContext(AccountContext);
-    const { EmployeeID } = account.employees.Employee;
+    const [EmployeeID, setEmployeeID] = useState('');
+    const [loading, setLoading] = useState(true);
     const [dataChart, setDataChart] = useState([]);
     const [Salary, setSalary] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
@@ -18,28 +19,38 @@ function SalaryTable({ navigation }) {
     const data = [];
     var year = new Date().getFullYear();
     useEffect(() => {
-        GetSalaryByEmloyeeID(EmployeeID).then((salary) => {
-            const datafilter = salary.filter(item => item.Year === year - 1);
-            setlistdata(datafilter);
-            datafilter.map(item => {
-                const month = item.Month;
-                data.push(getValueColor(item.TotalSalary, month))
-            })
-            const totalsalary = datafilter.map(item => item.TotalSalary).reduce((prev, curr) => prev + curr, 0);
-            const hours = datafilter.map(item => item.TotalTime).reduce((prev, curr) => prev + curr, 0);
-            const overTimeHour = datafilter.map(item => item.TotalOvertimeSalary).reduce((prev, curr) => prev + curr, 0);
-            setSalary(totalsalary);
-            setOvertime(overTimeHour);
-            setTotalTime(hours);
-            setDataChart(data)
-        })
-        getAbsentApplication(EmployeeID).then((res) => {
-            const datafilter = res.filter(item => item.Year === year && item.StateID === 2);
-            const totalAbsentDay = datafilter.map(item => item.NumberOfDays).reduce((prev, curr) => prev + curr, 0);
-            setTotalAbsent(totalAbsentDay);
-        })
+        getData();
     }, []);
 
+    const getData = async () => {
+        const jsonValue = await AsyncStorage.getItem('token', (err, result) => {
+            if (result) {
+                const decoded = jwtDecode(result);
+                setEmployeeID(decoded.nameid[2]);
+                GetSalaryByEmloyeeID(decoded.nameid[2]).then((salary) => {
+                    const datafilter = salary.filter(item => item.Year === year - 1);
+                    setlistdata(datafilter);
+                    datafilter.map(item => {
+                        const month = item.Month;
+                        data.push(getValueColor(item.TotalSalary, month))
+                    })
+                    const totalsalary = datafilter.map(item => item.TotalSalary).reduce((prev, curr) => prev + curr, 0);
+                    const hours = datafilter.map(item => item.TotalTime).reduce((prev, curr) => prev + curr, 0);
+                    const overTimeHour = datafilter.map(item => item.TotalOvertimeSalary).reduce((prev, curr) => prev + curr, 0);
+                    setSalary(totalsalary);
+                    setOvertime(overTimeHour);
+                    setTotalTime(hours);
+                    setDataChart(data)
+                });
+                getAbsentApplication(decoded.nameid[2]).then((res) => {
+                    const datafilter = res.filter(item => item.Year === year && item.StateID === 2);
+                    const totalAbsentDay = datafilter.map(item => item.NumberOfDays).reduce((prev, curr) => prev + curr, 0);
+                    setTotalAbsent(totalAbsentDay);
+                    setLoading(false);
+                });
+            }
+        })
+    }
     const styleDataChart = (salary, label, frontColor, sideColor, topColor) => {
         return ({
             value: salary,
@@ -49,6 +60,7 @@ function SalaryTable({ navigation }) {
             topColor: topColor,
         });
     }
+
     const getValueColor = (salary, Month) => {
         switch (Month) {
             case 1:
@@ -79,6 +91,19 @@ function SalaryTable({ navigation }) {
                 return <View> </View>;
         }
     }
+
+    if (loading) {
+        return (
+            // set loading in center of screen
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <Image
+                    style={{ width: 200, height: 200 }}
+                    source={require("../../assets/imgs/logo.png")}
+                />
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
+            </View>
+        );
+    }
     return (
         <ScrollView style={{ marginHorizontal: 20 }}>
             <View style={styles.header}>
@@ -87,25 +112,25 @@ function SalaryTable({ navigation }) {
             </View>
             <View>
                 <Card style={styles.card}>
-                    <Card.Content style={{ backgroundColor: '#fac172' }}>
+                    <Card.Content style={{ backgroundColor: '#fac172', borderTopStartRadius: 30, borderBottomEndRadius: 30, }}>
                         <Title>Cumulative salary</Title>
                         <Paragraph>{Salary / 1000000} Million</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{ backgroundColor: '#89d5c9' }}>
+                    <Card.Content style={{ backgroundColor: '#89d5c9', borderTopStartRadius: 30, borderBottomEndRadius: 30 }}>
                         <Title>Total hours worked</Title>
                         <Paragraph> {totalTime} hour</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{ backgroundColor: '#adc965' }}>
+                    <Card.Content style={{ backgroundColor: '#adc965', borderTopStartRadius: 30, borderBottomEndRadius: 30 }}>
                         <Title>Total overtime hours</Title>
                         <Paragraph>{overtime} hour</Paragraph>
                     </Card.Content>
                 </Card>
                 <Card style={styles.card}>
-                    <Card.Content style={{ backgroundColor: '#e25b45' }}>
+                    <Card.Content style={{ backgroundColor: '#e25b45', borderTopStartRadius: 30, borderBottomEndRadius: 30 }}>
                         <Title>Total number of days off</Title>
                         <Paragraph>{totalAbsent} days</Paragraph>
                     </Card.Content>
@@ -140,6 +165,8 @@ const styles = StyleSheet.create({
     },
     card: {
         marginVertical: 10,
+        borderTopStartRadius: 30,
+        borderBottomEndRadius: 30,
     },
 
 })

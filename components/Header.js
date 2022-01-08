@@ -207,7 +207,7 @@ class Header extends React.Component {
             <Icon
               name={back ? 'chevron-left' : "bars"} family="entypo"
               size={20} onPress={this.handleLeftPress}
-              color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
+              color={'white'}
               style={{ marginTop: 2 }}
             />
 
@@ -215,7 +215,6 @@ class Header extends React.Component {
           leftStyle={{ paddingVertical: 12, flex: 0.2 }}
           titleStyle={[
             styles.title,
-            { color: argonTheme.COLORS[white ? 'WHITE' : 'HEADER'] },
             titleColor && { color: titleColor }
           ]}
           {...props}
@@ -232,15 +231,17 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   title: {
-    width: '100%',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
+    alignSelf: "center",
+    color: 'white'
   },
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 2 : theme.SIZES.BASE,
     zIndex: 5,
+    backgroundColor: '#03a9f4'
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,

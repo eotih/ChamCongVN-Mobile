@@ -4,9 +4,9 @@ import AbsentApplications from "../../components/Applications/AbsentApplications
 import OvertimeApplications from "../../components/Applications/OverTimeApplications";
 
 const { width } = Dimensions.get('screen');
-function Application() {
+function Application({ navigation }) {
     const [active, setActive] = useState(1);
-   
+
 
     return (
         <>
@@ -21,7 +21,7 @@ function Application() {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {active === 1 ? <AbsentApplications /> : <OvertimeApplications />}
+                {active === 1 ? <AbsentApplications navigation={navigation} /> : <OvertimeApplications navigation={navigation} />}
             </ScrollView>
         </>
     );
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         elevation: 0,
     },
     tabTitle: {
-        fontWeight:'bold',
+        fontWeight: 'bold',
         color: "white",
         textAlign: 'center',
         alignSelf: 'center',

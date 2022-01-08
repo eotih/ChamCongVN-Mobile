@@ -20,19 +20,27 @@ import jwtDecode from "jwt-decode";
 const { width, height } = Dimensions.get("screen");
 
 export default function Home({ navigation }) {
-  const [account, setAccount] = React.useState(accountContext());
+  const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataEmp, setDataEmp] = useState([]);
   useEffect(() => {
     const jsonValue = AsyncStorage.getItem('token', (err, result) => {
       const decoded = jwtDecode(result);
       const EmployeeID = decoded.nameid[2];
-      getEmployees(EmployeeID).then(response => setDataEmp(response));
+      getEmployees(EmployeeID).then(response => { setDataEmp(response); setLoading(false) });
     })
   }, [])
-  if (account && !account.employees && !EmployeeName) {
-    Alert('Vui lòng đăng nhập lại')
-    navigation.navigate("Login");
+  if (loading) {
+    return (
+      // set loading in center of screen
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          style={{ width: 200, height: 200 }}
+          source={require("../assets/imgs/logo.png")}
+        />
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
+      </View>
+    );
   }
   return (
     <>
@@ -115,7 +123,7 @@ export default function Home({ navigation }) {
                 </View>
                 <View>
                   <IconButton
-                    onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
+                    onPress={() => navigation.navigate("Management Application")}
                     size={38}
                     icon="arrow-right-circle"
                   ></IconButton>
@@ -139,7 +147,7 @@ export default function Home({ navigation }) {
                 </View>
                 <View>
                   <IconButton
-                    onPress={() => navigation.navigate("Quản Lý Đơn Từ")}
+                    onPress={() => navigation.navigate("Management Application")}
                     size={38}
                     icon="arrow-right-circle"
                   ></IconButton>

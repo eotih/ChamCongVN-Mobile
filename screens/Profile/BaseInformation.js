@@ -18,20 +18,26 @@ import { Images, argonTheme } from "../../constants";
 import { HeaderHeight } from "../../constants/utils";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getEmployees } from "../../functions/Employee";
+import { GetAccountByID } from "../../functions/TimeKeeper"
 import jwtDecode from "jwt-decode";
 import {TextInput} from 'react-native-paper'
 
 const thumbMeasure = (width - 48 - 32) / 3;
 const { width, height } = Dimensions.get("screen");
 function BaseInformation({ navigation }) {
+  const [loading, setLoading] = useState(true);
   const [dataEmp, setDataEmp] = useState([]);
+  const [name, setName] = useState('');
+  const [pwd, setPwd] = useState('');
   const [accountID, setAccountID] = useState('');
   useEffect(() => {
     const jsonValue = AsyncStorage.getItem('token', (err, result) => {
       const decoded = jwtDecode(result);
       const EmployeeID = decoded.nameid[2];
-      setAccountID(decoded.nameid[0]);
+      const MaND = decoded.nameid[2];
+      setAccountID(MaND);
       getEmployees(EmployeeID).then(response => setDataEmp(response));
+      GetAccountByID(MaND).then(res => { setName(res.Employee.FullName); setPwd(res.Account.Password); setLoading(false)});
     })
   }, [])
   const {
@@ -206,7 +212,7 @@ function BaseInformation({ navigation }) {
                     <TouchableOpacity
                       style={styles.Button}
                       onPress={() =>
-                        navigation.navigate("Account", { MaND: accountID })
+                        navigation.navigate("Account", { MaND: accountID, Name: name, password: pwd })
                       }
                     >
                       <Text
@@ -227,6 +233,18 @@ function BaseInformation({ navigation }) {
     );
   };
 
+  if (loading) {
+    return (
+      // set loading in center of screen
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Image
+          style={{ width: 200, height: 200 }}
+          source={require("../../assets/imgs/logo.png")}
+        />
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <View>
       <ScrollView
@@ -288,11 +306,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   avatar: {
-    width: 124,
-    height: 124,
-    borderRadius: 62,
-    borderWidth: 3,
-    borderColor: "white",
+    width: 148,
+    height: 148,
+    borderRadius: 74,
+    borderWidth: 1,
+    borderColor: "#03a9f4",
   },
   nameInfo: {
     marginTop: 20,

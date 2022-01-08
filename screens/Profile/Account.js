@@ -4,49 +4,25 @@ import {
   Dimensions,
   ScrollView,
   View,
-  TextInput
 } from 'react-native';
 const { height, width } = Dimensions.get('screen');
 import BaseUrl from '../../functions/BaseUrl';
-import { GetAccountByID } from "../../functions/TimeKeeper"
-
-import { Button, Text } from 'react-native-paper';
+import md5 from 'md5';
+import { TextInput, Button, Text } from 'react-native-paper';
 
 export default function MatKhau({ route }) {
+  const { MaND, Name, password } = route.params;
   const [data, setData] = useState({
-    OldPassword: '',
-    FullName: '',
+    OldPassword: password,
+    FullName: Name,
     OldPasswordInput: '',
     NewPassword: '',
     NewPassword2: '',
-    AccountID: '',
+    AccountID: MaND,
   });
 
-  // useEffect(() => {
-  //   const id = route.params.MaND;
-  //   GetAccountByID(id).then(res => {
-  //     const password = getMD5(res.Password)
-  //     data.OldPassword = password;
-  //     data.AccountID = id;
-  //     data.FullName = res.Employee.FullName;
-  //   })
-  // }, []);
-
-  const getMD5 = (password) => {
-    var ReverseMd5 = require('reverse-md5');
-    var rev = ReverseMd5({
-      lettersUpper: false,
-      lettersLower: true,
-      numbers: true,
-      special: false,
-      whitespace: true,
-      maxLen: 12
-    })
-    return (rev(password).str);
-  };
-
   const handleSubmit = (event) => {
-    if (data.OldPassword !== data.OldPasswordInput) {
+    if (data.OldPassword !== md5(data.OldPasswordInput)) {
       alert("Invalid Olđ Password!")
     }
     else {
@@ -54,6 +30,7 @@ export default function MatKhau({ route }) {
         alert("The password does not match.")
       }
       else {
+        console.log(data.NewPassword)
         BaseUrl.put('Organization/Account/Password/' + data.AccountID, {
           AccountID: data.AccountID,
           Password: data.NewPassword,
@@ -74,20 +51,23 @@ export default function MatKhau({ route }) {
     <ScrollView
     >
       <View style={styles.card}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: 'center' }}>Bạn muốn thay đổi mật khẩu</Text>
         <View >
           <TextInput style={styles.text}
             label="Nhập mật khẩu cũ"
+            mode="outlined"
+            activeOutlineColor="black"
             value={data.OldPasswordInput}
             onChangeText={(text) => setData({ ...data, OldPasswordInput: text })}>
           </TextInput>
           <TextInput style={styles.text}
             label="Nhập mật khẩu mới"
+            mode="outlined"
             value={data.NewPassword}
             onChangeText={(text) => setData({ ...data, NewPassword: text })}>
           </TextInput>
           <TextInput style={styles.text}
             label="Nhập lại mật khẩu"
+            mode="outlined"
             value={data.NewPassword2}
             onChangeText={(text) => setData({ ...data, NewPassword2: text })}>
           </TextInput>
@@ -112,12 +92,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   text: {
-    marginTop: 20,
-    borderWidth: 1
+    marginTop: 20
   },
   commandButton: {
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
     backgroundColor: '#FF6347',
     alignItems: 'center',
     marginTop: 20,

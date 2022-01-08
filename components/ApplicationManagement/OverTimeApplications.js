@@ -4,6 +4,7 @@ import { IconButton, Colors, Card, Title, Paragraph } from 'react-native-paper';
 import Axios from '../../functions/BaseUrl';
 import moment from "moment";
 
+const {width, height} = Dimensions.get('screen')
 export default function OverTimeApplications({ data }) {
     const [overTime, setoverTime] = useState([]);
     useEffect(() => {
@@ -16,15 +17,6 @@ export default function OverTimeApplications({ data }) {
         return res.data;
     }
 
-    function getOverTimeName(ID) {
-        const name = overTime.filter(res => res.Overtime.OverTimeID === ID)
-        if (name[0].Overtime != "undifined") {
-            return name[0].Overtime.OverTimeName;
-        }
-        else{
-            return "moi";
-        }
-    }
     return (
         <ScrollView style={styles.container}>
             {data.map((item, index) =>
@@ -44,7 +36,7 @@ export default function OverTimeApplications({ data }) {
                                 Type Overtime
                             </Text>
                             <Text style={styles.text}>
-                                Đợi thành tí
+                                {item.OverTimeName}
                             </Text>
                         </View>
                         <View style={styles.cardDetails}>
@@ -60,7 +52,7 @@ export default function OverTimeApplications({ data }) {
                                 Note:
                             </Text>
                             <Text style={styles.text}>
-                                {item.Note}
+                                {item.OverTimeApplications.Note}
                             </Text>
                         </View>
                     </Card.Content>
@@ -86,6 +78,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontWeight: 'bold',
+        width:width / 3
     },
     cardDetails: {
         flexDirection: 'row',
